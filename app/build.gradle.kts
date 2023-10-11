@@ -59,11 +59,13 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
     implementation("androidx.room:room-runtime:2.5.2")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.4")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.4")
     ksp("androidx.room:room-compiler:2.5.2")
     implementation("androidx.room:room-ktx:2.5.2")
     implementation("androidx.room:room-rxjava3:2.5.2")
 
-    implementation("com.airbnb.android:lottie:3.7.0")
+    implementation("com.airbnb.android:lottie:4.2.0")
 
     ksp ("com.google.dagger:dagger-compiler:2.46.1")
     implementation("com.google.dagger:dagger:2.46.1")

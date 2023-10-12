@@ -2,5 +2,12 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="ic_launcher_background">#4AA9F6</color>
+    <color name="ic_launcher_background">#009EBD</color>
+    <color name="primary_text">#00677C</color>
+    <color name="surface_text">#40484B</color>
+    <color name="light_text">#EFF1F2</color>
+    <color name="language_text">#191C1D</color>
+    <color name="secondary_container">#061E25</color>
+    <color name="bottom_navigation_item">#00829C</color>
+
 </resources>

@@ -2,12 +2,20 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.NewsApp" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@color/ic_launcher_background</item>
         <item name="android:statusBarColor">@color/ic_launcher_background</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
-
     <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
+
+
+    <style name="ToolbarTextStyle">
+        <item name="android:textSize">22sp</item>
+    </style>
+
+    <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/bottom_navigation_item</item>
+    </style>
 
 </resources>

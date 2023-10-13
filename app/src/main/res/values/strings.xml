@@ -9,6 +9,9 @@
     <string name="sources">Sources</string>
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello headlines fragment</string>
+    <string name="general">General</string>
+    <string name="business">Business</string>
+    <string name="traveling">Traveling</string>
 
 
 </resources>

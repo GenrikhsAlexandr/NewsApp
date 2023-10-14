@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".presentation.MainActivity">
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/containerFragment"
-        android:name="com.genrikhsalexandr.newsapp.presentation.MainFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".presentation.MainActivity"
-        tools:layout="@layout/fragment_main" />
 </androidx.appcompat.widget.LinearLayoutCompat>

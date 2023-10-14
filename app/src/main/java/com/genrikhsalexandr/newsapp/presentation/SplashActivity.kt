@@ -28,7 +28,6 @@ class SplashActivity : AppCompatActivity() {
             override fun onAnimationStart(p0: Animator) {
             }
 
-
             override fun onAnimationEnd(p0: Animator) {
                 startMainActivity()
             }

@@ -48,8 +48,7 @@
         tools:ignore="MissingConstraints" />
 
     <include
-        android:id="@+id/includeFragment"
-        layout="@layout/fragment_headlines"
+        layout="@layout/container_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"

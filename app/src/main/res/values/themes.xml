@@ -18,4 +18,9 @@
         <item name="android:color">@color/bottom_navigation_item</item>
     </style>
 
+    <style name="circleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
 </resources>

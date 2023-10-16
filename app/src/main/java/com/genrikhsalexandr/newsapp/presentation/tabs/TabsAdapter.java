@@ -15,13 +15,14 @@ public class TabsAdapter extends FragmentStateAdapter {
 
         switch (position) {
             case 0:
-                return new GeneralFragment();
+                return GeneralFragment.newInstance();
             case 1:
-                return new BusinessFragment();
+                return BusinessFragment.newInstance();
+
             case 2:
-                return new TravelingFragment();
+                return TravelingFragment.newInstance();
             default:
-                return new GeneralFragment();
+                return GeneralFragment.newInstance();
         }
     }
 
@@ -30,3 +31,4 @@ public class TabsAdapter extends FragmentStateAdapter {
         return 3;
     }
 }
+

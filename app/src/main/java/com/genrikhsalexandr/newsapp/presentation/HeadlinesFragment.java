@@ -11,7 +11,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.genrikhsalexandr.newsapp.databinding.FragmentHeadlinesBinding;
 import com.genrikhsalexandr.newsapp.presentation.tabs.TabsAdapter;
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.Objects;
 
 public class HeadlinesFragment extends Fragment {
@@ -42,11 +41,11 @@ public class HeadlinesFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-    tabLayout = binding.tabLayout;
-    viewPager = binding.viewPager;
-    viewPager.setAdapter(tabsAdapter);
+        tabLayout = binding.tabLayout;
+        viewPager = binding.viewPager;
+        viewPager.setAdapter(tabsAdapter);
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());

@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/businessList"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     android:scrollbars="vertical"
-    tools:listitem="@layout/list_item_new" >
-</androidx.recyclerview.widget.RecyclerView>
+    tools:listitem="@layout/list_item_new">
+    <TextView
+        android:id="@+id/tvBusiness"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="Business">
+
+    </TextView>
+</androidx.appcompat.widget.LinearLayoutCompat>

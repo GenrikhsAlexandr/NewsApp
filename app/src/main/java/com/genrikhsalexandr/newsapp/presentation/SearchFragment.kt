@@ -30,6 +30,10 @@ class SearchFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
+
+        binding.back.setOnClickListener {
+            parentFragmentManager.popBackStack()
+        }
         return binding.root
     }
 

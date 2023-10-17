@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
+
 import com.genrikhsalexandr.newsapp.databinding.FragmentHeadlinesBinding;
 import com.genrikhsalexandr.newsapp.presentation.tabs.TabsAdapter;
 import com.google.android.material.tabs.TabLayout;
+
 import java.util.Objects;
 
 public class HeadlinesFragment extends Fragment {
@@ -27,7 +30,6 @@ public class HeadlinesFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         tabsAdapter = new TabsAdapter(this);
-
     }
 
     private FragmentHeadlinesBinding binding = null;
@@ -36,6 +38,7 @@ public class HeadlinesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHeadlinesBinding.inflate(inflater, container, false);
+
         return binding.getRoot();
     }
 
@@ -45,7 +48,8 @@ public class HeadlinesFragment extends Fragment {
         viewPager = binding.viewPager;
         viewPager.setAdapter(tabsAdapter);
 
-tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition());
@@ -68,5 +72,6 @@ tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 Objects.requireNonNull(tabLayout.getTabAt(position)).select();
             }
         });
+
     }
 }

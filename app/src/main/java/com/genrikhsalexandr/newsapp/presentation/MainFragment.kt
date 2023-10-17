@@ -1,10 +1,11 @@
 package com.genrikhsalexandr.newsapp.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
@@ -28,6 +29,24 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            return@setOnMenuItemClickListener when (item.itemId) {
+                R.id.search -> {
+                    searchFragment()
+                    binding.appBar.isVisible = false
+
+                    true
+                }
+                R.id.search -> {
+                    searchFragment()
+                    true
+                }
+                else -> false
+            }
+
+        }
+
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             return@setOnItemSelectedListener when (menuItem.itemId) {
                 R.id.headlines -> {
@@ -53,7 +72,6 @@ class MainFragment : Fragment() {
     }
 
 
-
     private fun savedFragment() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, SavedFragment.newInstance())
@@ -70,11 +88,29 @@ class MainFragment : Fragment() {
 
     private fun headlinesFragment() {
         val headlinesFragment = HeadlinesFragment.newInstance()
-         childFragmentManager.commit {
-             replace(R.id.fragment_container, headlinesFragment)
-             addToBackStack(null)
-         }
+        childFragmentManager.commit {
+            replace(R.id.fragment_container, headlinesFragment)
+            addToBackStack(null)
+        }
     }
+
+    private fun searchFragment() {
+        val searchFragment = SearchFragment.newInstance()
+        childFragmentManager.commit {
+            replace(R.id.fragment_container, searchFragment)
+            addToBackStack(null)
+        }
+    }
+
+    private fun filterFragment() {
+        val filterFragment = FilterFragment.newInstance()
+        childFragmentManager.commit {
+            replace(R.id.fragment_container, filterFragment)
+            addToBackStack(null)
+        }
+    }
+
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

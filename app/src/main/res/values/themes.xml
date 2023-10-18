@@ -23,5 +23,11 @@
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="CustomOutlineBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/ic_launcher_background</item>
+        <item name="android:textColorHint">@color/light_text</item>
+        <item name="hintTextColor">@color/ic_launcher_background</item>
+    </style>
+
 
 </resources>

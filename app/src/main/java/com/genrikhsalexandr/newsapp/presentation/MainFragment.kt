@@ -1,10 +1,10 @@
 package com.genrikhsalexandr.newsapp.presentation
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
@@ -20,32 +20,21 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+        mainToolBar()
+        bottomNavigation()
+        searchToolBar()
+        filterToolBar()
+        return binding.root
+    }
 
-        binding.toolbar.setOnMenuItemClickListener { item ->
-            return@setOnMenuItemClickListener when (item.itemId) {
-                R.id.search -> {
-                    binding.appBar.isVisible = false
-                    binding.appBarSearch.isVisible = true
-                    searchFragment()
-                    true
-                }
-                R.id.filter -> {
-                    filterFragment()
-                    true
-                }
-                else -> false
-            }
-        }
-
+    private fun searchToolBar(){
         binding.toolbarSearch.setNavigationOnClickListener {
-            parentFragmentManager.popBackStack()
-            Log.d("xxx","back")
+            childFragmentManager.popBackStack()
             binding.appBar.isVisible = true
             binding.appBarSearch.isVisible = false
         }
@@ -54,20 +43,66 @@ class MainFragment : Fragment() {
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.clear_text -> {
                     binding.tvSearch.text?.clear()
-                    binding.appBar.isVisible = false
-                    binding.appBarSearch.isVisible = true
                     true
                 }
+
                 else -> false
             }
         }
+    }
 
+    private fun filterToolBar(){
+        binding.toolbarFilter.setNavigationOnClickListener {
+            childFragmentManager.popBackStack()
+            binding.appBar.isVisible = true
+            binding.appBarFilter.isVisible = false
+        }
+
+        binding.toolbarFilter.setOnMenuItemClickListener { item ->
+            return@setOnMenuItemClickListener when (item.itemId) {
+                R.id.checked -> {
+                    Toast.makeText(context,"Filter saved",Toast.LENGTH_LONG).show()
+                    childFragmentManager.popBackStack()
+                    binding.appBar.isVisible = true
+                    binding.appBarFilter.isVisible = false
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+     private fun mainToolBar() {
+        binding.toolbar.setOnMenuItemClickListener { item ->
+            return@setOnMenuItemClickListener when (item.itemId) {
+                R.id.search -> {
+                    binding.appBar.isVisible = false
+                    binding.appBarSearch.isVisible = true
+                    searchFragment()
+                    true
+                }
+
+                R.id.filter -> {
+                    binding.appBar.isVisible = false
+                    binding.appBarFilter.isVisible = true
+                    filterFragment()
+                    true
+                }
+
+                else -> false
+            }
+        }
+    }
+
+    private fun bottomNavigation() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             return@setOnItemSelectedListener when (menuItem.itemId) {
                 R.id.headlines -> {
                     headlinesFragment()
                     binding.appBar.isVisible = true
                     binding.appBarSearch.isVisible = false
+                    binding.toolbar.title = "News App"
 
                     true
                 }
@@ -76,6 +111,7 @@ class MainFragment : Fragment() {
                     savedFragment()
                     binding.appBar.isVisible = true
                     binding.appBarSearch.isVisible = false
+                    binding.toolbar.title = "Saved"
 
                     true
                 }
@@ -84,6 +120,7 @@ class MainFragment : Fragment() {
                     sourcesFragment()
                     binding.appBar.isVisible = true
                     binding.appBarSearch.isVisible = false
+                    binding.toolbar.title = "Sources"
 
                     true
                 }
@@ -91,10 +128,7 @@ class MainFragment : Fragment() {
                 else -> false
             }
         }
-
-        return binding.root
     }
-
 
     private fun savedFragment() {
         childFragmentManager.commit {

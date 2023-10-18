@@ -13,6 +13,9 @@
     <string name="business">Business</string>
     <string name="traveling">Traveling</string>
     <string name="clear">clear</string>
+    <string name="popular">Popular</string>
+    <string name="news">New</string>
+    <string name="relevant">Relevant</string>
 
 
 </resources>

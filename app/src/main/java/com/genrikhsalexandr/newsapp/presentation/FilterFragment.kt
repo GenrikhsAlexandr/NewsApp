@@ -26,4 +26,9 @@ class FilterFragment : Fragment() {
             return FilterFragment()
         }
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

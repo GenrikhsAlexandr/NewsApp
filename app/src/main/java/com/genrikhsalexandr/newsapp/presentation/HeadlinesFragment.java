@@ -22,6 +22,7 @@ public class HeadlinesFragment extends Fragment {
     ViewPager2 viewPager;
     TabLayout tabLayout;
 
+
     public static HeadlinesFragment newInstance() {
         return new HeadlinesFragment();
     }
@@ -29,7 +30,6 @@ public class HeadlinesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        tabsAdapter = new TabsAdapter(this);
     }
 
     private FragmentHeadlinesBinding binding = null;
@@ -46,9 +46,8 @@ public class HeadlinesFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         tabLayout = binding.tabLayout;
         viewPager = binding.viewPager;
+        tabsAdapter = new TabsAdapter(this);
         viewPager.setAdapter(tabsAdapter);
-
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -72,6 +71,5 @@ public class HeadlinesFragment extends Fragment {
                 Objects.requireNonNull(tabLayout.getTabAt(position)).select();
             }
         });
-
     }
 }

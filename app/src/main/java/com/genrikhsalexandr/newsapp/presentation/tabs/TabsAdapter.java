@@ -14,8 +14,6 @@ public class TabsAdapter extends FragmentStateAdapter {
     public Fragment createFragment(int position) {
 
         switch (position) {
-            case 0:
-                return GeneralFragment.newInstance();
             case 1:
                 return BusinessFragment.newInstance();
 

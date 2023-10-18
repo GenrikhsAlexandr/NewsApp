@@ -1,6 +1,7 @@
 package com.genrikhsalexandr.newsapp.presentation
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,10 +21,6 @@ class MainFragment : Fragment() {
     private val binding: FragmentMainBinding get() = _binding!!
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,34 +30,61 @@ class MainFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.search -> {
-                    searchFragment()
                     binding.appBar.isVisible = false
-
+                    binding.appBarSearch.isVisible = true
+                    searchFragment()
                     true
                 }
-                R.id.search -> {
-                    searchFragment()
+                R.id.filter -> {
+                    filterFragment()
                     true
                 }
                 else -> false
             }
+        }
 
+        binding.toolbarSearch.setNavigationOnClickListener {
+            parentFragmentManager.popBackStack()
+            Log.d("xxx","back")
+            binding.appBar.isVisible = true
+            binding.appBarSearch.isVisible = false
+        }
+
+        binding.toolbarSearch.setOnMenuItemClickListener { item ->
+            return@setOnMenuItemClickListener when (item.itemId) {
+                R.id.clear_text -> {
+                    binding.tvSearch.text?.clear()
+                    binding.appBar.isVisible = false
+                    binding.appBarSearch.isVisible = true
+                    true
+                }
+                else -> false
+            }
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             return@setOnItemSelectedListener when (menuItem.itemId) {
                 R.id.headlines -> {
                     headlinesFragment()
+                    binding.appBar.isVisible = true
+                    binding.appBarSearch.isVisible = false
+
                     true
                 }
 
                 R.id.saved -> {
                     savedFragment()
+                    binding.appBar.isVisible = true
+                    binding.appBarSearch.isVisible = false
+
                     true
                 }
 
                 R.id.sources -> {
                     sourcesFragment()
+                    binding.appBar.isVisible = true
+                    binding.appBarSearch.isVisible = false
+
                     true
                 }
 
@@ -109,7 +133,6 @@ class MainFragment : Fragment() {
             addToBackStack(null)
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

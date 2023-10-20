@@ -27,31 +27,20 @@ class MainFragment : Fragment() {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         mainToolBar()
         bottomNavigation()
-        searchToolBar()
-        filterToolBar()
-        return binding.root
+        clickedBackSearchView()
+        clickedBackFilterToolBar()
+            return binding.root
     }
 
-    private fun searchToolBar(){
-        binding.toolbarSearch.setNavigationOnClickListener {
+    private fun clickedBackSearchView() {
+        binding.ivSearchView.setOnClickListener {
             childFragmentManager.popBackStack()
             binding.appBar.isVisible = true
-            binding.appBarSearch.isVisible = false
-        }
-
-        binding.toolbarSearch.setOnMenuItemClickListener { item ->
-            return@setOnMenuItemClickListener when (item.itemId) {
-                R.id.clear_text -> {
-                    binding.tvSearch.text?.clear()
-                    true
-                }
-
-                else -> false
-            }
+            binding.layoutSearchView.isVisible = false
         }
     }
 
-    private fun filterToolBar(){
+    private fun clickedBackFilterToolBar(){
         binding.toolbarFilter.setNavigationOnClickListener {
             childFragmentManager.popBackStack()
             binding.appBar.isVisible = true
@@ -78,15 +67,16 @@ class MainFragment : Fragment() {
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.search -> {
                     binding.appBar.isVisible = false
-                    binding.appBarSearch.isVisible = true
-                    searchFragment()
+                    binding.layoutSearchView.isVisible = true
+                    binding.searchView.requestFocus()
+                    searchFragmentInstance()
                     true
                 }
 
                 R.id.filter -> {
                     binding.appBar.isVisible = false
                     binding.appBarFilter.isVisible = true
-                    filterFragment()
+                    filterFragmentInstance()
                     true
                 }
 
@@ -99,27 +89,27 @@ class MainFragment : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             return@setOnItemSelectedListener when (menuItem.itemId) {
                 R.id.headlines -> {
-                    headlinesFragment()
+                    headlinesFragmentInstance()
                     binding.appBar.isVisible = true
-                    binding.appBarSearch.isVisible = false
+                    binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = "News App"
 
                     true
                 }
 
                 R.id.saved -> {
-                    savedFragment()
+                    savedFragmentInstance()
                     binding.appBar.isVisible = true
-                    binding.appBarSearch.isVisible = false
+                    binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = "Saved"
 
                     true
                 }
 
                 R.id.sources -> {
-                    sourcesFragment()
+                    sourcesFragmentInstance()
                     binding.appBar.isVisible = true
-                    binding.appBarSearch.isVisible = false
+                    binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = "Sources"
 
                     true
@@ -130,21 +120,21 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun savedFragment() {
+    private fun savedFragmentInstance() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, SavedFragment.newInstance())
             addToBackStack(null)
         }
     }
 
-    private fun sourcesFragment() {
+    private fun sourcesFragmentInstance() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, SourcesFragment.newInstance())
             addToBackStack(null)
         }
     }
 
-    private fun headlinesFragment() {
+    private fun headlinesFragmentInstance() {
         val headlinesFragment = HeadlinesFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, headlinesFragment)
@@ -152,7 +142,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun searchFragment() {
+    private fun searchFragmentInstance() {
         val searchFragment = SearchFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, searchFragment)
@@ -160,7 +150,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun filterFragment() {
+    private fun filterFragmentInstance() {
         val filterFragment = FilterFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, filterFragment)

@@ -46,6 +46,9 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+
+
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.10")
     implementation("com.squareup.okhttp3:logging-interceptor:4.7.2")
 

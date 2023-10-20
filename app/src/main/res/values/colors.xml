@@ -8,6 +8,7 @@
     <color name="secondary_container">#061E25</color>
     <color name="bottom_navigation_item">#00829C</color>
     <color name="background_tabs">#F8F9FB</color>
+    <color name="color_divider">#BFC8CC</color>
 
 
 </resources>

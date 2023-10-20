@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#E62424"
     android:fitsSystemWindows="true"
     tools:context=".presentation.MainActivity">
 
@@ -31,44 +31,45 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <FrameLayout
-        android:id="@+id/appBarSearch"
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.AppBarLayout
-            style="@style/TextAppearance.Material3.TitleLarge"
+        <LinearLayout
+            android:id="@+id/layoutSearchView"
             android:layout_width="match_parent"
             android:layout_height="74dp"
-            android:fitsSystemWindows="true">
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbarSearch"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/ic_launcher_background"
-                app:menu="@menu/search_toolbar"
-                app:navigationIcon="@drawable/ic_back" />
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tvSearch"
-            android:layout_width="299dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:visibility="gone"
+            android:orientation="vertical"
             android:background="@color/ic_launcher_background"
-            android:hint="@string/search"
-            android:textColor="@color/light_text"
-            android:textSize="24sp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
-    </FrameLayout>
+            <ImageView
+                android:id="@+id/ivSearchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_back"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_gravity="center"/>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        app:searchHintIcon="@drawable/ic_search"
+        app:searchIcon="@drawable/ic_search"
+        android:background="@color/ic_launcher_background"
+        app:closeIcon="@drawable/ic_close"
+        android:iconifiedByDefault="true"/>
+    </LinearLayout>
+            <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Widget.App.MaterialDivider"/>
+        </LinearLayout>
+
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarFilter"
@@ -114,6 +115,7 @@
     <include
         layout="@layout/container_fragment"
         android:layout_width="0dp"
+        android:visibility="invisible"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"

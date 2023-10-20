@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.genrikhsalexandr.newsapp.databinding.FragmentHeadlinesBinding;
@@ -38,7 +39,6 @@ public class HeadlinesFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHeadlinesBinding.inflate(inflater, container, false);
-
         return binding.getRoot();
     }
 

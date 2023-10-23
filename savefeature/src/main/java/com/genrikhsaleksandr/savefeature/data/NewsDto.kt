@@ -1,12 +1,10 @@
 package com.genrikhsaleksandr.savefeature.data
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class NewsDto (
-    val source:SourceDto,
-    val author:String? = null,
-    val title:String?=null,
-    val description: String? = null,
-    val url: String?=null,
-    val urlToImage:String?= null,
-    val publishedAt:String?=null,
-    val content:String?=null
+    val status:String,
+    val totalResults:String,
+    val articles:List<ArticleDto>
     )

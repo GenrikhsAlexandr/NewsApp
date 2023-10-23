@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature
+package com.genrikhsaleksandr.savefeature.presentation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

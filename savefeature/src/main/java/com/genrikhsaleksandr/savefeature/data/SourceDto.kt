@@ -1,6 +1,9 @@
 package com.genrikhsaleksandr.savefeature.data
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class SourceDto(
-    val id: String? = null,
-    val name: String? = null
+    val id: String,
+    val name: String
 )

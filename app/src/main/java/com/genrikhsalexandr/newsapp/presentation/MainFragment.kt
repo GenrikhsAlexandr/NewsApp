@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import com.genrikhsaleksandr.savefeature.presentation.SavedFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 
@@ -122,7 +123,7 @@ class MainFragment : Fragment() {
 
     private fun savedFragmentInstance() {
         childFragmentManager.commit {
-            replace(R.id.fragment_container, com.genrikhsaleksandr.savefeature.SavedFragment.newInstance())
+            replace(R.id.fragment_container, SavedFragment.newInstance())
             addToBackStack(null)
         }
     }

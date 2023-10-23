@@ -2,6 +2,8 @@ plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
+    id ("org.jetbrains.kotlin.plugin.serialization") version "1.9.20-RC"
+
 }
 
 android {

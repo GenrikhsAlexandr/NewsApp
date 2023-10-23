@@ -6,7 +6,7 @@
         android:title="@string/headlines" />
     <item
         android:id="@+id/saved"
-        android:icon="@drawable/ic_saved"
+        android:icon="@drawable/ic_favorites"
         android:title="@string/saved" />
     <item
         android:id="@+id/sources"

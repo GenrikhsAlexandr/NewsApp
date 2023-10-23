@@ -92,7 +92,7 @@ class MainFragment : Fragment() {
                     headlinesFragmentInstance()
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
-                    binding.toolbar.title = "News App"
+                    binding.toolbar.title = getString(R.string.app_name)
 
                     true
                 }
@@ -101,7 +101,7 @@ class MainFragment : Fragment() {
                     savedFragmentInstance()
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
-                    binding.toolbar.title = "Saved"
+                    binding.toolbar.title = getString(R.string.saved)
 
                     true
                 }
@@ -110,7 +110,7 @@ class MainFragment : Fragment() {
                     sourcesFragmentInstance()
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
-                    binding.toolbar.title = "Sources"
+                    binding.toolbar.title = getString(R.string.sources)
 
                     true
                 }
@@ -122,7 +122,7 @@ class MainFragment : Fragment() {
 
     private fun savedFragmentInstance() {
         childFragmentManager.commit {
-            replace(R.id.fragment_container, SavedFragment.newInstance())
+            replace(R.id.fragment_container, com.genrikhsaleksandr.savefeature.SavedFragment.newInstance())
             addToBackStack(null)
         }
     }

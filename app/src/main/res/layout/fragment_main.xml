@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E62424"
+    android:background="#FFFFFF"
     android:fitsSystemWindows="true"
     tools:context=".presentation.MainActivity">
 
@@ -115,7 +115,7 @@
     <include
         layout="@layout/container_fragment"
         android:layout_width="0dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"

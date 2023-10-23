@@ -1,0 +1,26 @@
+package com.genrikhsaleksandr.savefeature.data
+
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface NewsService {
+
+    @GET("v2/top-headlines")
+    suspend fun getNews(
+        @Query(QUERY_PARAM_API_KEY) apiKey: String = "c671c3a213884080b9986d20a5ba091a",
+        @Query(QUERY_PARAM_COUNTRY) country: String = "",
+        @Query(QUERY_PARAM_CATEGORY) category: String = "",
+        @Query(QUERY_PARAM_FROM_SOURCES) sources: String = "",
+        @Query(KEYWORDS_TO_SEARCH) q: String = "",
+        @Query(QUERY_PARAM_PAGE_SIZE) pageSize: Int = 20,
+    ): NewsDto
+
+    companion object {
+        private const val QUERY_PARAM_API_KEY = "apiKey"
+        private const val QUERY_PARAM_PAGE_SIZE = "pageSize"
+        private const val QUERY_PARAM_COUNTRY = "country"
+        private const val QUERY_PARAM_CATEGORY = "category"
+        private const val QUERY_PARAM_FROM_SOURCES = "sources"
+        private const val KEYWORDS_TO_SEARCH = "q"
+    }
+}

@@ -39,6 +39,7 @@ class NewsRepository {
 
     private val service: NewsService = retrofit.create(NewsService::class.java)
 
+
     private val db = Room.databaseBuilder(
         ApplicationContext.appContext!!,
         AppDatabase::class.java, "database-name"

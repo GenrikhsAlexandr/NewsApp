@@ -45,12 +45,16 @@ class NewsRepository {
     ).build()
 
 
-    suspend fun saveNews() {
-        db.newsRequestDao().insertNews(NewsDbModel())
+    suspend fun saveNews(news: NewsDbModel) {
+        db.newsRequestDao().insertNews(news)
     }
 
-    suspend fun getNews(news: NewsDbModel): Flow<List<NewsDbModel>> {
+    suspend fun getNews(): Flow<List<NewsDbModel>> {
         val userDao = db.newsRequestDao()
         return userDao.getNewsFromDb()
+    }
+
+    suspend fun deleteNews(news: NewsDbModel) {
+        db.newsRequestDao().deleteNews(news)
     }
 }

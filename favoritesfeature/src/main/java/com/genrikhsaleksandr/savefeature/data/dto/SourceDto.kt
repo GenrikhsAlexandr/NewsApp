@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature.data
+package com.genrikhsaleksandr.savefeature.data.dto
 
 import kotlinx.serialization.Serializable
 

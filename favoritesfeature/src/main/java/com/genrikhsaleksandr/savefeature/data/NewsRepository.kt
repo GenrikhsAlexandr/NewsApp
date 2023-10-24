@@ -1,6 +1,10 @@
 package com.genrikhsaleksandr.savefeature.data
 
+import androidx.room.Room
+import com.genrikhsaleksandr.savefeature.data.database.AppDatabase
+import com.genrikhsaleksandr.savefeature.data.database.NewsDbModel
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
+import kotlinx.coroutines.flow.Flow
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
@@ -34,4 +38,19 @@ class NewsRepository {
         .build()
 
     private val service: NewsService = retrofit.create(NewsService::class.java)
+
+    private val db = Room.databaseBuilder(
+        ApplicationContext.appContext!!,
+        AppDatabase::class.java, "database-name"
+    ).build()
+
+
+    suspend fun saveNews() {
+        db.newsRequestDao().insertNews(NewsDbModel())
+    }
+
+    suspend fun getNews(news: NewsDbModel): Flow<List<NewsDbModel>> {
+        val userDao = db.newsRequestDao()
+        return userDao.getNewsFromDb()
+    }
 }

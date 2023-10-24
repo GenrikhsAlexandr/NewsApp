@@ -4,15 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.genrikhsaleksandr.savefeature.databinding.ListItemNewBinding
+import com.genrikhsaleksandr.savefeature.domain.News
 import com.genrikhsaleksandr.savefeature.domain.NewsItemList
 import com.squareup.picasso.Picasso
 
 
 class NewsAdapter(
-    val onNewsItemClickListener: ((NewsItemList) -> Unit)
+    val onNewsItemClickListener: ((News) -> Unit)
 ) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
 
     private lateinit var list: List<NewsItemList>
+
+    fun submitData(list: List<NewsItemList>) {
+        this.list = list
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
             ListItemNewBinding.inflate(
@@ -42,7 +49,7 @@ class NewsAdapter(
                     nameSource.text = listItem.sourceName
                     title.text = listItem.title
                     root.setOnClickListener {
-                        onNewsItemClickListener(listItem)
+                        onNewsItemClickListener(listItem.news)
                     }
                 }
             }

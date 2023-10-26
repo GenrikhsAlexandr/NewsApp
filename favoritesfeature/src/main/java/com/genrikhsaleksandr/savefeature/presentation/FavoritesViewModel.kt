@@ -1,6 +1,7 @@
 package com.genrikhsaleksandr.savefeature.presentation
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.genrikhsaleksandr.savefeature.data.ArticleRepositoryImp
 import com.genrikhsaleksandr.savefeature.domain.News
@@ -11,10 +12,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class FavoritesViewModel : ViewModel() {
+class FavoritesViewModel(application: Application) : AndroidViewModel(application) {
 
     private val _news: MutableStateFlow<List<News>> = MutableStateFlow(emptyList())
-    private val repository = ArticleRepositoryImp()
+    private val repository = ArticleRepositoryImp(application)
 
     val news: StateFlow<List<NewsItemList>> = _news.map { news ->
         news.map {

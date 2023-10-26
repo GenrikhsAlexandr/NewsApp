@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "news_table")
 data class ArticleDbModel(
-    @PrimaryKey
+    @PrimaryKey (autoGenerate = false)
     val publishedAt: String,
     val author: String,
     val title: String,

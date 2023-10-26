@@ -1,7 +1,9 @@
 package com.genrikhsaleksandr.savefeature.data
 
+import android.app.Application
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
+import com.genrikhsaleksandr.savefeature.data.database.AppDatabase
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -13,8 +15,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 
 class ArticleRepositoryImp(
+    private val application: Application,
     private val mapper: NewsDtoMapper = NewsDtoMapper()
 ) : ArticleRepository {
+
+    private val articleDao = AppDatabase.getInstance(application).articleRequestDao()
 
     companion object {
         private const val BASE_URL = "https://newsapi.org/"
@@ -41,12 +46,6 @@ class ArticleRepositoryImp(
 
     private val service: NewsService = retrofit.create(NewsService::class.java)
 
-
-    /* private val db = Room.databaseBuilder(
-         ApplicationContext.appContext!!,
-         AppDatabase::class.java, "database-name"
-     ).build()
- */
 
     override suspend fun getFavoritesArticle(article: Article) {
         TODO("Not yet implemented")

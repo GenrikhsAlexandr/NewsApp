@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:orientation="vertical"
-    tools:listitem="@layout/list_item_new">
+    tools:listitem="@layout/list_item_news">
     <TextView
         android:id="@+id/tvTraveling"
         android:layout_width="match_parent"

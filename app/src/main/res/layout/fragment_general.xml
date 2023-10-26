@@ -4,13 +4,14 @@
     android:id="@+id/generalList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="vertical"
     android:orientation="vertical"
-    tools:listitem="@layout/list_item_new">
+    android:scrollbars="vertical"
+    tools:listitem="@layout/list_item_news">
+
     <TextView
         android:id="@+id/tvGeneral"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text=""/>
+        android:text="" />
 </androidx.appcompat.widget.LinearLayoutCompat>

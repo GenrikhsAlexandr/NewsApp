@@ -3,15 +3,13 @@ package com.genrikhsaleksandr.savefeature.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.genrikhsaleksandr.savefeature.databinding.ListItemNewBinding
+import com.genrikhsaleksandr.savefeature.databinding.ListItemNewsBinding
 import com.genrikhsaleksandr.savefeature.domain.News
-import com.genrikhsaleksandr.savefeature.domain.NewsItemList
 import com.squareup.picasso.Picasso
 
-
-class NewsAdapter(
+class FavoritesAdapter(
     val onNewsItemClickListener: ((News) -> Unit)
-) : RecyclerView.Adapter<NewsAdapter.NewsViewHolder>() {
+) : RecyclerView.Adapter<FavoritesAdapter.NewsViewHolder>() {
 
     private lateinit var list: List<NewsItemList>
 
@@ -22,7 +20,7 @@ class NewsAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
-            ListItemNewBinding.inflate(
+            ListItemNewsBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -38,7 +36,7 @@ class NewsAdapter(
         holder.bind(list[position])
     }
 
-    inner class NewsViewHolder(private val binding: ListItemNewBinding) :
+    inner class NewsViewHolder(private val binding: ListItemNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(listItem: NewsItemList) {
             if (listItem.urlToImage != null) {
@@ -46,7 +44,7 @@ class NewsAdapter(
                     .load(listItem.urlToImage.toString())
                     .into(binding.imageNews)
                 with(binding) {
-                    nameSource.text = listItem.sourceName
+                    nameSource.text = listItem.author
                     title.text = listItem.title
                     root.setOnClickListener {
                         onNewsItemClickListener(listItem.news)

@@ -5,16 +5,15 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface NewsDao {
+interface ArticleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertNews(news: NewsDbModel)
+    fun insertArticle(article: ArticleDbModel)
 
-    @Query("SELECT * FROM News_Table")
-    fun getNewsFromDb(): Flow<List<NewsDbModel>>
+    @Query("SELECT * FROM news_table")
+    fun getArticleFromDb(): List<ArticleDbModel>
 
     @Delete
-    fun deleteNews(news: NewsDbModel)
+    fun deleteArticle(article: ArticleDbModel)
 }

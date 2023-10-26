@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffff"
-    tools:context=".presentation.SavedFragment">
+    tools:context=".presentation.FavoritesFragment">
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
@@ -17,6 +17,6 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="8"
-        tools:listitem="@layout/list_item_new" />
+        tools:listitem="@layout/list_item_news" />
 
 </FrameLayout>

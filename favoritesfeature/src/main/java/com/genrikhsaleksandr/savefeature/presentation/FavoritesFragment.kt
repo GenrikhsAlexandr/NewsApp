@@ -8,39 +8,39 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.genrikhsaleksandr.savefeature.databinding.FragmentSavedBinding
+import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
 import com.genrikhsaleksandr.savefeature.domain.News
 import kotlinx.coroutines.launch
 
-class SavedFragment : Fragment() {
+class FavoritesFragment : Fragment() {
 
     companion object {
 
-        fun newInstance(): SavedFragment {
-            return SavedFragment()
+        fun newInstance(): FavoritesFragment {
+            return FavoritesFragment()
         }
     }
 
     private val viewModel: FavoritesViewModel by viewModels()
 
-    private var _binding: FragmentSavedBinding? = null
-    private val binding: FragmentSavedBinding get() = _binding!!
+    private var _binding: FragmentFavoritesBinding? = null
+    private val binding: FragmentFavoritesBinding get() = _binding!!
 
-    private val adapter: NewsAdapter = NewsAdapter(
-        onNewsItemClickListener = { news ->
-            showNews(news)
+    private val adapter: FavoritesAdapter = FavoritesAdapter(
+        onNewsItemClickListener = { article ->
+            showNews(article)
         }
     )
 
     private fun showNews(news: News) {
-        Log.d("xxx", "showNews: ${news.url}")
+        Log.d("xxx", "showNews: $news")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentSavedBinding.inflate(inflater, container, false)
+        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
         return binding.root
     }
 

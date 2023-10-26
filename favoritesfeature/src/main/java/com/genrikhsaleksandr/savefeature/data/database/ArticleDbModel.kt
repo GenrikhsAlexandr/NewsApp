@@ -4,12 +4,11 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "news_table")
-data class NewsDbModel(
+data class ArticleDbModel(
     @PrimaryKey
-    val category: String,
-    val language: String,
-    val source: String,
-    val urlToImage: String?,
+    val publishedAt: String,
+    val author: String,
     val title: String,
-    val url: String?,
+    val urlToImage: String?,
+    val content: String?
 )

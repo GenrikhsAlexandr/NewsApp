@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
-import com.genrikhsaleksandr.savefeature.domain.News
 import kotlinx.coroutines.launch
 
 class FavoritesFragment : Fragment() {

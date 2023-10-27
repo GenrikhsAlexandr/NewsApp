@@ -44,7 +44,7 @@ class FavoritesAdapter(
                     .load(listItem.urlToImage.toString())
                     .into(binding.imageNews)
                 with(binding) {
-                    nameSource.text = listItem.author
+                    nameSource.text = listItem.source
                     title.text = listItem.title
                     root.setOnClickListener {
                         onNewsItemClickListener(

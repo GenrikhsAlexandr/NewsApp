@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature.presentation
+package com.genrikhsaleksandr.savefeature.presentation.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -48,7 +48,8 @@ class FavoritesAdapter(
                     title.text = listItem.title
                     root.setOnClickListener {
                         onNewsItemClickListener(
-                            listItem.article)
+                            listItem.article
+                        )
                     }
                 }
             }

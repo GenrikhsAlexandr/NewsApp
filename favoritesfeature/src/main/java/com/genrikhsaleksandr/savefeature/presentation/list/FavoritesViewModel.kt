@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature.presentation
+package com.genrikhsaleksandr.savefeature.presentation.list
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -8,7 +8,6 @@ import com.genrikhsaleksandr.savefeature.data.ArticleRepositoryImp
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -31,9 +30,13 @@ class FavoritesViewModel(application: Application) : AndroidViewModel(applicatio
 
     init {
         viewModelScope.launch {
-            _news.value = repository.getArticles()!!
-            println("news = $news")
-            saveFavoritesArticle(_news.value.first())
+            try {
+                _news.value = repository.getArticles() ?: emptyList()
+                println("news = $news")
+                saveFavoritesArticle(_news.value.last())
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

@@ -50,7 +50,7 @@ class ArticleRepositoryImp(
 
         try {
             val response = service.getNews(
-                language = "en",
+                category = "business",
             )
             mapper.mapNewsListDtoToListArticle(response)
         } catch (e: Exception) {

@@ -8,11 +8,13 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.genrikhsaleksandr.savefeature.presentation.FavoritesFragment
+import com.genrikhsaleksandr.core.domain.navigation.Navigation
+import com.genrikhsaleksandr.savefeature.presentation.details.ArticleFragment
+import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), Navigation {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -30,7 +32,7 @@ class MainFragment : Fragment() {
         bottomNavigation()
         clickedBackSearchView()
         clickedBackFilterToolBar()
-            return binding.root
+        return binding.root
     }
 
     private fun clickedBackSearchView() {
@@ -41,7 +43,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun clickedBackFilterToolBar(){
+    private fun clickedBackFilterToolBar() {
         binding.toolbarFilter.setNavigationOnClickListener {
             childFragmentManager.popBackStack()
             binding.appBar.isVisible = true
@@ -51,7 +53,7 @@ class MainFragment : Fragment() {
         binding.toolbarFilter.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.checked -> {
-                    Toast.makeText(context,"Filter saved",Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Filter saved", Toast.LENGTH_LONG).show()
                     childFragmentManager.popBackStack()
                     binding.appBar.isVisible = true
                     binding.appBarFilter.isVisible = false
@@ -63,21 +65,21 @@ class MainFragment : Fragment() {
         }
     }
 
-     private fun mainToolBar() {
+    private fun mainToolBar() {
         binding.toolbar.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.search -> {
                     binding.appBar.isVisible = false
                     binding.layoutSearchView.isVisible = true
                     binding.searchView.requestFocus()
-                    searchFragmentInstance()
+                    navigateToSearchFragment()
                     true
                 }
 
                 R.id.filter -> {
                     binding.appBar.isVisible = false
                     binding.appBarFilter.isVisible = true
-                    filterFragmentInstance()
+                    navigateToFilterFragment()
                     true
                 }
 
@@ -90,7 +92,7 @@ class MainFragment : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             return@setOnItemSelectedListener when (menuItem.itemId) {
                 R.id.headlines -> {
-                    headlinesFragmentInstance()
+                    navigateToHeadlinesFragment()
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = getString(R.string.app_name)
@@ -98,8 +100,8 @@ class MainFragment : Fragment() {
                     true
                 }
 
-                R.id.saved -> {
-                    savedFragmentInstance()
+                R.id.favorite -> {
+                    navigateToFavoriteFragment()
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = getString(R.string.saved)
@@ -108,7 +110,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.sources -> {
-                    sourcesFragmentInstance()
+                    navigateToSourcesFragment()
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = getString(R.string.sources)
@@ -121,21 +123,21 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun savedFragmentInstance() {
+    override fun navigateToFavoriteFragment() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, FavoritesFragment.newInstance())
             addToBackStack(null)
         }
     }
 
-    private fun sourcesFragmentInstance() {
+    override fun navigateToSourcesFragment() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, SourcesFragment.newInstance())
             addToBackStack(null)
         }
     }
 
-    private fun headlinesFragmentInstance() {
+    override fun navigateToHeadlinesFragment() {
         val headlinesFragment = HeadlinesFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, headlinesFragment)
@@ -143,7 +145,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun searchFragmentInstance() {
+    override fun navigateToSearchFragment() {
         val searchFragment = SearchFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, searchFragment)
@@ -151,10 +153,18 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun filterFragmentInstance() {
+    override fun navigateToFilterFragment() {
         val filterFragment = FilterFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, filterFragment)
+            addToBackStack(null)
+        }
+    }
+
+    override fun navigateToArticleFragment() {
+        val articleFragment = ArticleFragment.newInstance()
+        childFragmentManager.commit {
+            replace(R.id.fragment_container, articleFragment)
             addToBackStack(null)
         }
     }

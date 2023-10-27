@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature.presentation
+package com.genrikhsaleksandr.savefeature.presentation.list
 
 import android.os.Bundle
 import android.util.Log
@@ -28,9 +28,13 @@ class FavoritesFragment : Fragment() {
 
     private val adapter: FavoritesAdapter = FavoritesAdapter(
         onNewsItemClickListener = {
-            showNews(it)
+            showArticleFragment()
         }
     )
+
+    private fun showArticleFragment() {
+        println("ClickItemNews")
+    }
 
     private fun showNews(news: Article) {
         Log.d("xxx", "showNews: $news")

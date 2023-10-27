@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature.presentation
+package com.genrikhsaleksandr.savefeature.presentation.list
 
 import com.genrikhsaleksandr.core.domain.model.Article
 

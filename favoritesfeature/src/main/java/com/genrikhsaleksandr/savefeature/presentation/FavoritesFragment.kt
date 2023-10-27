@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
 import com.genrikhsaleksandr.savefeature.domain.News
 import kotlinx.coroutines.launch
@@ -27,12 +28,12 @@ class FavoritesFragment : Fragment() {
     private val binding: FragmentFavoritesBinding get() = _binding!!
 
     private val adapter: FavoritesAdapter = FavoritesAdapter(
-        onNewsItemClickListener = { article ->
-            showNews(article)
+        onNewsItemClickListener = {
+            showNews(it)
         }
     )
 
-    private fun showNews(news: News) {
+    private fun showNews(news: Article) {
         Log.d("xxx", "showNews: $news")
     }
 

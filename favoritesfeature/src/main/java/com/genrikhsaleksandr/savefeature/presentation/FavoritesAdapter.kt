@@ -3,12 +3,12 @@ package com.genrikhsaleksandr.savefeature.presentation
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.savefeature.databinding.ListItemNewsBinding
-import com.genrikhsaleksandr.savefeature.domain.News
 import com.squareup.picasso.Picasso
 
 class FavoritesAdapter(
-    val onNewsItemClickListener: ((News) -> Unit)
+    val onNewsItemClickListener: ((Article) -> Unit)
 ) : RecyclerView.Adapter<FavoritesAdapter.NewsViewHolder>() {
 
     private lateinit var list: List<NewsItemList>
@@ -47,7 +47,8 @@ class FavoritesAdapter(
                     nameSource.text = listItem.author
                     title.text = listItem.title
                     root.setOnClickListener {
-                        onNewsItemClickListener(listItem.news)
+                        onNewsItemClickListener(
+                            listItem.article)
                     }
                 }
             }

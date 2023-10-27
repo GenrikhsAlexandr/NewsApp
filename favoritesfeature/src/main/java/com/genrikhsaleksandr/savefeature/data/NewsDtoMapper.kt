@@ -1,20 +1,36 @@
 package com.genrikhsaleksandr.savefeature.data
 
 import com.genrikhsaleksandr.core.domain.model.Article
+import com.genrikhsaleksandr.savefeature.data.database.ArticleDbModel
 import com.genrikhsaleksandr.savefeature.data.dto.NewsListDto
 
 class NewsDtoMapper {
 
-    fun mapNewsListDtoToListArticle(newsListDto: NewsListDto): List<Article> {
-        val articles = mutableListOf<Article>()
-        val article = Article(
-            title = newsListDto.title,
-            author = newsListDto.author,
-            urlToImage = newsListDto.urlToImage,
-            content = newsListDto.content,
-            publishedAt = newsListDto.publishedAt
-        )
-        articles.add(article)
-        return articles
+    fun mapNewsListDtoToListArticle(articleDto: NewsListDto): List<Article> {
+        return articleDto.articles.map {
+            Article(
+                source = it.source.name,
+                title = it.title,
+                urlToImage = it.urlToImage,
+                publishedAt = it.publishedAt,
+                content = it.content
+            )
+        }
     }
+
+    fun mapArticleDbModelToArticle(articleDbModel: ArticleDbModel) = Article(
+        publishedAt = articleDbModel.publishedAt,
+        source = articleDbModel.source,
+        title = articleDbModel.title,
+        urlToImage = articleDbModel.urlToImage,
+        content = articleDbModel.content
+    )
+
+    fun mapArticleToArticleDbModel(article: Article) = ArticleDbModel(
+        publishedAt = article.publishedAt,
+        source = article.source,
+        title = article.title,
+        urlToImage = article.urlToImage,
+        content = article.content
+    )
 }

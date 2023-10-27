@@ -28,5 +28,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
     }
+
     abstract fun articleRequestDao(): ArticleDao
 }

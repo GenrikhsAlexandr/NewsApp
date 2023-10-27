@@ -1,7 +1,7 @@
 package com.genrikhsaleksandr.core.domain.model
 
 data class Article(
-    val author: String?,
+    val source: String,
     val title: String,
     val urlToImage: String?,
     val publishedAt: String,

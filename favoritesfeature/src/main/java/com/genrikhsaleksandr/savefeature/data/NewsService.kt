@@ -11,11 +11,10 @@ interface NewsService {
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "c671c3a213884080b9986d20a5ba091a",
         @Query(QUERY_PARAM_LANGUAGE) language: String,
 
-    ): NewsListDto
+        ): NewsListDto
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "apiKey"
         private const val QUERY_PARAM_LANGUAGE = "language"
-
     }
 }

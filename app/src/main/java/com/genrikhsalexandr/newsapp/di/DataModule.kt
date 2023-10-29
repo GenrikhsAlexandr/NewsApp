@@ -12,7 +12,7 @@ import dagger.Provides
 @Module
 interface DataModule {
 
-    /*   @Binds
+       @Binds
        fun bindArticleRepository(impl: ArticleRepositoryImpl): ArticleRepository
 
        companion object {
@@ -23,5 +23,5 @@ interface DataModule {
                return AppDatabase.getInstance(application).articleRequestDao()
            }
 
-       }*/
+       }
 }

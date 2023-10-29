@@ -5,7 +5,7 @@ import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.NewsService
-import com.genrikhsaleksandr.savefeature.data.database.AppDatabase
+import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -18,11 +18,11 @@ import retrofit2.Retrofit
 import javax.inject.Inject
 
 class ArticleRepositoryImpl @Inject constructor  (
-    application: Application,
-    private val mapper: NewsDtoMapper = NewsDtoMapper()
+    private val articleDao: ArticleDao,
+    private val mapper: NewsDtoMapper,
+    private val application: Application
 ) : ArticleRepository {
 
-    private val articleDao = AppDatabase.getInstance(application).articleRequestDao()
 
     companion object {
         private const val BASE_URL = "https://newsapi.org/"

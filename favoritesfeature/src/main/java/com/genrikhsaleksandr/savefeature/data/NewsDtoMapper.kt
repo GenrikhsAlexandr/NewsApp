@@ -3,8 +3,9 @@ package com.genrikhsaleksandr.savefeature.data
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDbModel
 import com.genrikhsaleksandr.savefeature.data.dto.NewsListDto
+import javax.inject.Inject
 
-class NewsDtoMapper {
+class NewsDtoMapper @Inject constructor() {
 
     fun mapNewsListDtoToListArticle(articleDto: NewsListDto): List<Article> {
         return articleDto.articles.map {

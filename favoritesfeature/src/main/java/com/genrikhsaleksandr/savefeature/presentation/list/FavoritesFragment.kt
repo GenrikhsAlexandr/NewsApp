@@ -1,5 +1,6 @@
 package com.genrikhsaleksandr.savefeature.presentation.list
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class FavoritesFragment : Fragment() {
 
@@ -21,7 +23,9 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private val viewModel: FavoritesViewModel by viewModels()
+    @Inject
+    lateinit var viewModel: FavoritesViewModel
+
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding: FragmentFavoritesBinding get() = _binding!!
@@ -36,10 +40,11 @@ class FavoritesFragment : Fragment() {
         println("ClickItemNews")
     }
 
-    private fun showNews(news: Article) {
-        Log.d("xxx", "showNews: $news")
-    }
 
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

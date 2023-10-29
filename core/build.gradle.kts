@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+
 }
 
 android {
@@ -42,4 +44,6 @@ dependencies {
     api("androidx.test.espresso:espresso-core:3.5.1")
     api("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
     api("androidx.constraintlayout:constraintlayout:2.1.4")
+    kapt("com.google.dagger:dagger-compiler:2.46.1")
+    implementation("com.google.dagger:dagger:2.46.1")
 }

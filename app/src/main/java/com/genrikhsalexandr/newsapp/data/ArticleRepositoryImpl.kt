@@ -1,8 +1,10 @@
-package com.genrikhsaleksandr.savefeature.data
+package com.genrikhsalexandr.newsapp.data
 
 import android.app.Application
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
+import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
+import com.genrikhsaleksandr.savefeature.data.NewsService
 import com.genrikhsaleksandr.savefeature.data.database.AppDatabase
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
@@ -13,8 +15,9 @@ import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import javax.inject.Inject
 
-class ArticleRepositoryImp(
+class ArticleRepositoryImpl @Inject constructor  (
     application: Application,
     private val mapper: NewsDtoMapper = NewsDtoMapper()
 ) : ArticleRepository {

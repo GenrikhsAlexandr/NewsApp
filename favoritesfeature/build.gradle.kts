@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20-RC"
+    id("kotlin-kapt")
 
 }
 
@@ -66,5 +67,7 @@ dependencies {
     implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    kapt("com.google.dagger:dagger-compiler:2.46.1")
+    implementation("com.google.dagger:dagger:2.46.1")
 
 }

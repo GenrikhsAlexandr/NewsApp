@@ -8,13 +8,14 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.genrikhsaleksandr.core.domain.navigation.Navigation
+import com.genrikhsaleksandr.core.domain.navigation.NavigationArticleFragment
 import com.genrikhsaleksandr.savefeature.presentation.details.ArticleFragment
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
+import javax.inject.Inject
 
-class MainFragment : Fragment(), Navigation {
+class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -123,21 +124,21 @@ class MainFragment : Fragment(), Navigation {
         }
     }
 
-    override fun navigateToFavoriteFragment() {
+     fun navigateToFavoriteFragment() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, FavoritesFragment.newInstance())
             addToBackStack(null)
         }
     }
 
-    override fun navigateToSourcesFragment() {
+     fun navigateToSourcesFragment() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, SourcesFragment.newInstance())
             addToBackStack(null)
         }
     }
 
-    override fun navigateToHeadlinesFragment() {
+     fun navigateToHeadlinesFragment() {
         val headlinesFragment = HeadlinesFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, headlinesFragment)
@@ -145,7 +146,7 @@ class MainFragment : Fragment(), Navigation {
         }
     }
 
-    override fun navigateToSearchFragment() {
+     fun navigateToSearchFragment() {
         val searchFragment = SearchFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, searchFragment)
@@ -153,7 +154,7 @@ class MainFragment : Fragment(), Navigation {
         }
     }
 
-    override fun navigateToFilterFragment() {
+     fun navigateToFilterFragment() {
         val filterFragment = FilterFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, filterFragment)

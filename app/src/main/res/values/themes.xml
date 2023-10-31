@@ -3,15 +3,12 @@
     <style name="Base.Theme.NewsApp" parent="Theme.Material3.Light.NoActionBar">
 
         <item name="android:navigationBarColor">@color/ic_launcher_background</item>
-        <item name="android:statusBarColor">@color/ic_launcher_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorControlActivated">@color/light_text</item>
         <item name="android:editTextColor">@color/light_text</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
-
-    <style name="Theme.NewsApp" parent="Base.Theme.NewsApp" />
-
 
     <style name="ToolbarTextStyle">
         <item name="android:textSize">22sp</item>

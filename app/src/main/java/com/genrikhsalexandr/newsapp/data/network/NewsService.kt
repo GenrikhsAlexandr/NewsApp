@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature.data
+package com.genrikhsalexandr.newsapp.data.network
 
 import com.genrikhsaleksandr.savefeature.data.dto.NewsListDto
 import retrofit2.http.GET
@@ -10,7 +10,6 @@ interface NewsService {
     suspend fun getNews(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "c671c3a213884080b9986d20a5ba091a",
         @Query(QUERY_PARAM_CATEGORY) category: String,
-
         ): NewsListDto
 
     companion object {

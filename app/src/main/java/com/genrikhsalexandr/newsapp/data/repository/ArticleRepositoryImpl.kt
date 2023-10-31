@@ -1,11 +1,10 @@
-package com.genrikhsalexandr.newsapp.data
+package com.genrikhsalexandr.newsapp.data.repository
 
-import android.app.Application
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
-import com.genrikhsaleksandr.savefeature.data.NewsService
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
+import com.genrikhsalexandr.newsapp.data.network.NewsService
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,12 +16,10 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class ArticleRepositoryImpl @Inject constructor  (
+class ArticleRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao,
     private val mapper: NewsDtoMapper,
-    private val application: Application
 ) : ArticleRepository {
-
 
     companion object {
         private const val BASE_URL = "https://newsapi.org/"
@@ -49,6 +46,13 @@ class ArticleRepositoryImpl @Inject constructor  (
 
     private val service: NewsService = retrofit.create(NewsService::class.java)
 
+    override suspend fun getFavoritesArticle(): List<Article> {
+        return articleDao.getArticleFromDb()
+            .map {
+                mapper.mapArticleDbModelToArticle(it)
+            }
+    }
+
     override suspend fun getArticles(): List<Article>? = withContext(Dispatchers.IO) {
 
         try {
@@ -62,19 +66,12 @@ class ArticleRepositoryImpl @Inject constructor  (
         }
     }
 
-    override suspend fun getFavoritesArticle(article: Article): List<Article> {
-        return articleDao.getArticleFromDb()
-            .map {
-                mapper.mapArticleDbModelToArticle(it)
-            }
-    }
-
     override suspend fun saveFavoritesArticle(article: Article) {
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)
         articleDao.insertArticle(articleDbModel)
     }
 
-    override suspend fun deleteFavoritesArticle(article: Article) {
+    override suspend fun deleteFavoriteArticle(article: Article) {
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)
         articleDao.deleteArticle(articleDbModel)
     }

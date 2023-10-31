@@ -7,10 +7,10 @@ import dagger.Component
 @Component(modules = [DataModule::class])
 interface ApplicationComponent {
 
-       @Component.Factory
-        interface Factory {
-            fun create(
-                @BindsInstance application: Application
-            ): ApplicationComponent
-        }
+    @Component.Factory
+    interface Factory {
+        fun create(
+            @BindsInstance application: Application
+        ): ApplicationComponent
+    }
 }

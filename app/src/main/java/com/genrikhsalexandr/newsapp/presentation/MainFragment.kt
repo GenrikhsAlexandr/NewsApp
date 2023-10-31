@@ -1,5 +1,6 @@
 package com.genrikhsalexandr.newsapp.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,14 +9,13 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
-import com.genrikhsaleksandr.core.domain.navigation.NavigationArticleFragment
-import com.genrikhsaleksandr.savefeature.presentation.details.ArticleFragment
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
+import com.genrikhsalexandr.newsapp.ArticleApplication
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 import javax.inject.Inject
 
-class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment {
+class MainFragment @Inject constructor() : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
@@ -23,6 +23,7 @@ class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment 
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +35,11 @@ class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment 
         clickedBackSearchView()
         clickedBackFilterToolBar()
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        binding.appBar.isVisible = true
     }
 
     private fun clickedBackSearchView() {
@@ -105,6 +111,7 @@ class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment 
                     navigateToFavoriteFragment()
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
+                    binding.toolbar.isVisible = false
                     binding.toolbar.title = getString(R.string.saved)
 
                     true
@@ -124,21 +131,21 @@ class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment 
         }
     }
 
-     fun navigateToFavoriteFragment() {
+    fun navigateToFavoriteFragment() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, FavoritesFragment.newInstance())
             addToBackStack(null)
         }
     }
 
-     fun navigateToSourcesFragment() {
+    fun navigateToSourcesFragment() {
         childFragmentManager.commit {
             replace(R.id.fragment_container, SourcesFragment.newInstance())
             addToBackStack(null)
         }
     }
 
-     fun navigateToHeadlinesFragment() {
+    fun navigateToHeadlinesFragment() {
         val headlinesFragment = HeadlinesFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, headlinesFragment)
@@ -146,7 +153,7 @@ class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment 
         }
     }
 
-     fun navigateToSearchFragment() {
+    fun navigateToSearchFragment() {
         val searchFragment = SearchFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, searchFragment)
@@ -154,7 +161,7 @@ class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment 
         }
     }
 
-     fun navigateToFilterFragment() {
+    fun navigateToFilterFragment() {
         val filterFragment = FilterFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, filterFragment)
@@ -162,10 +169,10 @@ class MainFragment @Inject constructor(): Fragment(), NavigationArticleFragment 
         }
     }
 
-    override fun navigateToArticleFragment() {
-        val articleFragment = ArticleFragment.newInstance()
+     fun navigateToDetailFragment() {
+        val detailFragment = DetailFragment.newInstance()
         childFragmentManager.commit {
-            replace(R.id.fragment_container, articleFragment)
+            replace(R.id.fragment_container, detailFragment)
             addToBackStack(null)
         }
     }

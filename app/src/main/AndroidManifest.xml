@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:name=".ArticleApplication"
-        android:theme="@style/Theme.NewsApp"
+        android:theme="@style/Base.Theme.NewsApp"
         tools:targetApi="34">
         <activity
             android:name=".presentation.MainActivity"

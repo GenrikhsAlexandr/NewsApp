@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
+import com.genrikhsaleksandr.core.navigation.Navigator
+import com.genrikhsaleksandr.savefeature.domain.FavoritesInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -13,8 +15,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FavoritesViewModel @Inject constructor(
-    private val repository: ArticleRepository,
-) : ViewModel() {
+    private val interactor: FavoritesInteractor,
+    private val navigator: Navigator,
+
+    ) : ViewModel() {
 
     private val _news: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
 
@@ -30,9 +34,11 @@ class FavoritesViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     init {
+        viewModelScope
+        navigator.navigateToArticleDetails()
         viewModelScope.launch {
             try {
-                _news.value = repository.getArticles() ?: emptyList()
+                _news.value = interactor.getArticlesList() ?: emptyList()
                 println("news = $news")
                 saveFavoritesArticle(_news.value.last())
             } catch (e: Exception) {
@@ -41,15 +47,17 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    suspend fun getFavoritesArticle(article: Article): List<Article> {
-        return repository.getFavoritesArticle(article)
-    }
+    //  suspend fun getFavoritesArticle(article: Article): List<Article> {
+    //    return emptyList()
+    //      return repository.getFavoritesArticle(article)
+    //  }
 
     suspend fun saveFavoritesArticle(article: Article) {
-        repository.saveFavoritesArticle(article)
+        interactor.saveFavoritesArticle(article)
     }
 
     suspend fun deleteFavoritesArticle(article: Article) {
-        repository.deleteFavoritesArticle(article)
+//        repository.deleteFavoritesArticle(article)
     }
 }
+

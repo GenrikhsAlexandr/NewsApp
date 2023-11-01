@@ -15,5 +15,5 @@ interface ArticleDao {
     suspend fun getArticleFromDb(): List<ArticleDbModel>
 
     @Delete
-   suspend fun deleteArticle(article: ArticleDbModel)
+    suspend fun deleteArticle(article: ArticleDbModel)
 }

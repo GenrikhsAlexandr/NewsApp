@@ -62,8 +62,8 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:2.46.1")
     api ("com.google.dagger:dagger:2.46.1")
 
-    api("androidx.room:room-ktx:2.5.2")
-    api("androidx.room:room-rxjava3:2.5.2")
+    api("androidx.room:room-ktx:2.6.0")
+    api("androidx.room:room-rxjava3:2.6.0")
 
     api("com.squareup.okhttp3:okhttp:5.0.0-alpha.10")
     api("com.squareup.okhttp3:logging-interceptor:4.7.2")

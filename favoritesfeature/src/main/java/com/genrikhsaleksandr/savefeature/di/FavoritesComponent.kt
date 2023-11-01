@@ -1,10 +1,8 @@
 package com.genrikhsaleksandr.savefeature.di
 
-import android.app.Application
-import com.genrikhsaleksandr.core.di.DataModule
+import com.genrikhsaleksandr.core.di.CoreDataModule
 import com.genrikhsaleksandr.core.di.NavigationModule
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
-import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
@@ -13,7 +11,7 @@ import javax.inject.Singleton
     modules = [
         FavoritesModule::class,
         NavigationModule::class,
-        DataModule::class
+        CoreDataModule::class
     ]
 )
 interface FavoritesComponent {

@@ -3,7 +3,6 @@ package com.genrikhsaleksandr.savefeature.presentation.list
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.genrikhsaleksandr.core.domain.model.Article
-import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsaleksandr.savefeature.domain.FavoritesInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,7 +38,7 @@ class FavoritesViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _news.value = interactor.getArticlesList() ?: emptyList()
-                println("news = $news")
+                println("news = ${_news.value}")
                 saveFavoritesArticle(_news.value.last())
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -47,17 +46,15 @@ class FavoritesViewModel @Inject constructor(
         }
     }
 
-    //  suspend fun getFavoritesArticle(article: Article): List<Article> {
-    //    return emptyList()
-    //      return repository.getFavoritesArticle(article)
-    //  }
+    suspend fun getFavoritesArticle(article: Article): List<Article> {
+        return interactor.getFavoritesArticles()
+    }
 
-    suspend fun saveFavoritesArticle(article: Article) {
+    private suspend fun saveFavoritesArticle(article: Article) {
         interactor.saveFavoritesArticle(article)
     }
 
     suspend fun deleteFavoritesArticle(article: Article) {
-//        repository.deleteFavoritesArticle(article)
+        interactor.deleteFavoriteArticle(article)
     }
 }
-

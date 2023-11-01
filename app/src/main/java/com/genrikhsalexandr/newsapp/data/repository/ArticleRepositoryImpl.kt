@@ -57,7 +57,7 @@ class ArticleRepositoryImpl @Inject constructor(
 
         try {
             val response = service.getNews(
-                category = "business",
+                category = "general",
             )
             mapper.mapNewsListDtoToListArticle(response)
         } catch (e: Exception) {

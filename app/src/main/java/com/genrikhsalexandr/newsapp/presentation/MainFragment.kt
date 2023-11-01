@@ -1,6 +1,5 @@
 package com.genrikhsalexandr.newsapp.presentation
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
-import com.genrikhsalexandr.newsapp.ArticleApplication
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 import javax.inject.Inject
@@ -169,7 +167,7 @@ class MainFragment @Inject constructor() : Fragment() {
         }
     }
 
-     fun navigateToDetailFragment() {
+    fun navigateToDetailFragment() {
         val detailFragment = DetailFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, detailFragment)

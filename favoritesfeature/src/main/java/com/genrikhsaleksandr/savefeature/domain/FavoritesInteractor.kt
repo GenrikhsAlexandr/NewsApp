@@ -7,12 +7,11 @@ import javax.inject.Inject
 class FavoritesInteractor @Inject constructor(
     private val repository: ArticleRepository
 ) {
-    suspend fun getFavoritesArticles () = repository.getFavoritesArticle()
+    suspend fun getFavoritesArticles(): List<Article> = repository.getFavoritesArticle()
 
-    suspend  fun getArticlesList()=repository.getArticles()
+    suspend fun getArticlesList(): List<Article>? = repository.getArticles()
 
-    suspend  fun saveFavoritesArticle(article: Article)=repository.saveFavoritesArticle(article)
+    suspend fun saveFavoritesArticle(article: Article) = repository.saveFavoritesArticle(article)
 
-    suspend  fun deleteFavoriteArticle(article: Article)=repository.deleteFavoriteArticle(article)
-
+    suspend fun deleteFavoriteArticle(article: Article) = repository.deleteFavoriteArticle(article)
 }

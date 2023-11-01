@@ -10,7 +10,7 @@ interface NewsService {
     suspend fun getNews(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "c671c3a213884080b9986d20a5ba091a",
         @Query(QUERY_PARAM_CATEGORY) category: String,
-        ): NewsListDto
+    ): NewsListDto
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "apiKey"

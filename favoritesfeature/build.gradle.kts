@@ -46,5 +46,4 @@ dependencies {
 
     ksp("androidx.room:room-compiler:2.6.0")
     kapt("com.google.dagger:dagger-compiler:2.46.1")
-
 }

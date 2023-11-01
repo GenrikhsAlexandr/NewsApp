@@ -6,11 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
-import com.genrikhsaleksandr.savefeature.di.DaggerFavoritesComponent
 import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
 import kotlinx.coroutines.launch
 import javax.inject.Inject

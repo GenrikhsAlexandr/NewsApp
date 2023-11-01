@@ -39,19 +39,19 @@ class FavoritesAdapter(
     inner class NewsViewHolder(private val binding: ListItemNewsBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(listItem: NewsItemList) {
+            with(binding) {
+                nameSource.text = listItem.source
+                title.text = listItem.title
+                root.setOnClickListener {
+                    onNewsItemClickListener(
+                        listItem.article
+                    )
+                }
+            }
             if (listItem.urlToImage != null) {
                 Picasso.get()
                     .load(listItem.urlToImage.toString())
                     .into(binding.imageNews)
-                with(binding) {
-                    nameSource.text = listItem.source
-                    title.text = listItem.title
-                    root.setOnClickListener {
-                        onNewsItemClickListener(
-                            listItem.article
-                        )
-                    }
-                }
             }
         }
     }

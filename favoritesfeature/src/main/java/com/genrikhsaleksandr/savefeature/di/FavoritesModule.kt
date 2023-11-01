@@ -13,7 +13,10 @@ class FavoritesModule {
 
     @Provides
     @Singleton
-    fun provideFavoritesViewModel(interactor: FavoritesInteractor, navigator: Navigator): FavoritesViewModel {
+    fun provideFavoritesViewModel(
+        interactor: FavoritesInteractor,
+        navigator: Navigator
+    ): FavoritesViewModel {
         return FavoritesViewModel(interactor, navigator)
     }
 

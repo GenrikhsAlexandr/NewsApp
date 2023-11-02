@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#FFFFFF"
     android:fitsSystemWindows="true"
-    tools:context=".presentation.DetailFragment">
+    tools:context="com.genrikhsalexandr.detailarticlefeature.presentation.DetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarDetail"
@@ -19,9 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:collapsedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:titleTextEllipsize="end"
+            app:collapsedTitleTextColor="@color/light_text"
             app:contentScrim="@color/ic_launcher_background"
-            app:expandedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="true"
+            app:expandedTitleTextColor="@android:color/transparent"
+            app:title="skakdjsjdjsdjjadhahdhdsfdsbfmdbfmdmfmdsbmsbdmfj">
 
             <ImageView
                 android:layout_width="match_parent"
@@ -34,7 +38,7 @@
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbarArticle"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/collapsingToolbarLayoutLargeSize"
+                android:layout_height="64dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_collapseMode="pin"
                 app:menu="@menu/article_toolbar"
@@ -59,32 +63,54 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp">
+                android:background="@color/background_tabs"
+                android:elevation="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:background="@android:color/transparent"
+                    android:orientation="vertical"
+                    android:padding="20dp">
 
                     <TextView
                         android:id="@+id/titleDetail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:paddingStart="20dp"
-                        android:paddingEnd="20dp"
-                        android:text="ksbdkdkhfdkhkdf"
+                        android:ellipsize="end"
+                        android:maxLines="2"
+                        android:text="Americans are getting worried about the job market"
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/dark_text" />
 
                     <TextView
+                        android:id="@+id/dateDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="March"
+                        android:text="Mar 20, 2023 | 10:57 AM"
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                         android:textColor="@color/on_surface_variant" />
 
+                    <TextView
+                        android:id="@+id/sourceDetail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="FOX NEWS"
+                        android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                        android:textColor="@color/on_surface_variant" />
+
+
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/contentDetail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:text="@string/detail"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:textColor="@color/dark_text" />
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>

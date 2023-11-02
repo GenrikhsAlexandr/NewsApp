@@ -8,9 +8,13 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainFragment @Inject constructor() : Fragment() {
@@ -19,8 +23,15 @@ class MainFragment @Inject constructor() : Fragment() {
         fun newInstance() = MainFragment()
     }
 
+    private val viewModel: MainFragmentViewModel by viewModels()
+
+
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
 
     override fun onCreateView(
@@ -32,13 +43,11 @@ class MainFragment @Inject constructor() : Fragment() {
         bottomNavigation()
         clickedBackSearchView()
         clickedBackFilterToolBar()
+
         return binding.root
     }
 
-    override fun onStart() {
-        super.onStart()
-        binding.appBar.isVisible = true
-    }
+
 
     private fun clickedBackSearchView() {
         binding.ivSearchView.setOnClickListener {
@@ -99,7 +108,6 @@ class MainFragment @Inject constructor() : Fragment() {
                 R.id.headlines -> {
                     navigateToHeadlinesFragment()
                     binding.appBar.isVisible = true
-                    binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = getString(R.string.app_name)
 
                     true
@@ -108,9 +116,8 @@ class MainFragment @Inject constructor() : Fragment() {
                 R.id.favorite -> {
                     navigateToFavoriteFragment()
                     binding.appBar.isVisible = true
-                    binding.layoutSearchView.isVisible = false
-                    binding.toolbar.isVisible = false
                     binding.toolbar.title = getString(R.string.saved)
+                    onPause()
 
                     true
                 }
@@ -167,13 +174,7 @@ class MainFragment @Inject constructor() : Fragment() {
         }
     }
 
-    fun navigateToDetailFragment() {
-        val detailFragment = DetailFragment.newInstance()
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, detailFragment)
-            addToBackStack(null)
-        }
-    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

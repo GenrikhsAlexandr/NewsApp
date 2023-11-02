@@ -1,12 +1,12 @@
-package com.genrikhsalexandr.newsapp.presentation
+package com.genrikhsalexandr.detailarticlefeature.presentation
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.genrikhsalexandr.newsapp.R
-import com.genrikhsalexandr.newsapp.databinding.FragmentDetailBinding
+import androidx.fragment.app.Fragment
+import com.genrikhsalexandr.detailarticlefeature.R
+import com.genrikhsalexandr.detailarticlefeature.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment(R.layout.fragment_detail) {
 

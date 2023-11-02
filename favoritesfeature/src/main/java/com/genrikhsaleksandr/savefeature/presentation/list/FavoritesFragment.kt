@@ -29,7 +29,7 @@ class FavoritesFragment : Fragment() {
 
     private val adapter: FavoritesAdapter = FavoritesAdapter(
         onNewsItemClickListener = {
-            showArticleFragment()
+            viewModel.onNewsItemClick(it,parentFragmentManager)
         }
     )
 
@@ -55,7 +55,7 @@ class FavoritesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
 
-        binding.rvSearch.adapter = adapter
+        binding.rvFavorites.adapter = adapter
         lifecycleScope.launch {
             viewModel.news.collect { news ->
                 adapter.submitData(news)
@@ -66,5 +66,25 @@ class FavoritesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("onStop favoritesFragment")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("onPause favoritesFragment")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        println("onResume favoritesFragment")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        println("onStart favoritesFragment")
     }
 }

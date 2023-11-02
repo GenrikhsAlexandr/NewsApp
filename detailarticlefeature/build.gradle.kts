@@ -1,24 +1,20 @@
 plugins {
-    id("com.android.application")
+    id("com.android.library")
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("kotlin-kapt")
 
-
 }
 
 android {
-    namespace = "com.genrikhsalexandr.newsapp"
-    compileSdk = 34
+    namespace = "com.genrikhsalexandr.detailarticlefeature"
+    compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.genrikhsalexandr.newsapp"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
@@ -44,13 +40,9 @@ android {
 
 dependencies {
 
-    implementation(project(":favoritesfeature"))
     implementation(project(":core"))
-    implementation(project(":detailarticlefeature"))
-
-    kapt("com.google.dagger:dagger-compiler:2.46.1")
 
     ksp("androidx.room:room-compiler:2.6.0")
+    kapt("com.google.dagger:dagger-compiler:2.46.1")
 
-    implementation("com.airbnb.android:lottie:4.2.0")
 }

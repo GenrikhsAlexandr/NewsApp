@@ -1,5 +1,6 @@
 package com.genrikhsaleksandr.savefeature.presentation.list
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.genrikhsaleksandr.core.domain.model.Article
@@ -34,7 +35,6 @@ class FavoritesViewModel @Inject constructor(
 
     init {
         viewModelScope
-        navigator.navigateToArticleDetails()
         viewModelScope.launch {
             try {
                 _news.value = interactor.getArticlesList() ?: emptyList()
@@ -56,5 +56,9 @@ class FavoritesViewModel @Inject constructor(
 
     suspend fun deleteFavoritesArticle(article: Article) {
         interactor.deleteFavoriteArticle(article)
+    }
+
+    fun onNewsItemClick(article: Article, fragmentManager: FragmentManager) {
+        navigator.navigateToArticleDetails(article, fragmentManager)
     }
 }

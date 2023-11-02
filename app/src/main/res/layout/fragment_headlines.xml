@@ -22,27 +22,52 @@
             android:background="@color/background_tabs"
             android:elevation="1dp"
             app:tabIndicatorColor="@color/primary_text"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabSelectedTextColor="@color/primary_text"
             app:tabTextColor="@color/on_surface_variant">
 
             <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_general"
                 android:text="@string/general" />
 
             <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_business"
                 android:text="@string/business" />
 
             <com.google.android.material.tabs.TabItem
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:icon="@drawable/ic_traveling"
-                android:text="@string/traveling" />
+                android:icon="@drawable/ic_science"
+                android:text="@string/science" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_entertaiment"
+                android:text="@string/entertainment" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_health"
+                android:text="@string/health" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_technology"
+                android:text="@string/technology" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_sport"
+                android:text="@string/sport" />
+
 
         </com.google.android.material.tabs.TabLayout>
 

@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:listitem="@layout/list_item_news">
     <TextView
-        android:id="@+id/tvTraveling"
+        android:id="@+id/tvScience"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

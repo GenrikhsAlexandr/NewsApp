@@ -7,4 +7,7 @@ interface Navigator {
 
     fun navigateToArticleDetails(article: Article, fragmentManager: FragmentManager)
 
+    fun navigateToFavorites(fragmentManager: FragmentManager)
+
+
 }

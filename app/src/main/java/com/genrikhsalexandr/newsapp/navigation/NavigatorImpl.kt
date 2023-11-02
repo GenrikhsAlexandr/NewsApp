@@ -4,8 +4,8 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.navigation.Navigator
+import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import com.genrikhsalexandr.newsapp.R
-import com.genrikhsalexandr.detailarticlefeature.presentation.DetailFragment
 
 class NavigatorImpl : Navigator {
 
@@ -16,4 +16,11 @@ class NavigatorImpl : Navigator {
             addToBackStack(null)
         }
     }
+
+    override fun navigateToFavorites(fragmentManager: FragmentManager) {
+            val favoritesFragment = FavoritesFragment.newInstance()
+            fragmentManager.commit {
+                replace(R.id.fragment_container, favoritesFragment)
+                addToBackStack(null)
+            }    }
 }

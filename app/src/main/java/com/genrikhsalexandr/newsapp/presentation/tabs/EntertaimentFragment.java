@@ -5,30 +5,32 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.genrikhsalexandr.newsapp.databinding.FragmentTravelingBinding;
+import com.genrikhsalexandr.newsapp.databinding.FragmentEntertaimentBinding;
 
-public class TravelingFragment extends Fragment {
+public class EntertaimentFragment extends Fragment {
 
-    private FragmentTravelingBinding binding = null;
+    private FragmentEntertaimentBinding binding = null;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentTravelingBinding.inflate(inflater, container, false);
+        binding = FragmentEntertaimentBinding.inflate(inflater, container, false);
         Bundle arguments = getArguments();
         assert arguments != null;
         String message = arguments.getString("message");
-        TextView textView = binding.tvTraveling;
+        TextView textView = binding.tvEntertaiment;
         textView.setText(message);
         return binding.getRoot();
     }
-    public static TravelingFragment newInstance() {
-        TravelingFragment fragment= new TravelingFragment();
+
+    public static EntertaimentFragment newInstance() {
+        EntertaimentFragment fragment = new EntertaimentFragment();
         Bundle args = new Bundle();
         args.putString("message", "Hello GeneralFragment");
         fragment.setArguments(args);

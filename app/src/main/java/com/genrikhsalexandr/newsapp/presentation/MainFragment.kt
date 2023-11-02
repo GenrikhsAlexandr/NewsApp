@@ -1,5 +1,6 @@
 package com.genrikhsalexandr.newsapp.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +10,19 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class MainFragment @Inject constructor() : Fragment() {
+class MainFragment : Fragment() {
 
     companion object {
         fun newInstance() = MainFragment()
     }
+
+    // @Inject
+    // lateinit var viewModel: MainFragmentViewModel
 
     private val viewModel: MainFragmentViewModel by viewModels()
 
@@ -29,8 +30,9 @@ class MainFragment @Inject constructor() : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        //   (requireActivity().application as MainComponentProvider).provideMainComponent().inject(this)
     }
 
 
@@ -46,7 +48,6 @@ class MainFragment @Inject constructor() : Fragment() {
 
         return binding.root
     }
-
 
 
     private fun clickedBackSearchView() {
@@ -114,11 +115,11 @@ class MainFragment @Inject constructor() : Fragment() {
                 }
 
                 R.id.favorite -> {
-                    navigateToFavoriteFragment()
+                    //  viewModel.onClickFavorites(parentFragmentManager )
+                    navigateToFavorites()
                     binding.appBar.isVisible = true
                     binding.toolbar.title = getString(R.string.saved)
                     onPause()
-
                     true
                 }
 
@@ -133,13 +134,6 @@ class MainFragment @Inject constructor() : Fragment() {
 
                 else -> false
             }
-        }
-    }
-
-    fun navigateToFavoriteFragment() {
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, FavoritesFragment.newInstance())
-            addToBackStack(null)
         }
     }
 
@@ -174,7 +168,13 @@ class MainFragment @Inject constructor() : Fragment() {
         }
     }
 
-
+    fun navigateToFavorites() {
+        val favoritesFragment = FavoritesFragment.newInstance()
+        childFragmentManager.commit {
+            replace(R.id.fragment_container, favoritesFragment)
+            addToBackStack(null)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

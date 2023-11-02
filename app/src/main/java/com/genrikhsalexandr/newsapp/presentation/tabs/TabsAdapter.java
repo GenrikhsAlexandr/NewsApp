@@ -18,7 +18,20 @@ public class TabsAdapter extends FragmentStateAdapter {
                 return BusinessFragment.newInstance();
 
             case 2:
-                return TravelingFragment.newInstance();
+                return ScienceFragment.newInstance();
+
+            case 3:
+                return HealthFragment.newInstance();
+
+            case 4:
+                return EntertaimentFragment.newInstance();
+
+            case 5:
+                return TechnologyFragment.newInstance();
+
+            case 6:
+                return SportFragment.newInstance();
+
             default:
                 return GeneralFragment.newInstance();
         }
@@ -26,7 +39,7 @@ public class TabsAdapter extends FragmentStateAdapter {
 
     @Override
     public int getItemCount() {
-        return 3;
+        return 7;
     }
 }
 

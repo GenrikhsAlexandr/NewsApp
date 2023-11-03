@@ -10,9 +10,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
-import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
+import com.genrikhsalexandr.newsapp.di.MainComponentProvider
+import com.genrikhsalexandr.newsapp.di.MainFragmentViewModelModule
+import com.genrikhsalexandr.newsapp.di.MainViewModelFactory
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
@@ -21,10 +23,10 @@ class MainFragment : Fragment() {
         fun newInstance() = MainFragment()
     }
 
-    // @Inject
-    // lateinit var viewModel: MainFragmentViewModel
+    @Inject
+    lateinit var viewModelFactory: MainViewModelFactory
 
-    private val viewModel: MainFragmentViewModel by viewModels()
+    private val viewModel: MainFragmentViewModel by viewModels { viewModelFactory }
 
 
     private var _binding: FragmentMainBinding? = null
@@ -32,7 +34,7 @@ class MainFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        //   (requireActivity().application as MainComponentProvider).provideMainComponent().inject(this)
+        (requireActivity().application as MainComponentProvider).provideMainComponent().inject(this)
     }
 
 
@@ -115,8 +117,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.favorite -> {
-                    //  viewModel.onClickFavorites(parentFragmentManager )
-                    navigateToFavorites()
+                    viewModel.onClickFavorites(parentFragmentManager )
                     binding.appBar.isVisible = true
                     binding.toolbar.title = getString(R.string.saved)
                     onPause()
@@ -168,13 +169,13 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun navigateToFavorites() {
+/*    fun navigateToFavorites() {
         val favoritesFragment = FavoritesFragment.newInstance()
         childFragmentManager.commit {
             replace(R.id.fragment_container, favoritesFragment)
             addToBackStack(null)
         }
-    }
+    }*/
 
     override fun onDestroyView() {
         super.onDestroyView()

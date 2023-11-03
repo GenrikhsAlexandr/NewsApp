@@ -6,11 +6,11 @@ import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import javax.inject.Inject
 
-class MainFragmentViewModel/* @Inject constructor(
+class MainFragmentViewModel @Inject constructor(
     private val navigator: Navigator
-)*/:ViewModel() {
-        /*fun onClickFavorites(favoritesFragment: FragmentManager){
+):ViewModel() {
+        fun onClickFavorites(favoritesFragment: FragmentManager){
             navigator.navigateToFavorites(favoritesFragment)
-        }*/
+        }
 
 }

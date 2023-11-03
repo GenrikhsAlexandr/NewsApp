@@ -12,8 +12,9 @@ import dagger.multibindings.IntoMap
 import javax.inject.Singleton
 
 @Module
-interface FavoritesModule {
+internal interface FavoritesModule {
 
+    @Binds
     fun bindViewModelFactory(factory: FavoritesViewModelFactory): ViewModelProvider.Factory
 
     @Binds

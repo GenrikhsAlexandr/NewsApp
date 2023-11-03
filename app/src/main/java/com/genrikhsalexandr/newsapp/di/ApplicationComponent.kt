@@ -7,11 +7,15 @@ import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-@Component(modules = [AppDataModule::class])
+@Component(
+    modules = [
+        AppDataModule::class,
+        MainFragmentViewModelModule::class]
+)
 @Singleton
 interface ApplicationComponent {
 
-   //fun inject(mainFragment: MainFragment)
+    fun inject(mainFragment: MainFragment)
 
     fun getArticleRepository(): ArticleRepository
 

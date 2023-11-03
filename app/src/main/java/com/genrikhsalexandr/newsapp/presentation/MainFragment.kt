@@ -109,7 +109,7 @@ class MainFragment : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             return@setOnItemSelectedListener when (menuItem.itemId) {
                 R.id.headlines -> {
-                    navigateToHeadlinesFragment()
+                    viewModel.onClickHeadlines(parentFragmentManager)
                     binding.appBar.isVisible = true
                     binding.toolbar.title = getString(R.string.app_name)
 
@@ -125,7 +125,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.sources -> {
-                    navigateToSourcesFragment()
+                    viewModel.onClickSources(parentFragmentManager)
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = getString(R.string.sources)
@@ -135,21 +135,6 @@ class MainFragment : Fragment() {
 
                 else -> false
             }
-        }
-    }
-
-    fun navigateToSourcesFragment() {
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, SourcesFragment.newInstance())
-            addToBackStack(null)
-        }
-    }
-
-    fun navigateToHeadlinesFragment() {
-        val headlinesFragment = HeadlinesFragment.newInstance()
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, headlinesFragment)
-            addToBackStack(null)
         }
     }
 
@@ -169,13 +154,7 @@ class MainFragment : Fragment() {
         }
     }
 
-/*    fun navigateToFavorites() {
-        val favoritesFragment = FavoritesFragment.newInstance()
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, favoritesFragment)
-            addToBackStack(null)
-        }
-    }*/
+
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -13,4 +13,12 @@ class MainFragmentViewModel @Inject constructor(
             navigator.navigateToFavorites(favoritesFragment)
         }
 
+    fun onClickHeadlines(headlinesFragment: FragmentManager){
+        navigator.navigateToHeadlines(headlinesFragment)
+    }
+
+    fun onClickSources(sourcesFragment: FragmentManager){
+        navigator.navigateToSources(sourcesFragment)
+    }
+
 }

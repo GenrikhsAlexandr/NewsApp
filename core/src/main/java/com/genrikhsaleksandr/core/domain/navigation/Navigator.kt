@@ -9,5 +9,9 @@ interface Navigator {
 
     fun navigateToFavorites(fragmentManager: FragmentManager)
 
+    fun navigateToHeadlines(fragmentManager: FragmentManager)
+
+    fun navigateToSources(fragmentManager: FragmentManager)
+
 
 }

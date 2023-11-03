@@ -11,9 +11,6 @@ import dagger.multibindings.IntoMap
 interface MainFragmentViewModelModule {
 
     @Binds
-    fun bindMainViewModelFactory(factory: MainViewModelFactory): ViewModelProvider.Factory
-
-    @Binds
     @IntoMap
     @MainViewModelKey(MainFragmentViewModel::class)
     fun mainFragmentViewModel(viewModel: MainFragmentViewModel): ViewModel

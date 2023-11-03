@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
 import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
 import com.genrikhsaleksandr.savefeature.di.FavoritesViewModelFactory
@@ -38,6 +39,7 @@ class FavoritesFragment : Fragment() {
         }
     )
 
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as FavoritesComponentProvider).provideFavoritesComponent()
@@ -55,6 +57,9 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.rvFavorites.addItemDecoration(
+            DividerItemDecoration (requireContext(), DividerItemDecoration.VERTICAL)
+        )
 
         binding.rvFavorites.adapter = adapter
         lifecycleScope.launch {
@@ -67,25 +72,5 @@ class FavoritesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onStop() {
-        super.onStop()
-        println("onStop favoritesFragment")
-    }
-
-    override fun onPause() {
-        super.onPause()
-        println("onPause favoritesFragment")
-    }
-
-    override fun onResume() {
-        super.onResume()
-        println("onResume favoritesFragment")
-    }
-
-    override fun onStart() {
-        super.onStart()
-        println("onStart favoritesFragment")
     }
 }

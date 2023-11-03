@@ -15,9 +15,6 @@ import javax.inject.Singleton
 internal interface FavoritesModule {
 
     @Binds
-    fun bindViewModelFactory(factory: FavoritesViewModelFactory): ViewModelProvider.Factory
-
-    @Binds
     @IntoMap
     @ViewModelKey(FavoritesViewModel::class)
     fun favoritesViewModel(viewModel: FavoritesViewModel): ViewModel

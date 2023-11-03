@@ -17,14 +17,6 @@ import javax.inject.Singleton
 @Module
 object AppDataModule {
 
- /*   @Provides
-    @Singleton
-    fun provideMainFragmentViewModel(
-        navigator: Navigator
-    ): MainFragmentViewModel {
-        return MainFragmentViewModel(navigator)
-    }*/
-
     @Provides
     @Singleton
     fun provideArticleRepository(

@@ -11,11 +11,10 @@ import javax.inject.Singleton
     modules = [
         FavoritesModule::class,
         NavigationModule::class,
-        CoreDataModule::class
+        CoreDataModule::class,
     ]
 )
 interface FavoritesComponent {
 
     fun inject(favoritesFragment: FavoritesFragment)
-
 }

@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
 import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
+import com.genrikhsaleksandr.savefeature.di.FavoritesViewModelFactory
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,14 +24,17 @@ class FavoritesFragment : Fragment() {
     }
 
     @Inject
-    lateinit var viewModel: FavoritesViewModel
+    lateinit var viewModelFactory: FavoritesViewModelFactory
+
+    private val viewModel: FavoritesViewModel by viewModels { viewModelFactory }
+
 
     private var _binding: FragmentFavoritesBinding? = null
     private val binding: FragmentFavoritesBinding get() = _binding!!
 
     private val adapter: FavoritesAdapter = FavoritesAdapter(
         onNewsItemClickListener = {
-            viewModel.onNewsItemClick(it,parentFragmentManager)
+            viewModel.onNewsItemClick(it, parentFragmentManager)
         }
     )
 

@@ -13,15 +13,14 @@ import com.genrikhsalexandr.newsapp.navigation.NavigatorImpl
 
 class ArticleApplication : Application(), FavoritesComponentProvider, MainComponentProvider {
 
-
     private val navigationModule: NavigationModule by lazy {
         NavigationModule(
             navigator = NavigatorImpl()
         )
     }
-  /*  private val applicationComponent: ApplicationComponent = DaggerApplicationComponent
-        .factory().create(application = this)
-*/
+    private val applicationComponent: ApplicationComponent = DaggerApplicationComponent
+        .factory().create(application = this, navigationModule = navigationModule)
+
     private val dataModule: CoreDataModule by lazy {
         CoreDataModule(
             repository = provideMainComponent().getArticleRepository()
@@ -36,7 +35,6 @@ class ArticleApplication : Application(), FavoritesComponentProvider, MainCompon
     }
 
     override fun provideMainComponent(): ApplicationComponent {
-return DaggerApplicationComponent.factory().create(application = this)   }
-
-
+        return applicationComponent
+    }
 }

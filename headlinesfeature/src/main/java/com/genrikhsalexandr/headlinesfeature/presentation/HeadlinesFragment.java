@@ -17,7 +17,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-public class HeadlinesFragment extends Fragment {
+public class HeadlinesFragment extends Fragment implements HeadlinesView {
 
     TabsAdapter tabsAdapter;
     ViewPager2 viewPager;

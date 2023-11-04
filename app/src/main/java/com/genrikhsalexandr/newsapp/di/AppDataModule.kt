@@ -2,16 +2,13 @@ package com.genrikhsalexandr.newsapp.di
 
 import android.app.Application
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
-import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.AppDatabase
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.repository.ArticleRepositoryImpl
-import com.genrikhsalexandr.newsapp.navigation.NavigatorImpl
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
-
 
 @Module
 object AppDataModule {
@@ -26,12 +23,6 @@ object AppDataModule {
             dao,
             mapper
         )
-    }
-
-    @Provides
-    @Singleton
-    fun provideNavigator(): Navigator {
-        return NavigatorImpl()
     }
 
     @Provides

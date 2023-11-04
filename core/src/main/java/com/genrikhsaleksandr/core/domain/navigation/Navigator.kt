@@ -6,7 +6,7 @@ import com.genrikhsaleksandr.core.domain.model.Article
 
 interface Navigator {
 
-    interface Listener {
+    fun interface Listener {
         fun onNavigated(destination: Screen)
     }
 

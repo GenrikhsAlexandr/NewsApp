@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import com.genrikhsalexandr.detailarticlefeature.R
 import com.genrikhsalexandr.detailarticlefeature.databinding.FragmentDetailBinding
 
-class DetailFragment : Fragment(R.layout.fragment_detail) {
+class DetailFragment : Fragment() {
 
     companion object {
         fun newInstance(): DetailFragment {

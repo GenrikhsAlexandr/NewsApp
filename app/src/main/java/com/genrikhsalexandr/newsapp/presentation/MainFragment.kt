@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import com.genrikhsalexandr.filterfeature.presentation.FilterFragment
 import com.genrikhsalexandr.headlinesfeature.presentation.HeadlinesFragment
@@ -19,6 +20,7 @@ import com.genrikhsalexandr.newsapp.di.MainComponentProvider
 import com.genrikhsalexandr.newsapp.di.MainViewModelFactory
 import com.genrikhsalexandr.searchfeature.presentation.SearchFragment
 import com.genrikhsalexandr.souresfeature.presentation.SourcesFragment
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
@@ -52,6 +54,15 @@ class MainFragment : Fragment() {
         clickedBackSearchView()
         clickedBackFilterToolBar()
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.viewModelScope.launch {
+            viewModel.isAppBarVisible.collect {
+                binding.appBar.isVisible = it
+            }
+        }
     }
 
     private fun clickedBackSearchView() {

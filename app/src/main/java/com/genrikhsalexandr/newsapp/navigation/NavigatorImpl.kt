@@ -15,7 +15,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToDetailsArticle(article: Article, fragmentManager: FragmentManager) {
         val detailFragment = DetailFragment.newInstance()
         fragmentManager.commit {
-            replace(R.id.fragment_container, detailFragment)
+            add(R.id.fragment_container, detailFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.DETAIL_ARTICLE)

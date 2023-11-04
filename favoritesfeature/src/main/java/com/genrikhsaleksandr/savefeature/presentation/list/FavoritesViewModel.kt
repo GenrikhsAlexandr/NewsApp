@@ -59,6 +59,6 @@ class FavoritesViewModel @Inject constructor(
     }
 
     fun onNewsItemClick(article: Article, fragmentManager: FragmentManager) {
-        navigator.navigateToArticleDetails(article, fragmentManager)
+        navigator.navigateToDetailsArticle(article, fragmentManager)
     }
 }

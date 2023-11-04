@@ -10,11 +10,15 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
+import com.genrikhsalexandr.filterfeature.presentation.FilterFragment
+import com.genrikhsalexandr.headlinesfeature.presentation.HeadlinesFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
-import com.genrikhsalexandr.newsapp.di.MainFragmentViewModelModule
 import com.genrikhsalexandr.newsapp.di.MainViewModelFactory
+import com.genrikhsalexandr.searchfeature.presentation.SearchFragment
+import com.genrikhsalexandr.souresfeature.presentation.SourcesFragment
 import javax.inject.Inject
 
 class MainFragment : Fragment() {
@@ -47,10 +51,8 @@ class MainFragment : Fragment() {
         bottomNavigation()
         clickedBackSearchView()
         clickedBackFilterToolBar()
-
         return binding.root
     }
-
 
     private fun clickedBackSearchView() {
         binding.ivSearchView.setOnClickListener {
@@ -69,7 +71,7 @@ class MainFragment : Fragment() {
 
         binding.toolbarFilter.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
-                R.id.checked -> {
+                com.genrikhsalexandr.filterfeature.R.id.checked -> {
                     Toast.makeText(context, "Filter saved", Toast.LENGTH_LONG).show()
                     childFragmentManager.popBackStack()
                     binding.appBar.isVisible = true
@@ -109,32 +111,53 @@ class MainFragment : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             return@setOnItemSelectedListener when (menuItem.itemId) {
                 R.id.headlines -> {
-                    viewModel.onClickHeadlines(parentFragmentManager)
+                    navigateToHeadlinesFragment()
+                    //  viewModel.onClickHeadlines(parentFragmentManager)
                     binding.appBar.isVisible = true
                     binding.toolbar.title = getString(R.string.app_name)
-
+                    binding.appBarFilter.isVisible = false
+                    binding.layoutSearchView.isVisible = false
                     true
                 }
 
                 R.id.favorite -> {
-                    viewModel.onClickFavorites(parentFragmentManager )
+                    navigateToFavorites()
+                    //viewModel.onClickFavorites(parentFragmentManager )
                     binding.appBar.isVisible = true
                     binding.toolbar.title = getString(R.string.saved)
-                    onPause()
+                    binding.appBarFilter.isVisible = false
+                    binding.layoutSearchView.isVisible = false
                     true
                 }
 
                 R.id.sources -> {
-                    viewModel.onClickSources(parentFragmentManager)
+                    navigateToSourcesFragment()
+                    //viewModel.onClickSources(parentFragmentManager)
                     binding.appBar.isVisible = true
                     binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = getString(R.string.sources)
-
+                    binding.appBarFilter.isVisible = false
+                    binding.layoutSearchView.isVisible = false
                     true
                 }
 
                 else -> false
             }
+        }
+    }
+
+    fun navigateToSourcesFragment() {
+        childFragmentManager.commit {
+            replace(R.id.fragment_container, SourcesFragment.newInstance())
+            addToBackStack(null)
+        }
+    }
+
+    fun navigateToHeadlinesFragment() {
+        val headlinesFragment = HeadlinesFragment.newInstance()
+        childFragmentManager.commit {
+            replace(R.id.fragment_container, headlinesFragment)
+            addToBackStack(null)
         }
     }
 
@@ -146,6 +169,15 @@ class MainFragment : Fragment() {
         }
     }
 
+
+    fun navigateToFavorites() {
+        val favoritesFragment = FavoritesFragment.newInstance()
+        childFragmentManager.commit {
+            replace(R.id.fragment_container, favoritesFragment)
+            addToBackStack(null)
+        }
+    }
+
     fun navigateToFilterFragment() {
         val filterFragment = FilterFragment.newInstance()
         childFragmentManager.commit {
@@ -153,8 +185,6 @@ class MainFragment : Fragment() {
             addToBackStack(null)
         }
     }
-
-
 
     override fun onDestroyView() {
         super.onDestroyView()

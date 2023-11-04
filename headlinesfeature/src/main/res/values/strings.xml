@@ -1,0 +1,14 @@
+<resources>
+    <!-- Strings used for fragments for navigation -->
+    <string name="headlines">Headlines</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello headlines fragment</string>
+    <string name="general">General</string>
+    <string name="business">Business</string>
+    <string name="entertainment">entertainment</string>
+    <string name="health">health</string>
+    <string name="science">science</string>
+    <string name="sport">sport</string>
+    <string name="technology">technology</string>
+
+</resources>

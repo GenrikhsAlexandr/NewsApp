@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:layout="@layout/fragment_headlines"
-    android:name="com.genrikhsalexandr.newsapp.presentation.HeadlinesFragment">
+    android:name="com.genrikhsalexandr.headlinesfeature.presentation.HeadlinesFragment">
 
 </androidx.fragment.app.FragmentContainerView>

@@ -15,7 +15,8 @@ import com.genrikhsaleksandr.savefeature.di.FavoritesViewModelFactory
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class FavoritesFragment : Fragment() {
+class FavoritesFragment  @Inject constructor(
+): Fragment() {
 
     companion object {
 

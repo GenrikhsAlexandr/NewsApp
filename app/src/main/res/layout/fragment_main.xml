@@ -71,7 +71,6 @@
                 style="@style/Widget.App.MaterialDivider"/>
         </LinearLayout>
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarFilter"
         android:layout_width="match_parent"

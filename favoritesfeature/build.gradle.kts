@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.genrikhsaleksandr.savefeature"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         minSdk = 24

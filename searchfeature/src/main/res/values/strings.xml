@@ -1,0 +1,4 @@
+<resources>
+    <!-- Strings used for fragments for navigation -->
+    <string name="search">Search</string>
+</resources>

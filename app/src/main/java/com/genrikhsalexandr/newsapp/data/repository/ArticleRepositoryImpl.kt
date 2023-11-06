@@ -2,9 +2,11 @@ package com.genrikhsalexandr.newsapp.data.repository
 
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
+import com.genrikhsaleksandr.core.domain.model.Sources
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.network.NewsService
+import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -19,8 +21,8 @@ import javax.inject.Inject
 class ArticleRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao,
     private val mapper: NewsDtoMapper,
+    private val sourcesMapper: SourcesDtoMapper
 ) : ArticleRepository {
-
     companion object {
         private const val BASE_URL = "https://newsapi.org/"
         private val json = Json { ignoreUnknownKeys = true }
@@ -63,6 +65,16 @@ class ArticleRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
             null
+        }
+    }
+
+    override suspend fun getSources(): List<Sources>? = withContext(Dispatchers.IO) {
+        try {
+            val response = service.getSources()
+            sourcesMapper.mapSourcesDtoToSources(response)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyList()
         }
     }
 

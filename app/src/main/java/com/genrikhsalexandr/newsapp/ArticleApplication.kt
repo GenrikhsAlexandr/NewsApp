@@ -10,8 +10,11 @@ import com.genrikhsalexandr.newsapp.di.ApplicationComponent
 import com.genrikhsalexandr.newsapp.di.DaggerApplicationComponent
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
 import com.genrikhsalexandr.newsapp.navigation.NavigatorImpl
+import com.genrikhsalexandr.souresfeature.di.DaggerSourcesComponent
+import com.genrikhsalexandr.souresfeature.di.SourcesComponent
+import com.genrikhsalexandr.souresfeature.di.SourcesComponentProvider
 
-class ArticleApplication : Application(), FavoritesComponentProvider, MainComponentProvider {
+class ArticleApplication : Application(), FavoritesComponentProvider, MainComponentProvider, SourcesComponentProvider {
 
     private val navigationModule: NavigationModule by lazy {
         NavigationModule(
@@ -23,7 +26,7 @@ class ArticleApplication : Application(), FavoritesComponentProvider, MainCompon
 
     private val dataModule: CoreDataModule by lazy {
         CoreDataModule(
-            repository = provideMainComponent().getArticleRepository()
+            repository = provideMainComponent().getArticleRepository(),
         )
     }
 
@@ -36,5 +39,12 @@ class ArticleApplication : Application(), FavoritesComponentProvider, MainCompon
 
     override fun provideMainComponent(): ApplicationComponent {
         return applicationComponent
+    }
+
+    override fun provideSourcesComponent(): SourcesComponent {
+        return DaggerSourcesComponent.builder()
+            .navigationModule(navigationModule)
+            .coreDataModule(dataModule)
+            .build()
     }
 }

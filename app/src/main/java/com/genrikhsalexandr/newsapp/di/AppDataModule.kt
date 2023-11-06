@@ -6,6 +6,7 @@ import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.AppDatabase
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.repository.ArticleRepositoryImpl
+import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -17,11 +18,13 @@ object AppDataModule {
     @Singleton
     fun provideArticleRepository(
         dao: ArticleDao,
-        mapper: NewsDtoMapper
+        articleMapper: NewsDtoMapper,
+        sourcesMapper: SourcesDtoMapper
     ): ArticleRepository {
         return ArticleRepositoryImpl(
             dao,
-            mapper
+            articleMapper,
+            sourcesMapper
         )
     }
 
@@ -30,6 +33,13 @@ object AppDataModule {
     fun provideMapperNewsDto(
     ): NewsDtoMapper {
         return NewsDtoMapper()
+    }
+
+    @Provides
+    @Singleton
+    fun provideMapperSourcesDto(
+    ): SourcesDtoMapper {
+        return SourcesDtoMapper()
     }
 
     @Provides

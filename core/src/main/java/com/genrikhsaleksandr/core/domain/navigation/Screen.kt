@@ -6,5 +6,7 @@ enum class Screen {
     SOURCES,
     SEARCH,
     FILTER,
-    DETAIL_ARTICLE
+    DETAIL_ARTICLE,
+    SOURCENEWS,
+    FILTERDATE
 }

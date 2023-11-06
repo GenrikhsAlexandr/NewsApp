@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="74dp"
+    android:background="#ffff"
     tools:context="com.genrikhsalexandr.filterfeature.presentation.FilterFragment">
     
     <androidx.constraintlayout.widget.ConstraintLayout

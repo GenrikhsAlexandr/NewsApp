@@ -8,18 +8,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
-import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
-import com.genrikhsalexandr.filterfeature.presentation.FilterFragment
-import com.genrikhsalexandr.headlinesfeature.presentation.HeadlinesFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
 import com.genrikhsalexandr.newsapp.di.MainViewModelFactory
-import com.genrikhsalexandr.searchfeature.presentation.SearchFragment
-import com.genrikhsalexandr.souresfeature.presentation.SourcesFragment
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -68,16 +62,12 @@ class MainFragment : Fragment() {
     private fun clickedBackSearchView() {
         binding.ivSearchView.setOnClickListener {
             childFragmentManager.popBackStack()
-            binding.appBar.isVisible = true
-            binding.layoutSearchView.isVisible = false
         }
     }
 
     private fun clickedBackFilterToolBar() {
         binding.toolbarFilter.setNavigationOnClickListener {
             childFragmentManager.popBackStack()
-            binding.appBar.isVisible = true
-            binding.appBarFilter.isVisible = false
         }
 
         binding.toolbarFilter.setOnMenuItemClickListener { item ->
@@ -99,17 +89,16 @@ class MainFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.search -> {
-                    binding.appBar.isVisible = false
-                    binding.layoutSearchView.isVisible = true
+                   viewModel.onSearchClick(parentFragmentManager)
                     binding.searchView.requestFocus()
-                    navigateToSearchFragment()
+                    binding.layoutSearchView.isVisible = true
+
                     true
                 }
 
                 R.id.filter -> {
-                    binding.appBar.isVisible = false
+                   viewModel.onFilterClick(parentFragmentManager)
                     binding.appBarFilter.isVisible = true
-                    navigateToFilterFragment()
                     true
                 }
 
@@ -122,9 +111,7 @@ class MainFragment : Fragment() {
         binding.bottomNavigation.setOnItemSelectedListener { menuItem ->
             return@setOnItemSelectedListener when (menuItem.itemId) {
                 R.id.headlines -> {
-                    navigateToHeadlinesFragment()
-                    //  viewModel.onClickHeadlines(parentFragmentManager)
-                    binding.appBar.isVisible = true
+                    viewModel.onHeadlinesClick(parentFragmentManager)
                     binding.toolbar.title = getString(R.string.app_name)
                     binding.appBarFilter.isVisible = false
                     binding.layoutSearchView.isVisible = false
@@ -132,9 +119,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.favorite -> {
-                    navigateToFavorites()
-                    //viewModel.onClickFavorites(parentFragmentManager )
-                    binding.appBar.isVisible = true
+                    viewModel.onFavoritesClick(parentFragmentManager )
                     binding.toolbar.title = getString(R.string.saved)
                     binding.appBarFilter.isVisible = false
                     binding.layoutSearchView.isVisible = false
@@ -142,9 +127,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.sources -> {
-                    navigateToSourcesFragment()
-                    //viewModel.onClickSources(parentFragmentManager)
-                    binding.appBar.isVisible = true
+                    viewModel.onSourcesClick(parentFragmentManager)
                     binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = getString(R.string.sources)
                     binding.appBarFilter.isVisible = false
@@ -154,46 +137,6 @@ class MainFragment : Fragment() {
 
                 else -> false
             }
-        }
-    }
-
-    fun navigateToSourcesFragment() {
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, SourcesFragment.newInstance())
-            addToBackStack(null)
-        }
-    }
-
-    fun navigateToHeadlinesFragment() {
-        val headlinesFragment = HeadlinesFragment.newInstance()
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, headlinesFragment)
-            addToBackStack(null)
-        }
-    }
-
-    fun navigateToSearchFragment() {
-        val searchFragment = SearchFragment.newInstance()
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, searchFragment)
-            addToBackStack(null)
-        }
-    }
-
-
-    fun navigateToFavorites() {
-        val favoritesFragment = FavoritesFragment.newInstance()
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, favoritesFragment)
-            addToBackStack(null)
-        }
-    }
-
-    fun navigateToFilterFragment() {
-        val filterFragment = FilterFragment.newInstance()
-        childFragmentManager.commit {
-            replace(R.id.fragment_container, filterFragment)
-            addToBackStack(null)
         }
     }
 

@@ -7,7 +7,7 @@ import javax.inject.Singleton
 
 @Module
 class CoreDataModule(
-    private val repository: ArticleRepository
+    private val repository: ArticleRepository,
 ) {
     @Provides
     @Singleton

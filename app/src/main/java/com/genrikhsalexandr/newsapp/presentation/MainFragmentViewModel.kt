@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 class MainFragmentViewModel @Inject constructor(
-    val navigator: Navigator
+    private val navigator: Navigator
 ) : ViewModel() {
 
     private val _isAppBarVisible: MutableStateFlow<Boolean> = MutableStateFlow(true)
@@ -33,16 +33,35 @@ class MainFragmentViewModel @Inject constructor(
             }
 
             Screen.SEARCH -> {
-                isAppBarVisible.value = false
+                isAppBarVisible.value = true
             }
 
             Screen.FILTER -> {
-                isAppBarVisible.value = false
+                isAppBarVisible.value = true
             }
+
+            Screen.SOURCENEWS -> TODO()
+            Screen.FILTERDATE -> TODO()
         }
     }
 
     init {
         navigator.listener = navigatorListener
+    }
+
+    fun onHeadlinesClick(fragment: FragmentManager){
+        navigator.navigateToHeadlines(fragment)
+    }
+    fun onFavoritesClick(fragment: FragmentManager){
+        navigator.navigateToFavorites(fragment)
+    }
+    fun onSourcesClick(fragment: FragmentManager){
+        navigator.navigateToSources(fragment)
+    }
+    fun onSearchClick(fragment: FragmentManager){
+        navigator.navigateToSearch(fragment)
+    }
+    fun onFilterClick(fragment: FragmentManager){
+        navigator.navigateToFilter(fragment)
     }
 }

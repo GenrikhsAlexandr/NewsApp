@@ -40,7 +40,8 @@ class MainFragmentViewModel @Inject constructor(
                 isAppBarVisible.value = true
             }
 
-            Screen.SOURCENEWS -> TODO()
+            Screen.SOURCEARTICLES -> {
+            }
             Screen.FILTERDATE -> TODO()
         }
     }

@@ -1,19 +1,18 @@
 package com.genrikhsalexandr.souresfeature.data
 
-import com.genrikhsaleksandr.core.domain.model.Sources
-import com.genrikhsalexandr.souresfeature.data.dto.SourcesListDto
+import com.genrikhsaleksandr.core.domain.model.Source
+import com.genrikhsalexandr.souresfeature.data.dto.sources.SourcesListDto
 import javax.inject.Inject
 
 class SourcesDtoMapper @Inject constructor() {
 
-    fun mapSourcesDtoToSources(sourcesListDto: SourcesListDto): List<Sources> {
+    fun mapSourcesDtoToSources(sourcesListDto: SourcesListDto): List<Source> {
         return sourcesListDto.sources.map {
-            Sources(
+            Source(
                 id = it.id,
                 name = it.name,
                 category = it.category,
                 country = it.country,
-                description = it.description
             )
         }
     }

@@ -2,7 +2,7 @@ package com.genrikhsalexandr.newsapp.data.repository
 
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
-import com.genrikhsaleksandr.core.domain.model.Sources
+import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.network.NewsService
@@ -68,7 +68,7 @@ class ArticleRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getSources(): List<Sources>? = withContext(Dispatchers.IO) {
+    override suspend fun getSources(): List<Source>? = withContext(Dispatchers.IO) {
         try {
             val response = service.getSources()
             sourcesMapper.mapSourcesDtoToSources(response)

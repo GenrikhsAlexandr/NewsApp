@@ -1,14 +1,14 @@
-package com.genrikhsalexandr.souresfeature.presentation
+package com.genrikhsalexandr.souresfeature.presentation.sources
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.genrikhsaleksandr.core.domain.model.Sources
+import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsalexandr.souresfeature.databinding.ListItemSourcesBinding
 import java.util.Locale
 
 class SourcesAdapter(
-    val onNewsItemClickListener: ((Sources) -> Unit)
+    val onNewsItemClickListener: ((Source) -> Unit)
 ) : RecyclerView.Adapter<SourcesAdapter.NewsViewHolder>() {
 
     private lateinit var list: List<SourcesItemList>
@@ -46,7 +46,7 @@ class SourcesAdapter(
                 delimiter.text = " | "
                 root.setOnClickListener {
                     onNewsItemClickListener(
-                        listItem.articleSources
+                        listItem.articleSource
                     )
                 }
             }

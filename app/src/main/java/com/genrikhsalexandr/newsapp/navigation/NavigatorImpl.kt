@@ -3,7 +3,7 @@ package com.genrikhsalexandr.newsapp.navigation
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.genrikhsaleksandr.core.domain.model.Article
-import com.genrikhsaleksandr.core.domain.model.Sources
+import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
@@ -12,8 +12,8 @@ import com.genrikhsalexandr.filterfeature.presentation.FilterFragment
 import com.genrikhsalexandr.headlinesfeature.presentation.HeadlinesFragment
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.searchfeature.presentation.SearchFragment
-import com.genrikhsalexandr.souresfeature.presentation.NewsSourceFragment
-import com.genrikhsalexandr.souresfeature.presentation.SourcesFragment
+import com.genrikhsalexandr.souresfeature.presentation.articlessource.ArticlesSourceFragment
+import com.genrikhsalexandr.souresfeature.presentation.sources.SourcesFragment
 
 class NavigatorImpl : Navigator {
 
@@ -55,8 +55,8 @@ class NavigatorImpl : Navigator {
         listener?.onNavigated(Screen.SOURCES)
     }
 
-    override fun navigateToSourceNews(source: Sources, fragmentManager: FragmentManager) {
-        val sourceNesFragment = NewsSourceFragment.newInstance()
+    override fun navigateToSourceArticles(source: Source, fragmentManager: FragmentManager) {
+        val sourceNesFragment = ArticlesSourceFragment.newInstance()
         fragmentManager.commit {
             add(R.id.fragment_container, sourceNesFragment)
             addToBackStack(null)

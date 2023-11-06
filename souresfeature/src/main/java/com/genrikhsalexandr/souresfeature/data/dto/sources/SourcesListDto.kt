@@ -1,4 +1,4 @@
-package com.genrikhsalexandr.souresfeature.data.dto
+package com.genrikhsalexandr.souresfeature.data.dto.sources
 
 import kotlinx.serialization.Serializable
 

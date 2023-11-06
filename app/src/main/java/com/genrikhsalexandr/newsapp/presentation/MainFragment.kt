@@ -10,10 +10,12 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
+import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
 import com.genrikhsalexandr.newsapp.di.MainViewModelFactory
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -89,7 +91,7 @@ class MainFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.search -> {
-                   viewModel.onSearchClick(parentFragmentManager)
+                    viewModel.onSearchClick(parentFragmentManager)
                     binding.searchView.requestFocus()
                     binding.layoutSearchView.isVisible = true
 
@@ -97,7 +99,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.filter -> {
-                   viewModel.onFilterClick(parentFragmentManager)
+                    viewModel.onFilterClick(parentFragmentManager)
                     binding.appBarFilter.isVisible = true
                     true
                 }
@@ -119,7 +121,7 @@ class MainFragment : Fragment() {
                 }
 
                 R.id.favorite -> {
-                    viewModel.onFavoritesClick(parentFragmentManager )
+                    viewModel.onFavoritesClick(parentFragmentManager)
                     binding.toolbar.title = getString(R.string.saved)
                     binding.appBarFilter.isVisible = false
                     binding.layoutSearchView.isVisible = false

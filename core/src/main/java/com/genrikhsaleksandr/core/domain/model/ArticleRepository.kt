@@ -9,6 +9,6 @@ interface ArticleRepository {
 
     suspend fun deleteFavoriteArticle(article: Article)
 
-    suspend fun getSources(): List<Sources>?
+    suspend fun getSources(): List<Source>?
 
 }

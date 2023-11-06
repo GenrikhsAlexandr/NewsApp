@@ -1,4 +1,4 @@
-package com.genrikhsalexandr.souresfeature.data.dto
+package com.genrikhsalexandr.souresfeature.data.dto.sources
 
 import kotlinx.serialization.Serializable
 
@@ -7,6 +7,5 @@ data class SourcesDto(
     val id:String?,
     val name:String?,
     val category: String,
-    val description:String?,
     val country: String?
 )

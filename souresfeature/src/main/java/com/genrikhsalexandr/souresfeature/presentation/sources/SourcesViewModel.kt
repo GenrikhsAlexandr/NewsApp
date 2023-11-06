@@ -1,9 +1,9 @@
-package com.genrikhsalexandr.souresfeature.presentation
+package com.genrikhsalexandr.souresfeature.presentation.sources
 
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.genrikhsaleksandr.core.domain.model.Sources
+import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsalexandr.souresfeature.domain.SourcesInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ class SourcesViewModel @Inject constructor(
     private val interactor: SourcesInteractor
 ) : ViewModel() {
 
-    private val _source: MutableStateFlow<List<Sources>> = MutableStateFlow(emptyList())
+    private val _source: MutableStateFlow<List<Source>> = MutableStateFlow(emptyList())
 
     val source: StateFlow<List<SourcesItemList>> = _source.map { news ->
         news.map {
@@ -27,7 +27,7 @@ class SourcesViewModel @Inject constructor(
                 category = it.category,
                 name = it.name,
                 country = it.country,
-                articleSources = it
+                articleSource = it
             )
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
@@ -44,7 +44,7 @@ class SourcesViewModel @Inject constructor(
         }
     }
 
-    fun onNewsItemClick(source: Sources, fragmentManager: FragmentManager) {
-        navigator.navigateToSourceNews(source, fragmentManager)
+    fun onNewsItemClick(source: Source, fragmentManager: FragmentManager) {
+        navigator.navigateToSourceArticles(source, fragmentManager)
     }
 }

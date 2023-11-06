@@ -3,7 +3,7 @@ package com.genrikhsalexandr.souresfeature.di
 import androidx.lifecycle.ViewModel
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsalexandr.souresfeature.domain.SourcesInteractor
-import com.genrikhsalexandr.souresfeature.presentation.SourcesViewModel
+import com.genrikhsalexandr.souresfeature.presentation.sources.SourcesViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

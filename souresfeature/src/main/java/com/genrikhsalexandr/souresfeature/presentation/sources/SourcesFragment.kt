@@ -1,4 +1,4 @@
-package com.genrikhsalexandr.souresfeature.presentation
+package com.genrikhsalexandr.souresfeature.presentation.sources
 
 import android.content.Context
 import android.os.Bundle

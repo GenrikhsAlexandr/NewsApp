@@ -3,7 +3,7 @@ package com.genrikhsaleksandr.core.navigation
 import androidx.fragment.app.FragmentManager
 import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsaleksandr.core.domain.model.Article
-import com.genrikhsaleksandr.core.domain.model.Sources
+import com.genrikhsaleksandr.core.domain.model.Source
 
 interface Navigator {
 
@@ -21,7 +21,7 @@ interface Navigator {
 
     fun navigateToSources(fragmentManager: FragmentManager)
 
-    fun navigateToSourceNews(source:Sources, fragmentManager: FragmentManager)
+    fun navigateToSourceArticles(source:Source, fragmentManager: FragmentManager)
 
     fun navigateToSearch(fragmentManager: FragmentManager)
 

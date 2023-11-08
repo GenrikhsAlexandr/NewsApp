@@ -1,5 +1,6 @@
 package com.genrikhsalexandr.detailarticlefeature.presentation
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,10 +13,13 @@ import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsalexandr.detailarticlefeature.R
 import com.genrikhsalexandr.detailarticlefeature.databinding.FragmentDetailBinding
+import com.genrikhsalexandr.detailarticlefeature.di.DetailComponentProvider
+import com.genrikhsalexandr.detailarticlefeature.di.DetailViewModelFactory
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
+import javax.inject.Inject
 
 class DetailFragment : Fragment() {
 
@@ -32,10 +36,19 @@ class DetailFragment : Fragment() {
         }
     }
 
-    private val viewModel: DetailViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: DetailViewModelFactory
+
+    private val viewModel: DetailViewModel by viewModels { viewModelFactory }
 
     private var _binding: FragmentDetailBinding? = null
     private val binding: FragmentDetailBinding get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as DetailComponentProvider).provideDetailComponent()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

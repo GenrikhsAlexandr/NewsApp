@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.core.domain.model.Article
+import com.genrikhsalexandr.detailarticlefeature.R
 import com.genrikhsalexandr.detailarticlefeature.databinding.FragmentDetailBinding
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -61,13 +64,37 @@ class DetailFragment : Fragment() {
                     .load(it.urlToImage.toString())
                     .into(binding.imageArticle)
             }
-
         }
 
         binding.toolbarArticle.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
         }
+
+        binding.toolbarArticle.setOnMenuItemClickListener { item ->
+            return@setOnMenuItemClickListener when (item.itemId) {
+                R.id.saved -> {
+                    viewModel.onFavoriteButtonClicked()
+                    true
+                }
+
+                else -> false
+            }
+        }
+        subscribe()
         return binding.root
+    }
+
+    private fun subscribe() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isIconClick.collect { isIconClick ->
+                val menuItem = binding.toolbarArticle.menu.findItem(R.id.saved)
+                if (isIconClick) {
+                    menuItem.setIcon(R.drawable.ic_favoriteschoose)
+                } else {
+                    menuItem.setIcon(R.drawable.ic_favorites)
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

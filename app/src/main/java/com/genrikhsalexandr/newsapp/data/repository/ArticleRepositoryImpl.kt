@@ -23,7 +23,7 @@ class ArticleRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao,
     private val mapper: NewsDtoMapper,
     private val sourcesMapper: SourcesDtoMapper,
-    private val articlesSourcesMapper: ArticlesSourceDtoMapper
+    private val articlesSourcesMapper: ArticlesSourceDtoMapper,
 ) : ArticleRepository {
     companion object {
         private const val BASE_URL = "https://newsapi.org/"
@@ -90,7 +90,11 @@ class ArticleRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun saveFavoritesArticle(article: Article) {
+    override suspend fun isFavorite(article: Article): Boolean {
+        TODO()
+    }
+
+    override suspend fun saveFavoriteArticle(article: Article) {
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)
         articleDao.insertArticle(articleDbModel)
     }

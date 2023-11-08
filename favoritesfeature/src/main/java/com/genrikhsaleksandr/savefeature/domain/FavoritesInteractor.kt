@@ -11,7 +11,7 @@ class FavoritesInteractor @Inject constructor(
 
     suspend fun getArticlesList(): List<Article>? = repository.getArticles()
 
-    suspend fun saveFavoritesArticle(article: Article) = repository.saveFavoritesArticle(article)
+    suspend fun saveFavoritesArticle(article: Article) = repository.saveFavoriteArticle(article)
 
     suspend fun deleteFavoriteArticle(article: Article) = repository.deleteFavoriteArticle(article)
 }

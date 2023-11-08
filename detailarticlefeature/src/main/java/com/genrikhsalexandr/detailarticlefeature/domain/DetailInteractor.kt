@@ -7,7 +7,9 @@ import javax.inject.Inject
 class DetailInteractor @Inject constructor(
     private val repository: ArticleRepository
 ) {
-    suspend fun saveFavoritesArticle(article: Article) = repository.saveFavoritesArticle(article)
+
+   // suspend fun isFavorite(article: Article) = repository.isFavorite(article)
+    suspend fun saveFavoritesArticle(article: Article) = repository.saveFavoriteArticle(article)
 
     suspend fun deleteFavoriteArticle(article: Article) = repository.deleteFavoriteArticle(article)
 }

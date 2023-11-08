@@ -39,7 +39,6 @@ class FavoritesViewModel @Inject constructor(
             try {
                 _news.value = interactor.getArticlesList() ?: emptyList()
                 println("news = ${_news.value}")
-                saveFavoritesArticle(_news.value.last())
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -48,14 +47,6 @@ class FavoritesViewModel @Inject constructor(
 
     suspend fun getFavoritesArticle(article: Article): List<Article> {
         return interactor.getFavoritesArticles()
-    }
-
-    private suspend fun saveFavoritesArticle(article: Article) {
-        interactor.saveFavoritesArticle(article)
-    }
-
-    suspend fun deleteFavoritesArticle(article: Article) {
-        interactor.deleteFavoriteArticle(article)
     }
 
     fun onNewsItemClick(article: Article, fragmentManager: FragmentManager) {

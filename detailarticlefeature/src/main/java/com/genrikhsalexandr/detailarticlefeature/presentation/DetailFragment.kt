@@ -1,6 +1,8 @@
 package com.genrikhsalexandr.detailarticlefeature.presentation
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -50,12 +52,14 @@ class DetailFragment : Fragment() {
             .inject(this)
     }
 
+    private var article: Article? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
-        val article =
+        article =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.getSerializable(BUNDLE_KEY_ARTICLE, Article::class.java)
             } else
@@ -78,6 +82,7 @@ class DetailFragment : Fragment() {
                     .into(binding.imageArticle)
             }
         }
+       // article?.let { viewModel.setArticle(it) }
 
         binding.toolbarArticle.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
@@ -94,7 +99,17 @@ class DetailFragment : Fragment() {
             }
         }
         subscribe()
+        setClickListeners()
         return binding.root
+    }
+
+    private fun setClickListeners(){
+        val articleUrl = article?.url
+        binding.contentDetail.setOnClickListener {
+            val uri = Uri.parse(articleUrl)
+            val intent = Intent(Intent.ACTION_VIEW,uri)
+            startActivity(intent)
+        }
     }
 
     private fun subscribe() {

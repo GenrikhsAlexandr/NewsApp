@@ -19,7 +19,7 @@ class ArticlesSourceViewModel /*@Inject constructor(
         news.map {
             ArticlesSourceItemList(
                 title = it.title,
-                source = it.source,
+                source = it.sourceName,
                 articlesSource = it
             )
         }

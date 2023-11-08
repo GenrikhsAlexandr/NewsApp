@@ -10,12 +10,12 @@ class NewsDtoMapper @Inject constructor() {
     fun mapNewsListDtoToListArticle(articleDto: NewsListDto): List<Article> {
         return articleDto.articles.map {
             Article(
-                source = it.source.name,
+                sourceName = it.source.name,
                 title = it.title,
                 urlToImage = it.urlToImage,
                 publishedAt = it.publishedAt,
                 content = it.content,
-                id = it.source.id,
+                sourceId = it.source.id,
                 url = it.url
             )
         }
@@ -23,22 +23,22 @@ class NewsDtoMapper @Inject constructor() {
 
     fun mapArticleDbModelToArticle(articleDbModel: ArticleDbModel) = Article(
         publishedAt = articleDbModel.publishedAt,
-        source = articleDbModel.source,
+        sourceName = articleDbModel.sourceName,
         title = articleDbModel.title,
         urlToImage = articleDbModel.urlToImage,
         content = articleDbModel.content,
-        id = articleDbModel.id,
+        sourceId = articleDbModel.sourceId,
         url = articleDbModel.url
-
     )
 
     fun mapArticleToArticleDbModel(article: Article) = ArticleDbModel(
         publishedAt = article.publishedAt,
-        source = article.source,
+        sourceName = article.sourceName,
         title = article.title,
         urlToImage = article.urlToImage,
         content = article.content,
-        id = article.id,
-        url = article.url
+        sourceId = article.sourceId,
+        url = article.url,
+        id = article.id
     )
 }

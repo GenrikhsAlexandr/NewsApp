@@ -7,5 +7,6 @@ data class SourcesDto(
     val id:String?,
     val name:String?,
     val category: String,
-    val country: String?
+    val country: String?,
+    val language:String,
 )

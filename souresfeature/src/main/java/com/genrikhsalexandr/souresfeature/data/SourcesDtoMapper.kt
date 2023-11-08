@@ -13,6 +13,7 @@ class SourcesDtoMapper @Inject constructor() {
                 name = it.name,
                 category = it.category,
                 country = it.country,
+                language = it.language
             )
         }
     }

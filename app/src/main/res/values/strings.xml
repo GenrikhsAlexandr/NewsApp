@@ -2,10 +2,9 @@
     <string name="app_name">News App</string>
     <string name="title_activity_splash">SplashActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="search">Search</string>
+    <string name="saved">Search</string>
     <string name="filter">Filter</string>
     <string name="headlines">Headlines</string>
-    <string name="saved">Saved</string>
     <string name="sources">Sources</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello headlines fragment</string>

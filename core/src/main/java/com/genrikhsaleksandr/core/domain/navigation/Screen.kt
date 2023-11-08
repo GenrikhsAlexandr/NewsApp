@@ -1,12 +1,20 @@
 package com.genrikhsaleksandr.core.domain.navigation
 
-enum class Screen {
-    HEADLINES,
-    FAVORITES,
-    SOURCES,
-    SEARCH,
-    FILTER,
-    DETAIL_ARTICLE,
-    SOURCEARTICLES,
-    FILTERDATE
+sealed class Screen {
+    data object Headlines: Screen()
+    data object Favorites: Screen()
+
+    data object Sources: Screen()
+
+    data object Search: Screen()
+
+    data object Filter: Screen()
+
+    data object DetailArticle: Screen()
+
+    data class ArticlesSource(
+        val source:String?
+    ): Screen()
+
+    data object FilterDate: Screen()
 }

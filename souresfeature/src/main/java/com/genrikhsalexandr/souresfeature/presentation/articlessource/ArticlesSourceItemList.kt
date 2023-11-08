@@ -1,10 +1,9 @@
 package com.genrikhsalexandr.souresfeature.presentation.articlessource
 
-import com.genrikhsalexandr.souresfeature.domain.ArticlesSource
+import com.genrikhsaleksandr.core.domain.model.Article
 
 data class ArticlesSourceItemList(
     val source: String?,
-    val title: String,
-    val urlToImage: String?,
-    val articlesSource: ArticlesSource
+    val title: String?,
+    val articlesSource: Article
     )

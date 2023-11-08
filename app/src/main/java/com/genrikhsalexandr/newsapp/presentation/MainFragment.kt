@@ -10,12 +10,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.viewModelScope
-import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
 import com.genrikhsalexandr.newsapp.di.MainViewModelFactory
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 

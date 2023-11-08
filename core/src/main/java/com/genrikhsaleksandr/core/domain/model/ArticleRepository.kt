@@ -11,4 +11,5 @@ interface ArticleRepository {
 
     suspend fun getSources(): List<Source>?
 
+    suspend fun getArticlesSource(id:String?): List<Article>?
 }

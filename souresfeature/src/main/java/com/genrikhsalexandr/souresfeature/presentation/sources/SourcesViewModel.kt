@@ -27,7 +27,7 @@ class SourcesViewModel @Inject constructor(
                 category = it.category,
                 name = it.name,
                 country = it.country,
-                articleSource = it
+                source = it
             )
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
@@ -44,7 +44,7 @@ class SourcesViewModel @Inject constructor(
         }
     }
 
-    fun onNewsItemClick(source: Source, fragmentManager: FragmentManager) {
-        navigator.navigateToSourceArticles(source, fragmentManager)
+    fun onNewsItemClick(articlesSource: Source, fragmentManager: FragmentManager) {
+        navigator.navigateToArticlesSource(articlesSource, fragmentManager)
     }
 }

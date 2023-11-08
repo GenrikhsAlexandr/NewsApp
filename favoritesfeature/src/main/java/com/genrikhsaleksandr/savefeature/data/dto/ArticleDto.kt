@@ -8,5 +8,6 @@ data class ArticleDto (
     val title: String,
     val urlToImage: String?,
     val publishedAt: String,
-    val content: String?
+    val content: String?,
+    val url:String
 )

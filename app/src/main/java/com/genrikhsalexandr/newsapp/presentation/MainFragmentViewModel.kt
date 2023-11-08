@@ -14,35 +14,51 @@ class MainFragmentViewModel @Inject constructor(
     private val _isAppBarVisible: MutableStateFlow<Boolean> = MutableStateFlow(true)
     val isAppBarVisible = _isAppBarVisible
 
+    private val _isNavigationIconVisible: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isNavigationIconVisible = _isNavigationIconVisible
+
     private val navigatorListener: Navigator.Listener = Navigator.Listener { destination: Screen ->
         when (destination) {
-            Screen.HEADLINES -> {
+            is Screen.Headlines -> {
                 isAppBarVisible.value = true
+                isNavigationIconVisible.value = false
             }
 
-            Screen.FAVORITES -> {
+            is Screen.Favorites -> {
                 isAppBarVisible.value = true
+                isNavigationIconVisible.value = false
+
             }
 
-            Screen.SOURCES -> {
+            is Screen.Sources -> {
                 isAppBarVisible.value = true
+                isNavigationIconVisible.value = false
+
             }
 
-            Screen.DETAIL_ARTICLE -> {
+            is Screen.DetailArticle -> {
                 isAppBarVisible.value = false
+                isNavigationIconVisible.value = false
+
             }
 
-            Screen.SEARCH -> {
+            is Screen.Search -> {
+                isAppBarVisible.value = true
+                isNavigationIconVisible.value = false
+
+            }
+
+            is Screen.Filter -> {
+                isAppBarVisible.value = true
+                isNavigationIconVisible.value = false
+
+            }
+
+            is Screen.ArticlesSource -> {
+                isNavigationIconVisible.value = true
                 isAppBarVisible.value = true
             }
-
-            Screen.FILTER -> {
-                isAppBarVisible.value = true
-            }
-
-            Screen.SOURCEARTICLES -> {
-            }
-            Screen.FILTERDATE -> TODO()
+            is Screen.FilterDate -> TODO()
         }
     }
 

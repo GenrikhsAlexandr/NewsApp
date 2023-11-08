@@ -6,5 +6,5 @@ data class SourcesItemList(
     val name: String?,
     val category: String?,
     val country:String?,
-    val articleSource: Source
+    val source: Source
 )

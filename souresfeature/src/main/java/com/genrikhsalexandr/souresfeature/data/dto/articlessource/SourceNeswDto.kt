@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SourceNewsDto(
-    val id:String?,
+    val id:String,
     val name:String?,
 )

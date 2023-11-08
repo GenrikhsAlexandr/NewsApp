@@ -6,6 +6,7 @@ import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.AppDatabase
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.repository.ArticleRepositoryImpl
+import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import dagger.Module
 import dagger.Provides
@@ -19,12 +20,14 @@ object AppDataModule {
     fun provideArticleRepository(
         dao: ArticleDao,
         articleMapper: NewsDtoMapper,
-        sourcesMapper: SourcesDtoMapper
+        sourcesMapper: SourcesDtoMapper,
+        articlesSourceMapper: ArticlesSourceDtoMapper
     ): ArticleRepository {
         return ArticleRepositoryImpl(
             dao,
             articleMapper,
-            sourcesMapper
+            sourcesMapper,
+            articlesSourceMapper
         )
     }
 

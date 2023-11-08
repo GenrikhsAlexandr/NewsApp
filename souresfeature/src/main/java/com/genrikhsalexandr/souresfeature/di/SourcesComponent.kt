@@ -2,6 +2,7 @@ package com.genrikhsalexandr.souresfeature.di
 
 import com.genrikhsaleksandr.core.di.CoreDataModule
 import com.genrikhsaleksandr.core.di.NavigationModule
+import com.genrikhsalexandr.souresfeature.presentation.articlessource.ArticlesSourceFragment
 import com.genrikhsalexandr.souresfeature.presentation.sources.SourcesFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -17,4 +18,6 @@ import javax.inject.Singleton
 interface SourcesComponent {
 
     fun inject(sourcesFragment: SourcesFragment)
+
+    fun inject(articlesSourceFragment: ArticlesSourceFragment)
 }

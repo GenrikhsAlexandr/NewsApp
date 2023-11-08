@@ -14,7 +14,9 @@ class NewsDtoMapper @Inject constructor() {
                 title = it.title,
                 urlToImage = it.urlToImage,
                 publishedAt = it.publishedAt,
-                content = it.content
+                content = it.content,
+                id = it.source.id,
+                url = it.url
             )
         }
     }
@@ -24,7 +26,10 @@ class NewsDtoMapper @Inject constructor() {
         source = articleDbModel.source,
         title = articleDbModel.title,
         urlToImage = articleDbModel.urlToImage,
-        content = articleDbModel.content
+        content = articleDbModel.content,
+        id = articleDbModel.id,
+        url = articleDbModel.url
+
     )
 
     fun mapArticleToArticleDbModel(article: Article) = ArticleDbModel(
@@ -32,6 +37,8 @@ class NewsDtoMapper @Inject constructor() {
         source = article.source,
         title = article.title,
         urlToImage = article.urlToImage,
-        content = article.content
+        content = article.content,
+        id = article.id,
+        url = article.url
     )
 }

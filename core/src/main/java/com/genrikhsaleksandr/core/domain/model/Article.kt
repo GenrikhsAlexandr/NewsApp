@@ -1,9 +1,13 @@
 package com.genrikhsaleksandr.core.domain.model
 
+import java.io.Serializable
+
 data class Article(
-    val source: String,
+    val id:String?,
+    val source: String?,
     val title: String,
     val urlToImage: String?,
     val publishedAt: String,
-    val content: String?
-)
+    val content: String?,
+    val url: String
+):Serializable

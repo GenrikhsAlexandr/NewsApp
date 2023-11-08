@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey
 data class ArticleDbModel(
     @PrimaryKey
     val publishedAt: String,
-    val source: String,
+    val source: String?,
     val title: String,
     val urlToImage: String?,
-    val content: String?
+    val content: String?,
+    val id:String?,
+    val url:String
 )

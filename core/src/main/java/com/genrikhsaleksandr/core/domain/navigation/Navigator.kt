@@ -21,7 +21,7 @@ interface Navigator {
 
     fun navigateToSources(fragmentManager: FragmentManager)
 
-    fun navigateToSourceArticles(source:Source, fragmentManager: FragmentManager)
+    fun navigateToArticlesSource(articlesSource:Source, fragmentManager: FragmentManager)
 
     fun navigateToSearch(fragmentManager: FragmentManager)
 

@@ -6,6 +6,7 @@ import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.network.NewsService
+import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
@@ -21,7 +22,8 @@ import javax.inject.Inject
 class ArticleRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao,
     private val mapper: NewsDtoMapper,
-    private val sourcesMapper: SourcesDtoMapper
+    private val sourcesMapper: SourcesDtoMapper,
+    private val articlesSourcesMapper: ArticlesSourceDtoMapper
 ) : ArticleRepository {
     companion object {
         private const val BASE_URL = "https://newsapi.org/"
@@ -59,7 +61,7 @@ class ArticleRepositoryImpl @Inject constructor(
 
         try {
             val response = service.getNews(
-                category = "general",
+                country = "us",
             )
             mapper.mapNewsListDtoToListArticle(response)
         } catch (e: Exception) {
@@ -68,13 +70,23 @@ class ArticleRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getSources(): List<Source>? = withContext(Dispatchers.IO) {
+    override suspend fun getSources(): List<Source> = withContext(Dispatchers.IO) {
         try {
             val response = service.getSources()
             sourcesMapper.mapSourcesDtoToSources(response)
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()
+        }
+    }
+
+    override suspend fun getArticlesSource(id: String?): List<Article>? {
+        return try {
+            val response = service.getArticlesSource(source = id)
+            articlesSourcesMapper.mapArticlesSourceDto(response)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
         }
     }
 

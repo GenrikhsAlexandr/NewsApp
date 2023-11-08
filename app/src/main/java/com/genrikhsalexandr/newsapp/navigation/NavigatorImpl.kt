@@ -20,12 +20,12 @@ class NavigatorImpl : Navigator {
 
     override var listener: Navigator.Listener? = null
     override fun navigateToDetailsArticle(article: Article, fragmentManager: FragmentManager) {
-        val detailFragment = DetailFragment.newInstance()
+        val detailFragment = DetailFragment.newInstance(article)
         fragmentManager.commit {
             add(R.id.fragment_container, detailFragment)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.DETAIL_ARTICLE)
+        listener?.onNavigated(Screen.DetailArticle)
     }
 
     override fun navigateToFavorites(fragmentManager: FragmentManager) {
@@ -34,7 +34,7 @@ class NavigatorImpl : Navigator {
             replace(R.id.fragment_container, favoritesFragment)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.FAVORITES)
+        listener?.onNavigated(Screen.Favorites)
     }
 
     override fun navigateToHeadlines(fragmentManager: FragmentManager) {
@@ -43,7 +43,7 @@ class NavigatorImpl : Navigator {
             replace(R.id.fragment_container, headlinesFragment)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.HEADLINES)
+        listener?.onNavigated(Screen.Headlines)
     }
 
     override fun navigateToSources(fragmentManager: FragmentManager) {
@@ -52,17 +52,20 @@ class NavigatorImpl : Navigator {
             replace(R.id.fragment_container, sourcesFragment)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.SOURCES)
+        listener?.onNavigated(Screen.Sources)
     }
 
-    override fun navigateToSourceArticles(source: Source, fragmentManager: FragmentManager) {
-        val sourceNesFragment = ArticlesSourceFragment.newInstance()
+    override fun navigateToArticlesSource(
+        articlesSource: Source,
+        fragmentManager: FragmentManager
+    ) {
+        val sourceNesFragment = ArticlesSourceFragment.newInstance(articlesSource)
         fragmentManager.commit {
             add(R.id.fragment_container, sourceNesFragment)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.SOURCES)
-    }
+        listener?.onNavigated(Screen.ArticlesSource(source = articlesSource.id))    }
+
 
     override fun navigateToSearch(fragmentManager: FragmentManager) {
         val searchFragment = SearchFragment.newInstance()
@@ -70,7 +73,7 @@ class NavigatorImpl : Navigator {
             replace(R.id.fragment_container, searchFragment)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.SEARCH)
+        listener?.onNavigated(Screen.Search)
     }
 
     override fun navigateToFilter(fragmentManager: FragmentManager) {
@@ -79,7 +82,7 @@ class NavigatorImpl : Navigator {
             replace(R.id.fragment_container, filterFragment)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.FILTER)
+        listener?.onNavigated(Screen.Filter)
     }
 
    override fun navigateToFilterDate(fragmentManager: FragmentManager) {
@@ -88,5 +91,5 @@ class NavigatorImpl : Navigator {
             replace(R.id.fragment_container, filterDateFragment)
             addToBackStack(null)
         }*/
-        listener?.onNavigated(Screen.FILTER)    }
+        listener?.onNavigated(Screen.FilterDate)    }
 }

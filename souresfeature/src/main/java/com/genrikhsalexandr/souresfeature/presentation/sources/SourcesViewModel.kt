@@ -3,7 +3,6 @@ package com.genrikhsalexandr.souresfeature.presentation.sources
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsalexandr.souresfeature.domain.SourcesInteractor
@@ -45,7 +44,7 @@ class SourcesViewModel @Inject constructor(
         }
     }
 
-    fun onNewsItemClick(articlesSource: Source, fragmentManager: FragmentManager) {
-        navigator.navigateToArticlesSource(articlesSource, fragmentManager)
+    fun onNewsItemClick(source: Source, fragmentManager: FragmentManager) {
+        navigator.navigateToArticlesSource(source, fragmentManager)
     }
 }

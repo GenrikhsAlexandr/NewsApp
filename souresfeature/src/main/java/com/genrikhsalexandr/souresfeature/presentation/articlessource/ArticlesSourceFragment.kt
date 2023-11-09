@@ -10,13 +10,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.genrikhsaleksandr.core.domain.model.Article
-import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsalexandr.sourcesfeature.presentation.ArticlesSource.ArticlesSourceAdapter
 import com.genrikhsalexandr.souresfeature.databinding.FragmentArticlesSourceBinding
 import com.genrikhsalexandr.souresfeature.di.SourcesComponentProvider
 import com.genrikhsalexandr.souresfeature.di.SourcesViewModelFactory
-import com.genrikhsalexandr.souresfeature.domain.SourcesInteractor
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -75,14 +73,10 @@ class ArticlesSourceFragment : Fragment() {
                 adapter.submitData(it)
             }
         }
-        println("onViewCreated")
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        println("onDestroyView")
-
         _binding = null
     }
 }

@@ -43,15 +43,19 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         mainToolBar()
         bottomNavigation()
         clickedBackSearchView()
         clickedBackFilterToolBar()
         subscribe()
         onClickNavigationIcon()
-        return binding.root
     }
-
 
     private fun clickedBackSearchView() {
         binding.ivSearchView.setOnClickListener {
@@ -149,13 +153,20 @@ class MainFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.toolBarTitle.collect {
                 binding.toolbar.title = it
+
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isAppBarVisible.collect {
+                binding.appBar.isVisible = it
+
             }
         }
     }
 
     private fun onClickNavigationIcon() {
         binding.toolbar.setNavigationOnClickListener {
-            viewModel.onNavigationIconClick(parentFragmentManager)
+            viewModel.onNavigationIconArticlesSourceClick(parentFragmentManager)
         }
     }
 

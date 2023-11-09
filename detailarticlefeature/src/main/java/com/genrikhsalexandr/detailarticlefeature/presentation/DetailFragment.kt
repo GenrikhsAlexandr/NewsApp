@@ -18,13 +18,10 @@ import com.genrikhsalexandr.detailarticlefeature.databinding.FragmentDetailBindi
 import com.genrikhsalexandr.detailarticlefeature.di.DetailComponentProvider
 import com.genrikhsalexandr.detailarticlefeature.di.DetailViewModelFactory
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
-import kotlin.properties.Delegates
 
 class DetailFragment : Fragment() {
 
@@ -62,6 +59,33 @@ class DetailFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentDetailBinding.inflate(inflater, container, false)
+
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.toolbarArticle.setNavigationOnClickListener {
+            fragmentManager?.popBackStack()
+        }
+
+        binding.toolbarArticle.setOnMenuItemClickListener { item ->
+            return@setOnMenuItemClickListener when (item.itemId) {
+                R.id.saved -> {
+                    viewModel.onFavoriteButtonClicked()
+                    true
+                }
+
+                else -> false
+            }
+        }
+        getArticle()
+        subscribe()
+        setTextClickListeners()
+    }
+
+    private fun getArticle() {
         article =
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                 arguments?.getSerializable(BUNDLE_KEY_ARTICLE, Article::class.java)
@@ -87,26 +111,9 @@ class DetailFragment : Fragment() {
         }
         article?.let { viewModel.setArticle(it) }
 
-        binding.toolbarArticle.setNavigationOnClickListener {
-            fragmentManager?.popBackStack()
-        }
-
-        binding.toolbarArticle.setOnMenuItemClickListener { item ->
-            return@setOnMenuItemClickListener when (item.itemId) {
-                R.id.saved -> {
-                    viewModel.onFavoriteButtonClicked()
-                    true
-                }
-
-                else -> false
-            }
-        }
-        subscribe()
-        setClickListeners()
-        return binding.root
     }
 
-    private fun setClickListeners() {
+    private fun setTextClickListeners() {
         val articleUrl = article?.url
         binding.contentDetail.setOnClickListener {
             val uri = Uri.parse(articleUrl)
@@ -115,12 +122,22 @@ class DetailFragment : Fragment() {
         }
     }
 
-
     private fun subscribe() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isIconClick.collect { isIconClick ->
                 val menuItem = binding.toolbarArticle.menu.findItem(R.id.saved)
                 if (isIconClick) {
+                    menuItem.setIcon(R.drawable.ic_favoriteschoose)
+                } else {
+                    menuItem.setIcon(R.drawable.ic_favorites)
+                }
+
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isFavorite.collect { isFavorite ->
+                val menuItem = binding.toolbarArticle.menu.findItem(R.id.saved)
+                if (isFavorite) {
                     menuItem.setIcon(R.drawable.ic_favoriteschoose)
                 } else {
                     menuItem.setIcon(R.drawable.ic_favorites)

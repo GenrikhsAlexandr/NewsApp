@@ -34,9 +34,12 @@ class DetailViewModel @Inject constructor(
 
     suspend fun saveFavoritesArticle(article: Article) {
         interactor.saveFavoritesArticle(article)
+        println("saveArticle")
     }
 
     suspend fun deleteFavoritesArticle(article: Article) {
         interactor.deleteFavoriteArticle(article)
+        println("delArticle")
+
     }
 }

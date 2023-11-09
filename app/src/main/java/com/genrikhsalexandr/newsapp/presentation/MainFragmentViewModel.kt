@@ -95,6 +95,10 @@ class MainFragmentViewModel @Inject constructor(
         navigator.navigateToFilter(fragment)
     }
 
+    fun onNavigationIconArticlesSourceClick(fragment: FragmentManager) {
+        navigator.navigateArticlesSourceToSources(fragment)
+    }
+
     fun onNavigationIconClick(fragment: FragmentManager) {
         navigator.navigateArticlesSourceToSources(fragment)
     }

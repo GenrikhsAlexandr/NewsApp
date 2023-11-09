@@ -28,7 +28,7 @@ class ArticlesSourceViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     fun initArticlesList() {}
-    /*init {
+   /* init {
         viewModelScope
         viewModelScope.launch {
             try {

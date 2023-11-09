@@ -9,11 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.genrikhsaleksandr.core.domain.model.Article
+import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsalexandr.sourcesfeature.presentation.ArticlesSource.ArticlesSourceAdapter
 import com.genrikhsalexandr.souresfeature.databinding.FragmentArticlesSourceBinding
 import com.genrikhsalexandr.souresfeature.di.SourcesComponentProvider
 import com.genrikhsalexandr.souresfeature.di.SourcesViewModelFactory
+import com.genrikhsalexandr.souresfeature.domain.SourcesInteractor
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -26,21 +29,23 @@ class ArticlesSourceFragment : Fragment() {
         fun newInstance(articlesSource: Source): ArticlesSourceFragment {
             return ArticlesSourceFragment().apply {
                 arguments = Bundle().apply {
-                    putString(BUNDLE_KEY_ARTICLES_SOURCE, articlesSource.id)
+                    putString(BUNDLE_KEY_ARTICLES_SOURCE, articlesSource.sourceId)
                 }
             }
         }
     }
 
-     @Inject
-      lateinit var viewModelFactory: SourcesViewModelFactory
+    @Inject
+    lateinit var viewModelFactory: SourcesViewModelFactory
 
-      private val viewModel: ArticlesSourceViewModel by viewModels { viewModelFactory }
+    private val viewModel: ArticlesSourceViewModel by viewModels { viewModelFactory }
 
     private var _binding: FragmentArticlesSourceBinding? = null
     private val binding: FragmentArticlesSourceBinding get() = _binding!!
 
     private val adapter: ArticlesSourceAdapter = ArticlesSourceAdapter()
+
+    private var articlesSource: Article? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -53,7 +58,6 @@ class ArticlesSourceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentArticlesSourceBinding.inflate(inflater, container, false)
-        println("onCreateView")
 
         return binding.root
     }

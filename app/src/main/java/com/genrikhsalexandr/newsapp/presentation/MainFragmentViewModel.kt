@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsaleksandr.core.navigation.Navigator
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class MainFragmentViewModel @Inject constructor(
@@ -17,6 +16,10 @@ class MainFragmentViewModel @Inject constructor(
 
     private val _isNavigationIconVisible: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isNavigationIconVisible = _isNavigationIconVisible
+
+    private val _toolBarTitle: MutableStateFlow<String> = MutableStateFlow("News App")
+    val toolBarTitle = _toolBarTitle
+
 
     private val navigatorListener: Navigator.Listener = Navigator.Listener { destination: Screen ->
         when (destination) {
@@ -32,6 +35,7 @@ class MainFragmentViewModel @Inject constructor(
             }
 
             is Screen.Sources -> {
+                _toolBarTitle.value = destination.fragmentName
                 isAppBarVisible.value = true
                 isNavigationIconVisible.value = false
 
@@ -56,9 +60,13 @@ class MainFragmentViewModel @Inject constructor(
             }
 
             is Screen.ArticlesSource -> {
+                _toolBarTitle.value = destination.sourceName
                 isNavigationIconVisible.value = true
                 isAppBarVisible.value = true
+
+
             }
+
             is Screen.FilterDate -> TODO()
         }
     }
@@ -67,23 +75,27 @@ class MainFragmentViewModel @Inject constructor(
         navigator.listener = navigatorListener
     }
 
-    fun onHeadlinesClick(fragment: FragmentManager){
+    fun onHeadlinesClick(fragment: FragmentManager) {
         navigator.navigateToHeadlines(fragment)
     }
-    fun onFavoritesClick(fragment: FragmentManager){
+
+    fun onFavoritesClick(fragment: FragmentManager) {
         navigator.navigateToFavorites(fragment)
     }
-    fun onSourcesClick(fragment: FragmentManager){
+
+    fun onSourcesClick(fragment: FragmentManager) {
         navigator.navigateToSources(fragment)
     }
-    fun onSearchClick(fragment: FragmentManager){
+
+    fun onSearchClick(fragment: FragmentManager) {
         navigator.navigateToSearch(fragment)
     }
-    fun onFilterClick(fragment: FragmentManager){
+
+    fun onFilterClick(fragment: FragmentManager) {
         navigator.navigateToFilter(fragment)
     }
 
-    fun onNavigationIconClick(fragment: FragmentManager){
+    fun onNavigationIconClick(fragment: FragmentManager) {
         navigator.navigateArticlesSourceToSources(fragment)
     }
 }

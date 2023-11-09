@@ -3,6 +3,7 @@ package com.genrikhsalexandr.souresfeature.presentation.sources
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsalexandr.souresfeature.domain.SourcesInteractor
@@ -25,7 +26,7 @@ class SourcesViewModel @Inject constructor(
         news.map {
             SourcesItemList(
                 category = it.category,
-                name = it.name,
+                name = it.sourceName,
                 country = it.country,
                 source = it
             )

@@ -2,17 +2,14 @@ package com.genrikhsalexandr.newsapp.presentation
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.viewModelScope
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
@@ -149,6 +146,11 @@ class MainFragment : Fragment() {
                 }
             }
         }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.toolBarTitle.collect {
+                binding.toolbar.title = it
+            }
+        }
     }
 
     private fun onClickNavigationIcon() {
@@ -157,8 +159,8 @@ class MainFragment : Fragment() {
         }
     }
 
-override fun onDestroyView() {
-    super.onDestroyView()
-    _binding = null
-}
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

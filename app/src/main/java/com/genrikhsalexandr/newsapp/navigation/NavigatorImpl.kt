@@ -52,20 +52,20 @@ class NavigatorImpl : Navigator {
             replace(R.id.fragment_container, sourcesFragment)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.Sources)
+        listener?.onNavigated(Screen.Sources("Source"))
     }
 
     override fun navigateToArticlesSource(
         articlesSource: Source,
         fragmentManager: FragmentManager
     ) {
-        val sourceNesFragment = ArticlesSourceFragment.newInstance(articlesSource)
+        val articlesSourceFragment = ArticlesSourceFragment.newInstance(articlesSource)
         fragmentManager.commit {
-            replace(R.id.fragment_container, sourceNesFragment)
+            replace(R.id.fragment_container, articlesSourceFragment)
             setReorderingAllowed(true)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.ArticlesSource(source = articlesSource.id))
+        listener?.onNavigated(Screen.ArticlesSource(articlesSource.sourceName))
     }
 
 
@@ -98,6 +98,6 @@ class NavigatorImpl : Navigator {
 
     override fun navigateArticlesSourceToSources(fragmentManager: FragmentManager) {
         fragmentManager.popBackStack()
-        listener?.onNavigated(Screen.Sources)
+        listener?.onNavigated(Screen.Sources("Source"))
     }
 }

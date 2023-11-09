@@ -9,8 +9,8 @@ class SourcesDtoMapper @Inject constructor() {
     fun mapSourcesDtoToSources(sourcesListDto: SourcesListDto): List<Source> {
         return sourcesListDto.sources.map {
             Source(
-                id = it.id,
-                name = it.name,
+                sourceId = it.id,
+                sourceName = it.name,
                 category = it.category,
                 country = it.country,
                 language = it.language

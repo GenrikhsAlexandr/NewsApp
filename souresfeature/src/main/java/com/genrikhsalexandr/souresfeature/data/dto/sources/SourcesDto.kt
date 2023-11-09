@@ -4,9 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SourcesDto(
-    val id:String?,
-    val name:String?,
+    val id: String?,
+    val name: String,
     val category: String,
     val country: String?,
-    val language:String,
+    val language: String,
 )

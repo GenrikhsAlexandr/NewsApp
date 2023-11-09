@@ -5,7 +5,6 @@ import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
-import com.genrikhsaleksandr.savefeature.data.database.ArticleDbModel
 import com.genrikhsalexandr.newsapp.data.network.NewsService
 import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
@@ -81,9 +80,9 @@ class ArticleRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getArticlesSource(id: String?): List<Article>? {
+    override suspend fun getArticlesSource(sourceId: String?): List<Article>? {
         return try {
-            val response = service.getArticlesSource(source = id)
+            val response = service.getArticlesSource(sources = sourceId)
             articlesSourcesMapper.mapArticlesSourceDto(response)
         } catch (e: Exception) {
             e.printStackTrace()

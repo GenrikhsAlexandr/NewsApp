@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ArticlesSourceViewModel @Inject constructor(
@@ -17,26 +18,22 @@ class ArticlesSourceViewModel @Inject constructor(
 
     private val _articlesSource: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
 
-    val source: StateFlow<List<ArticlesSourceItemList>> = _articlesSource.map { news ->
+    val articlesSource: StateFlow<List<ArticlesSourceItemList>> = _articlesSource.map { news ->
         news.map {
             ArticlesSourceItemList(
                 title = it.title,
-                source = it.sourceName,
-                articlesSource = it
+                sourceName = it.sourceName,
+                articlesSource = it,
+                urlToImage = it.urlToImage
             )
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    fun initArticlesList() {}
-   /* init {
-        viewModelScope
+
+    fun setArticlesId(articlesSourceId: String) {
         viewModelScope.launch {
-            try {
-                _articlesSource.value = interactor.getArticlesSourceList() ?: emptyList()
-                println("source= ${_articlesSource.value}")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+            _articlesSource.value =
+                interactor.getArticlesSourceList(articlesSourceId) ?: emptyList()
         }
-    }*/
+    }
 }

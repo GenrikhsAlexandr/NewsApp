@@ -59,13 +59,16 @@ class MainFragment : Fragment() {
 
     private fun clickedBackSearchView() {
         binding.ivSearchView.setOnClickListener {
-            fragmentManager?.popBackStack()
+            println("click clickedBackFilterToolBar ")
+            parentFragmentManager.popBackStack()
         }
     }
 
     private fun clickedBackFilterToolBar() {
         binding.toolbarFilter.setNavigationOnClickListener {
-            childFragmentManager.popBackStack()
+            binding.appBar.isVisible = true
+            binding.toolbar.isVisible = true
+
         }
 
         binding.toolbarFilter.setOnMenuItemClickListener { item ->

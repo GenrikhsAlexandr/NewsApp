@@ -10,6 +10,6 @@ class SourcesInteractor @Inject constructor(
 ) {
     suspend fun getSourcesList(): List<Source>? = sourcesRepository.getSources()
 
-    suspend fun getArticlesSourceList(articlesSource: Article): List<Article>? =
-        sourcesRepository.getArticlesSource(articlesSource.sourceId)
+    suspend fun getArticlesSourceList(articlesSourceId: String): List<Article>? =
+        sourcesRepository.getArticlesSource(articlesSourceId)
 }

@@ -21,14 +21,14 @@ interface NewsService {
 
     @GET("v2/top-headlines")
     suspend fun getArticlesSource(
+        @Query(QUERY_PARAM_SOURCE) sources: String? = null,
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "c671c3a213884080b9986d20a5ba091a",
-        @Query(QUERY_PARAM_SOURCE) source: String? = null,
     ): SourceNewsListDto
 
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "apiKey"
         private const val QUERY_PARAM_CATEGORY = "country"
-        private const val QUERY_PARAM_SOURCE = "source"
+        private const val QUERY_PARAM_SOURCE = "sources"
     }
 }

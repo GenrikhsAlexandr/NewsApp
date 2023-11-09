@@ -5,13 +5,13 @@ interface ArticleRepository {
 
     suspend fun getArticles(): List<Article>?
 
-    suspend fun saveFavoriteArticle(article: Article):Article
+    suspend fun saveFavoriteArticle(article: Article): Article
 
     suspend fun deleteFavoriteArticle(article: Article)
 
     suspend fun getSources(): List<Source>?
 
-    suspend fun getArticlesSource(id:String?): List<Article>?
+    suspend fun getArticlesSource(articlesSourceId: String?): List<Article>?
 
-    suspend fun isFavorite(article:Article): Boolean
+    suspend fun isFavorite(article: Article): Boolean
 }

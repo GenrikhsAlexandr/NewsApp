@@ -1,13 +1,13 @@
-package com.genrikhsalexandr.sourcesfeature.presentation.ArticlesSource
+package com.genrikhsalexandr.souresfeature.presentation.articlessource
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.genrikhsalexandr.souresfeature.databinding.ListItemSourceArticlesBinding
-import com.genrikhsalexandr.souresfeature.presentation.articlessource.ArticlesSourceItemList
+import com.squareup.picasso.Picasso
 
 class ArticlesSourceAdapter(
-   /* val onNewsItemClickListener: ((Article) -> Unit)*/
+    /* val onNewsItemClickListener: ((Article) -> Unit)*/
 ) : RecyclerView.Adapter<ArticlesSourceAdapter.NewsViewHolder>() {
 
     private lateinit var list: List<ArticlesSourceItemList>
@@ -39,9 +39,14 @@ class ArticlesSourceAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(listItem: ArticlesSourceItemList) {
             with(binding) {
-                nameSource.text = listItem.source
+                nameSource.text = listItem.sourceName
                 title.text = listItem.title
             }
+            if (listItem.urlToImage != null) {
+                Picasso.get()
+                    .load(listItem.urlToImage.toString())
+                    .into(binding.imageNews)
+            } else binding.imageNews.setImageResource(com.genrikhsaleksandr.core.R.drawable.element)
         }
     }
 }

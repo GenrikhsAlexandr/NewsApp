@@ -39,7 +39,7 @@ class DetailViewModel @Inject constructor(
 
     suspend fun deleteFavoritesArticle(article: Article) {
         interactor.deleteFavoriteArticle(article)
-        println("delArticle")
+        println("saveArticle")
 
     }
 }

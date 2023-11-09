@@ -13,6 +13,7 @@ import javax.inject.Singleton
         SourcesModule::class,
         NavigationModule::class,
         CoreDataModule::class,
+    ArticlesSourceModule::class
     ]
 )
 interface SourcesComponent {

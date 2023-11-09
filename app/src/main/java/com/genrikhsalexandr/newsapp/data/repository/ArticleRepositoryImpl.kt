@@ -5,6 +5,7 @@ import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
+import com.genrikhsaleksandr.savefeature.data.database.ArticleDbModel
 import com.genrikhsalexandr.newsapp.data.network.NewsService
 import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
@@ -91,12 +92,16 @@ class ArticleRepositoryImpl @Inject constructor(
     }
 
     override suspend fun isFavorite(article: Article): Boolean {
-        TODO()
+        if (article.id.toInt() != 0) {
+            return true
+        }
+        return false
     }
 
-    override suspend fun saveFavoriteArticle(article: Article) {
+    override suspend fun saveFavoriteArticle(article: Article): Article {
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)
-        articleDao.insertArticle(articleDbModel)
+       val updateId = articleDao.insertArticle(articleDbModel)
+        return mapper.mapArticleDbModelToArticle(articleDbModel.copy(id = updateId))
     }
 
     override suspend fun deleteFavoriteArticle(article: Article) {

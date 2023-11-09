@@ -3,6 +3,7 @@ package com.genrikhsalexandr.souresfeature.di
 import androidx.lifecycle.ViewModel
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsalexandr.souresfeature.domain.SourcesInteractor
+import com.genrikhsalexandr.souresfeature.presentation.articlessource.ArticlesSourceViewModel
 import com.genrikhsalexandr.souresfeature.presentation.sources.SourcesViewModel
 import dagger.Binds
 import dagger.Module
@@ -12,19 +13,18 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-internal interface SourcesModule {
-
+interface ArticlesSourceModule {
     @Binds
     @IntoMap
-    @ViewModelKey(SourcesViewModel::class)
-    fun sourceViewModel(viewModel: SourcesViewModel): ViewModel
+    @ViewModelKey(ArticlesSourceViewModel::class)
+    fun articlesSourceViewModel(viewModel: ArticlesSourceViewModel): ViewModel
 
     companion object {
         @Provides
         @Singleton
-        @Named("SourcesInteractor")
-        fun provideSourcesInteractor(sourcesRepository: ArticleRepository): SourcesInteractor {
-            return SourcesInteractor(sourcesRepository)
+        @Named("ArticlesSourcesInteractor")
+        fun provideArticlesSourcesInteractor(articlesSourcesRepository: ArticleRepository): SourcesInteractor {
+            return SourcesInteractor(articlesSourcesRepository)
         }
     }
 }

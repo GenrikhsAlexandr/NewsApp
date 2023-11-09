@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsaleksandr.core.navigation.Navigator
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 class MainFragmentViewModel @Inject constructor(
@@ -80,5 +81,9 @@ class MainFragmentViewModel @Inject constructor(
     }
     fun onFilterClick(fragment: FragmentManager){
         navigator.navigateToFilter(fragment)
+    }
+
+    fun onNavigationIconClick(fragment: FragmentManager){
+        navigator.navigateArticlesSourceToSources(fragment)
     }
 }

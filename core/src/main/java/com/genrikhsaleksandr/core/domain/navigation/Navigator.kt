@@ -29,4 +29,6 @@ interface Navigator {
 
    fun navigateToFilterDate(fragmentManager: FragmentManager)
 
+   fun navigateArticlesSourceToSources(fragmentManager: FragmentManager)
+
 }

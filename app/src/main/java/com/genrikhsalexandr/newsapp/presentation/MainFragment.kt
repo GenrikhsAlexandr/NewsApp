@@ -2,13 +2,16 @@ package com.genrikhsalexandr.newsapp.presentation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.FragmentMainBinding
@@ -47,21 +50,15 @@ class MainFragment : Fragment() {
         bottomNavigation()
         clickedBackSearchView()
         clickedBackFilterToolBar()
+        subscribe()
+        onClickNavigationIcon()
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.viewModelScope.launch {
-            viewModel.isAppBarVisible.collect {
-                binding.appBar.isVisible = it
-            }
-        }
-    }
 
     private fun clickedBackSearchView() {
         binding.ivSearchView.setOnClickListener {
-            childFragmentManager.popBackStack()
+            fragmentManager?.popBackStack()
         }
     }
 
@@ -140,8 +137,28 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun subscribe() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isNavigationIconVisible.collect {
+                if (it) {
+                    binding.toolbar.setNavigationIcon(
+                        com.genrikhsalexandr.detailarticlefeature.R.drawable.ic_back
+                    )
+                } else {
+                    binding.toolbar.navigationIcon = null
+                }
+            }
+        }
     }
+
+    private fun onClickNavigationIcon() {
+        binding.toolbar.setNavigationOnClickListener {
+            viewModel.onNavigationIconClick(parentFragmentManager)
+        }
+    }
+
+override fun onDestroyView() {
+    super.onDestroyView()
+    _binding = null
+}
 }

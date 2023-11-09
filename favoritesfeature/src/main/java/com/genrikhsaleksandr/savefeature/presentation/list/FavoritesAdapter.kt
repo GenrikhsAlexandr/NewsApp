@@ -40,7 +40,7 @@ class FavoritesAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(listItem: NewsItemList) {
             with(binding) {
-                nameSource.text = listItem.source
+                nameSource.text = listItem.sourceName
                 title.text = listItem.title
                 root.setOnClickListener {
                     onNewsItemClickListener(

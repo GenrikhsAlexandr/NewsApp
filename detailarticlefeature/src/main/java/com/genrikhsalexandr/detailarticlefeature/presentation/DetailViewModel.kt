@@ -25,12 +25,12 @@ class DetailViewModel @Inject constructor(
     private val _isFavorite: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite
 
-   /* fun setArticle(article: Article) {
+    fun setArticle(article: Article) {
        this.article = article
         viewModelScope.launch {
             _isFavorite.value = interactor.isFavorite(article)
         }
-    }*/
+    }
 
     suspend fun saveFavoritesArticle(article: Article) {
         interactor.saveFavoritesArticle(article)
@@ -39,6 +39,4 @@ class DetailViewModel @Inject constructor(
     suspend fun deleteFavoritesArticle(article: Article) {
         interactor.deleteFavoriteArticle(article)
     }
-
-
 }

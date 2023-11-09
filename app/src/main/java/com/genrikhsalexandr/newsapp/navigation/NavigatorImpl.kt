@@ -22,7 +22,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToDetailsArticle(article: Article, fragmentManager: FragmentManager) {
         val detailFragment = DetailFragment.newInstance(article)
         fragmentManager.commit {
-            add(R.id.fragment_container, detailFragment)
+            replace(R.id.fragment_container, detailFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.DetailArticle)
@@ -61,10 +61,12 @@ class NavigatorImpl : Navigator {
     ) {
         val sourceNesFragment = ArticlesSourceFragment.newInstance(articlesSource)
         fragmentManager.commit {
-            add(R.id.fragment_container, sourceNesFragment)
+            replace(R.id.fragment_container, sourceNesFragment)
+            setReorderingAllowed(true)
             addToBackStack(null)
         }
-        listener?.onNavigated(Screen.ArticlesSource(source = articlesSource.id))    }
+        listener?.onNavigated(Screen.ArticlesSource(source = articlesSource.id))
+    }
 
 
     override fun navigateToSearch(fragmentManager: FragmentManager) {
@@ -85,11 +87,17 @@ class NavigatorImpl : Navigator {
         listener?.onNavigated(Screen.Filter)
     }
 
-   override fun navigateToFilterDate(fragmentManager: FragmentManager) {
-      /*  val filterDateFragment = FilterDateFragment.newInstance()
+    override fun navigateToFilterDate(fragmentManager: FragmentManager) {
+        /*  val filterDateFragment = FilterDateFragment.newInstance()
         fragmentManager.commit {
             replace(R.id.fragment_container, filterDateFragment)
             addToBackStack(null)
         }*/
-        listener?.onNavigated(Screen.FilterDate)    }
+        listener?.onNavigated(Screen.FilterDate)
+    }
+
+    override fun navigateArticlesSourceToSources(fragmentManager: FragmentManager) {
+        fragmentManager.popBackStack()
+        listener?.onNavigated(Screen.Sources)
+    }
 }

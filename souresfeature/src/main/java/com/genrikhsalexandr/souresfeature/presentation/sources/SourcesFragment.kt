@@ -74,4 +74,5 @@ class SourcesFragment @Inject constructor(
         super.onDestroyView()
         _binding = null
     }
+
 }

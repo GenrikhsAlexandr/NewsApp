@@ -5,7 +5,7 @@ interface ArticleRepository {
 
     suspend fun getArticles(): List<Article>?
 
-    suspend fun saveFavoriteArticle(article: Article)
+    suspend fun saveFavoriteArticle(article: Article):Article
 
     suspend fun deleteFavoriteArticle(article: Article)
 

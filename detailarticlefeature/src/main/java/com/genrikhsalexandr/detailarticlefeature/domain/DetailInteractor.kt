@@ -8,7 +8,7 @@ class DetailInteractor @Inject constructor(
     private val repository: ArticleRepository
 ) {
 
-   // suspend fun isFavorite(article: Article) = repository.isFavorite(article)
+    suspend fun isFavorite(article: Article) = repository.isFavorite(article)
     suspend fun saveFavoritesArticle(article: Article) = repository.saveFavoriteArticle(article)
 
     suspend fun deleteFavoriteArticle(article: Article) = repository.deleteFavoriteArticle(article)

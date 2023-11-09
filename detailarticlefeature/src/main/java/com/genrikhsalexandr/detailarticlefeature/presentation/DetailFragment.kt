@@ -18,10 +18,13 @@ import com.genrikhsalexandr.detailarticlefeature.databinding.FragmentDetailBindi
 import com.genrikhsalexandr.detailarticlefeature.di.DetailComponentProvider
 import com.genrikhsalexandr.detailarticlefeature.di.DetailViewModelFactory
 import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 class DetailFragment : Fragment() {
 
@@ -82,7 +85,7 @@ class DetailFragment : Fragment() {
                     .into(binding.imageArticle)
             }
         }
-       // article?.let { viewModel.setArticle(it) }
+        article?.let { viewModel.setArticle(it) }
 
         binding.toolbarArticle.setNavigationOnClickListener {
             fragmentManager?.popBackStack()
@@ -103,14 +106,15 @@ class DetailFragment : Fragment() {
         return binding.root
     }
 
-    private fun setClickListeners(){
+    private fun setClickListeners() {
         val articleUrl = article?.url
         binding.contentDetail.setOnClickListener {
             val uri = Uri.parse(articleUrl)
-            val intent = Intent(Intent.ACTION_VIEW,uri)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
             startActivity(intent)
         }
     }
+
 
     private fun subscribe() {
         viewLifecycleOwner.lifecycleScope.launch {

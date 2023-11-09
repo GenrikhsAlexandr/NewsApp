@@ -13,7 +13,9 @@ import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsalexandr.sourcesfeature.presentation.ArticlesSource.ArticlesSourceAdapter
 import com.genrikhsalexandr.souresfeature.databinding.FragmentArticlesSourceBinding
 import com.genrikhsalexandr.souresfeature.di.SourcesComponentProvider
+import com.genrikhsalexandr.souresfeature.di.SourcesViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class ArticlesSourceFragment : Fragment() {
 
@@ -30,13 +32,11 @@ class ArticlesSourceFragment : Fragment() {
         }
     }
 
-    private val viewModel: ArticlesSourceViewModel by viewModels()
-
-    /*  @Inject
+     @Inject
       lateinit var viewModelFactory: SourcesViewModelFactory
 
       private val viewModel: ArticlesSourceViewModel by viewModels { viewModelFactory }
-  */
+
     private var _binding: FragmentArticlesSourceBinding? = null
     private val binding: FragmentArticlesSourceBinding get() = _binding!!
 
@@ -53,6 +53,8 @@ class ArticlesSourceFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentArticlesSourceBinding.inflate(inflater, container, false)
+        println("onCreateView")
+
         return binding.root
     }
 
@@ -69,10 +71,14 @@ class ArticlesSourceFragment : Fragment() {
                 adapter.submitData(it)
             }
         }
+        println("onViewCreated")
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        println("onDestroyView")
+
         _binding = null
     }
 }

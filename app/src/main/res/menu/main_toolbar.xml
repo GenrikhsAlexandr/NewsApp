@@ -5,7 +5,7 @@
         android:id="@+id/search"
         android:icon="@drawable/ic_search"
         android:orderInCategory="1"
-        android:title="@string/saved"
+        android:title="@string/search"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/filter"

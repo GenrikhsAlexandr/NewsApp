@@ -25,21 +25,22 @@ class FavoritesViewModel @Inject constructor(
     val news: StateFlow<List<NewsItemList>> = _news.map { news ->
         news.map {
             NewsItemList(
-                source = it.sourceName,
+                sourceName = it.sourceName,
                 title = it.title,
                 urlToImage = it.urlToImage,
-                article = it
+                article = it,
+                id = it.id
             )
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    init {
+   fun init (){
         viewModelScope
         viewModelScope.launch {
             try {
                 _news.value = interactor.getArticlesList() ?: emptyList()
                 println("news = ${_news.value}")
-                saveFavoritesArticle(_news.value.last())
+                println("idArticle = ${news.value}")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
@@ -60,14 +61,5 @@ class FavoritesViewModel @Inject constructor(
 
     fun onNewsItemClick(article: Article, fragmentManager: FragmentManager) {
         navigator.navigateToDetailsArticle(article, fragmentManager)
-        viewModelScope
-        viewModelScope.launch {
-            try {
-                saveFavoritesArticle(article)
-                println("Save article = $article")
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
     }
 }

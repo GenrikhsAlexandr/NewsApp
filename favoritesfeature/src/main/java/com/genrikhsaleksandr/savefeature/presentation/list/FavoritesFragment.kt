@@ -51,11 +51,16 @@ class FavoritesFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
+        println("onCreateView")
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.init()
+
+        println("onViewCreated")
 
         binding.rvFavorites.addItemDecoration(
             DividerItemDecoration (requireContext(), DividerItemDecoration.VERTICAL)
@@ -72,5 +77,25 @@ class FavoritesFragment: Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        println("onDetach")
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        println("onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        println("onStop")
     }
 }

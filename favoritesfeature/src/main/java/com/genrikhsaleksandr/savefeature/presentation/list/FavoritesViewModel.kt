@@ -3,6 +3,7 @@ package com.genrikhsaleksandr.savefeature.presentation.list
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsaleksandr.savefeature.domain.FavoritesInteractor
@@ -38,7 +39,7 @@ class FavoritesViewModel @Inject constructor(
         viewModelScope
         viewModelScope.launch {
             try {
-                _news.value = interactor.getArticlesList("business") ?: emptyList()
+                _news.value = interactor.getArticlesList("${Category.GENERAL}") ?: emptyList()
                 println("news = ${_news.value}")
                 println("idArticle = ${news.value}")
             } catch (e: Exception) {

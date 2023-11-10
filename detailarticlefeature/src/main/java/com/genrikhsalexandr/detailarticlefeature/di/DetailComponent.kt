@@ -1,6 +1,8 @@
 package com.genrikhsalexandr.detailarticlefeature.di
 
 import com.genrikhsaleksandr.core.di.CoreDataModule
+import com.genrikhsaleksandr.core.di.NavigationModule
+import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsalexandr.detailarticlefeature.presentation.DetailFragment
 import dagger.Component
 import javax.inject.Singleton
@@ -10,6 +12,7 @@ import javax.inject.Singleton
     modules = [
         DetailModule::class,
         CoreDataModule::class,
+        NavigationModule::class
     ]
 )
 interface DetailComponent {

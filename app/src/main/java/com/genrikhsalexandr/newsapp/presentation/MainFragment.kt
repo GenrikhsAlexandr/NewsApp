@@ -59,8 +59,9 @@ class MainFragment : Fragment() {
 
     private fun clickedBackSearchView() {
         binding.ivSearchView.setOnClickListener {
-            println("click clickedBackFilterToolBar ")
-            requireActivity().supportFragmentManager.popBackStack()
+            viewModel.onNavigationBackSearch(parentFragmentManager)
+            binding.layoutSearchView.isVisible = false
+
         }
     }
 
@@ -68,14 +69,14 @@ class MainFragment : Fragment() {
         binding.toolbarFilter.setNavigationOnClickListener {
             binding.appBar.isVisible = true
             binding.toolbar.isVisible = true
-
+            binding.appBarFilter.isVisible = false
         }
 
         binding.toolbarFilter.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
                 com.genrikhsalexandr.filterfeature.R.id.checked -> {
                     Toast.makeText(context, "Filter saved", Toast.LENGTH_LONG).show()
-                    childFragmentManager.popBackStack()
+                    parentFragmentManager.popBackStack()
                     binding.appBar.isVisible = true
                     binding.appBarFilter.isVisible = false
                     true

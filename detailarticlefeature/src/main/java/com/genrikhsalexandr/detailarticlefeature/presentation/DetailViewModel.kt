@@ -1,8 +1,10 @@
 package com.genrikhsalexandr.detailarticlefeature.presentation
 
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.genrikhsaleksandr.core.domain.model.Article
+import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsalexandr.detailarticlefeature.domain.DetailInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,6 +13,7 @@ import javax.inject.Inject
 
 class DetailViewModel @Inject constructor(
     private val interactor: DetailInteractor,
+    private val navigator: Navigator
 ) : ViewModel() {
 
     val isIconClick: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -19,14 +22,14 @@ class DetailViewModel @Inject constructor(
         isIconClick.value = !isIconClick.value
     }
 
-    private lateinit var article:Article
+    private lateinit var article: Article
 
 
     private val _isFavorite: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val isFavorite: StateFlow<Boolean> = _isFavorite
 
     fun setArticle(article: Article) {
-       this.article = article
+        this.article = article
         viewModelScope.launch {
             _isFavorite.value = interactor.isFavorite(article)
         }
@@ -41,5 +44,9 @@ class DetailViewModel @Inject constructor(
         interactor.deleteFavoriteArticle(article)
         println("saveArticle")
 
+    }
+
+    fun onNavigationBackDetailArticle(fragment: FragmentManager) {
+        navigator.navigateBackDetailArticle(fragment)
     }
 }

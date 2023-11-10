@@ -54,5 +54,6 @@ class ArticleApplication : Application(), FavoritesComponentProvider, MainCompon
     override fun provideDetailComponent(): DetailComponent {
         return DaggerDetailComponent.builder()
             .coreDataModule(dataModule)
+            .navigationModule(navigationModule)
             .build()    }
 }

@@ -31,4 +31,8 @@ interface Navigator {
 
    fun navigateArticlesSourceToSources(fragmentManager: FragmentManager)
 
+   fun navigateBackSearch (fragmentManager: FragmentManager)
+
+   fun navigateBackDetailArticle (fragmentManager: FragmentManager)
+
 }

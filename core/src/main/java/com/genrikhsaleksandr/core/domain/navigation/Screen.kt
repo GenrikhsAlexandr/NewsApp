@@ -19,4 +19,6 @@ sealed class Screen {
     ) : Screen()
 
     data object FilterDate : Screen()
+
+    data object Default : Screen()
 }

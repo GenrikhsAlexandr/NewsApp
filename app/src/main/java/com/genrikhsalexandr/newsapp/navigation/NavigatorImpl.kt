@@ -100,4 +100,14 @@ class NavigatorImpl : Navigator {
         fragmentManager.popBackStack()
         listener?.onNavigated(Screen.Sources("Source"))
     }
+
+    override fun navigateBackSearch(fragmentManager: FragmentManager) {
+        fragmentManager.popBackStack()
+        listener?.onNavigated(Screen.Default)
+    }
+
+    override fun navigateBackDetailArticle(fragmentManager: FragmentManager) {
+        fragmentManager.popBackStack()
+        listener?.onNavigated(Screen.Default)
+    }
 }

@@ -68,38 +68,43 @@ class MainFragmentViewModel @Inject constructor(
             }
 
             is Screen.FilterDate -> TODO()
+
+            is Screen.Default -> {
+                isAppBarVisible.value = true
+                isNavigationIconVisible.value = false
+            }
         }
     }
 
-    init {
-        navigator.listener = navigatorListener
-    }
+        init {
+            navigator.listener = navigatorListener
+        }
 
-    fun onHeadlinesClick(fragment: FragmentManager) {
-        navigator.navigateToHeadlines(fragment)
-    }
+        fun onHeadlinesClick(fragment: FragmentManager) {
+            navigator.navigateToHeadlines(fragment)
+        }
 
-    fun onFavoritesClick(fragment: FragmentManager) {
-        navigator.navigateToFavorites(fragment)
-    }
+        fun onFavoritesClick(fragment: FragmentManager) {
+            navigator.navigateToFavorites(fragment)
+        }
 
-    fun onSourcesClick(fragment: FragmentManager) {
-        navigator.navigateToSources(fragment)
-    }
+        fun onSourcesClick(fragment: FragmentManager) {
+            navigator.navigateToSources(fragment)
+        }
 
-    fun onSearchClick(fragment: FragmentManager) {
-        navigator.navigateToSearch(fragment)
-    }
+        fun onSearchClick(fragment: FragmentManager) {
+            navigator.navigateToSearch(fragment)
+        }
 
-    fun onFilterClick(fragment: FragmentManager) {
-        navigator.navigateToFilter(fragment)
-    }
+        fun onFilterClick(fragment: FragmentManager) {
+            navigator.navigateToFilter(fragment)
+        }
 
-    fun onNavigationIconArticlesSourceClick(fragment: FragmentManager) {
-        navigator.navigateArticlesSourceToSources(fragment)
-    }
+        fun onNavigationIconArticlesSourceClick(fragment: FragmentManager) {
+            navigator.navigateArticlesSourceToSources(fragment)
+        }
 
-    fun onNavigationIconClick(fragment: FragmentManager) {
-        navigator.navigateArticlesSourceToSources(fragment)
+        fun onNavigationBackSearch(fragment: FragmentManager) {
+            navigator.navigateBackSearch(fragment)
+        }
     }
-}

@@ -67,7 +67,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarArticle.setNavigationOnClickListener {
-            requireActivity().supportFragmentManager.popBackStack()
+            viewModel.onNavigationBackDetailArticle(parentFragmentManager)
         }
 
         binding.toolbarArticle.setOnMenuItemClickListener { item ->
@@ -93,7 +93,9 @@ class DetailFragment : Fragment() {
                 arguments?.getSerializable(BUNDLE_KEY_ARTICLE) as Article
 
         article?.let {
-            binding.contentDetail.text = it.content
+            if (it.content != null)
+                binding.contentDetail.text = it.content
+            else binding.contentDetail.text = getString(R.string.no_content)
 
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
             val outputFormat = SimpleDateFormat("MMM dd, yyyy | hh:mm a", Locale.US)
@@ -101,7 +103,6 @@ class DetailFragment : Fragment() {
             val formattedDate = outputFormat.format(date)
 
             binding.dateDetail.text = formattedDate
-
             binding.titleDetail.text = it.title
             binding.collapsingToolbarArticle.title = it.title
             if (it.urlToImage != null) {

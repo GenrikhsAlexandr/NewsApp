@@ -38,7 +38,7 @@ class FavoritesViewModel @Inject constructor(
         viewModelScope
         viewModelScope.launch {
             try {
-                _news.value = interactor.getArticlesList() ?: emptyList()
+                _news.value = interactor.getArticlesList("business") ?: emptyList()
                 println("news = ${_news.value}")
                 println("idArticle = ${news.value}")
             } catch (e: Exception) {

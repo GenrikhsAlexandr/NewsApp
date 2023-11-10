@@ -57,13 +57,23 @@ class ArticleRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun getArticles(): List<Article>? = withContext(Dispatchers.IO) {
+    override suspend fun getArticles(category:String): List<Article>? = withContext(Dispatchers.IO) {
 
         try {
             val response = service.getNews(
-                country = "us",
+                category = category,
             )
             mapper.mapNewsListDtoToListArticle(response)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            null
+        }
+    }
+
+    override suspend fun getArticlesSource(sourceId: String?): List<Article>? {
+        return try {
+            val response = service.getArticlesSource(sources = sourceId)
+            articlesSourcesMapper.mapArticlesSourceDto(response)
         } catch (e: Exception) {
             e.printStackTrace()
             null
@@ -77,16 +87,6 @@ class ArticleRepositoryImpl @Inject constructor(
         } catch (e: Exception) {
             e.printStackTrace()
             emptyList()
-        }
-    }
-
-    override suspend fun getArticlesSource(sourceId: String?): List<Article>? {
-        return try {
-            val response = service.getArticlesSource(sources = sourceId)
-            articlesSourcesMapper.mapArticlesSourceDto(response)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
         }
     }
 

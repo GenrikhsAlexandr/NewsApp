@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,8 +24,6 @@ public class ScienceFragment extends Fragment {
         Bundle arguments = getArguments();
         assert arguments != null;
         String message = arguments.getString("message");
-        TextView textView = binding.tvScience;
-        textView.setText(message);
         return binding.getRoot();
     }
 

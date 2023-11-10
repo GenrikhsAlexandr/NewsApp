@@ -60,7 +60,7 @@ class MainFragment : Fragment() {
     private fun clickedBackSearchView() {
         binding.ivSearchView.setOnClickListener {
             println("click clickedBackFilterToolBar ")
-            parentFragmentManager.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
     }
 

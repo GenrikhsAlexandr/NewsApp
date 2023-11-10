@@ -52,7 +52,7 @@ class FavoritesAdapter(
                 Picasso.get()
                     .load(listItem.urlToImage.toString())
                     .into(binding.imageNews)
-            }
+            }  else binding.imageNews.setImageResource(com.genrikhsaleksandr.core.R.drawable.element)
         }
     }
 }

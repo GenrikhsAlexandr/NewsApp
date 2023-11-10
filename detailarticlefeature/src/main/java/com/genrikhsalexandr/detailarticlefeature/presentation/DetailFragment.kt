@@ -67,7 +67,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarArticle.setNavigationOnClickListener {
-            fragmentManager?.popBackStack()
+            requireActivity().supportFragmentManager.popBackStack()
         }
 
         binding.toolbarArticle.setOnMenuItemClickListener { item ->
@@ -101,6 +101,7 @@ class DetailFragment : Fragment() {
             val formattedDate = outputFormat.format(date)
 
             binding.dateDetail.text = formattedDate
+
             binding.titleDetail.text = it.title
             binding.collapsingToolbarArticle.title = it.title
             if (it.urlToImage != null) {

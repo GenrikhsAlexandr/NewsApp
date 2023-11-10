@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,19 +21,11 @@ public class BusinessFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         binding = FragmentBusinessBinding.inflate(inflater, container, false);
-        Bundle arguments = getArguments();
-        assert arguments != null;
-        String message = arguments.getString("message");
-        TextView textView = binding.tvBusiness;
-        textView.setText(message);
         return binding.getRoot();
     }
 
     public static BusinessFragment newInstance() {
         BusinessFragment fragment = new BusinessFragment();
-        Bundle args = new Bundle();
-        args.putString("message", "Hello BusinessFragment");
-        fragment.setArguments(args);
         return fragment;
     }
 }

@@ -9,7 +9,7 @@
     android:padding="12dp">
 
     <ImageView
-        android:id="@+id/imageNews"
+        android:id="@+id/imageArticle"
         android:layout_width="114dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="10dp"
@@ -26,7 +26,7 @@
             android:orientation="horizontal">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/iconCompany"
+                android:id="@+id/iconSource"
                 android:layout_width="20dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -36,7 +36,7 @@
                 tools:src="@color/ic_launcher_background" />
 
             <TextView
-                android:id="@+id/tvCompany"
+                android:id="@+id/nameSource"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -46,14 +46,13 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvNews"
+            android:id="@+id/titleArticle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:textColor="@color/dark_text"
             android:textSize="16sp"
             tools:text="First Republic stocks drops nearly 50% after plunge in deposits" />
-
 
     </LinearLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

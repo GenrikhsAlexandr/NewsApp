@@ -10,8 +10,8 @@ interface NewsService {
 
     @GET("v2/top-headlines")
     suspend fun getNews(
+        @Query(QUERY_PARAM_CATEGORY) category: String? = null,
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "c671c3a213884080b9986d20a5ba091a",
-        @Query(QUERY_PARAM_CATEGORY) country: String? = null,
     ): NewsListDto
 
     @GET("/v2/top-headlines/sources")
@@ -28,7 +28,7 @@ interface NewsService {
 
     companion object {
         private const val QUERY_PARAM_API_KEY = "apiKey"
-        private const val QUERY_PARAM_CATEGORY = "country"
+        private const val QUERY_PARAM_CATEGORY = "category"
         private const val QUERY_PARAM_SOURCE = "sources"
     }
 }

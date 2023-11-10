@@ -1,19 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/businessList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:scrollbars="vertical"
-    tools:listitem="@layout/list_item_new">
+    android:layout_gravity="center"
+    android:background="#ffff">
 
-    <TextView
-        android:id="@+id/tvSport"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSport"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="">
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="7"
+        tools:listitem="@layout/list_item_article" />
 
-    </TextView>
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:indeterminate="true"
+        android:visibility="visible">
+
+    </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+</FrameLayout>

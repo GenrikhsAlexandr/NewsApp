@@ -10,9 +10,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
-
 import com.genrikhsalexandr.headlinesfeature.databinding.FragmentHeadlinesBinding;
-import com.genrikhsalexandr.headlinesfeature.presentation.tabs.TabsAdapter;
+import com.genrikhsalexandr.headlinesfeature.presentation.adapter.TabsAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
@@ -22,7 +21,6 @@ public class HeadlinesFragment extends Fragment implements HeadlinesView {
     TabsAdapter tabsAdapter;
     ViewPager2 viewPager;
     TabLayout tabLayout;
-
 
     public static HeadlinesFragment newInstance() {
         return new HeadlinesFragment();

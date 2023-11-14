@@ -45,10 +45,13 @@ dependencies {
 
     implementation(project(":core"))
 
-    implementation ("io.reactivex.rxjava3:rxjava:3.0.0")
+    implementation ("io.reactivex.rxjava3:rxjava:3.1.5")
+    implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
+
+    implementation ("com.github.moxy-community:moxy-androidx:2.2.2")
+    implementation ("com.github.moxy-community:moxy:2.2.2")
+    ksp ("com.github.moxy-community:moxy-compiler:2.2.2")
 
     ksp("androidx.room:room-compiler:2.6.0")
     kapt("com.google.dagger:dagger-compiler:2.46.1")
-    kapt ("com.arello-mobile:moxy-compiler:1.5.5")
-    api ("com.arello-mobile:moxy-app-compat:1.5.5")
 }

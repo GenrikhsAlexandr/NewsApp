@@ -1,19 +1,25 @@
 package com.genrikhsalexandr.filterfeature.presentation
 
+import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.genrikhsalexandr.filterfeature.R
 import com.genrikhsalexandr.filterfeature.databinding.FragmentFilterBinding
+import com.google.android.material.button.MaterialButton
 
 class FilterFragment : Fragment() {
 
     private var _binding: FragmentFilterBinding? = null
 
     private val binding: FragmentFilterBinding get() = _binding!!
+
+    private val viewModel: FilterViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,7 +31,7 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+       /* binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
             if (!isChecked) return@addOnButtonCheckedListener
             when (checkedId) {
                 R.id.popular -> Toast.makeText(
@@ -34,6 +40,7 @@ class FilterFragment : Fragment() {
                 ).show()
 
                 R.id.news -> {
+                    viewModel.onButtonClicked()
                     Toast.makeText(
                         context, "New Clicked",
                         Toast.LENGTH_SHORT
@@ -46,7 +53,8 @@ class FilterFragment : Fragment() {
                 ).show()
 
             }
-        }
+        }*/
+        isButtonChecked()
     }
 
     companion object {
@@ -54,6 +62,53 @@ class FilterFragment : Fragment() {
             return FilterFragment()
         }
     }
+
+    private fun isButtonChecked() {
+
+        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
+            if (isChecked) {
+                when (checkedId) {
+                    R.id.popular -> {
+                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.icon_checked, 0, 0, 0
+                        )
+                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
+                            0, 0, 0, 0
+                        )
+                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
+                            0, 0, 0, 0
+                        )
+
+                    }
+
+                    R.id.news -> {
+                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.icon_checked, 0, 0, 0
+                        )
+                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
+                            0, 0, 0, 0
+                        )
+                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
+                            0, 0, 0, 0
+                        )
+                    }
+
+                    R.id.relevant -> {
+                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
+                            R.drawable.icon_checked, 0, 0, 0
+                        )
+                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
+                            0, 0, 0, 0
+                        )
+                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
+                            0, 0, 0, 0
+                        )
+                    }
+                }
+            }
+        }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

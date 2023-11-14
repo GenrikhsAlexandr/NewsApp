@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#ffff"
     tools:context="com.genrikhsalexandr.filterfeature.presentation.FilterFragment">
-    
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="192dp"
@@ -15,37 +15,143 @@
         <com.google.android.material.button.MaterialButtonToggleGroup
             android:id="@+id/toggleButton"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="wrap_content"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/popular"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selector"
+                android:drawableStart="@drawable/icon_checked"
+                android:gravity="center"
                 android:text="@string/popular" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/news"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selector"
+                android:drawableStart="@drawable/icon_checked"
+                android:gravity="center"
                 android:text="@string/news" />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/relevant"
                 style="?attr/materialButtonOutlinedStyle"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/chip_selector"
+                android:drawableStart="@drawable/icon_checked"
+                android:gravity="center"
                 android:text="@string/relevant" />
         </com.google.android.material.button.MaterialButtonToggleGroup>
 
+        <TextView
+            android:id="@+id/tvLabelDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/date"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:textColor="@color/dark_text"
+            app:layout_constraintBottom_toBottomOf="@+id/calendar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toggleButton" />
+
+        <TextView
+            android:id="@+id/tvSelectDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/choose_date"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:textColor="@color/color_choose_date"
+            app:layout_constraintBottom_toBottomOf="@+id/calendar"
+            app:layout_constraintEnd_toStartOf="@id/calendar"
+            app:layout_constraintTop_toBottomOf="@id/toggleButton" />
 
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/calendar"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="16dp"
+            app:icon="@drawable/ic_no_selected1"
+            app:iconTint="@color/on_surface_variant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toggleButton" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/calendar">
+
+            <TextView
+                android:id="@+id/tvLanguage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/language"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:textColor="@color/dark_text"
+                app:layout_constraintBottom_toBottomOf="@+id/calendar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/toggleButton" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipRussian"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/Russian"
+                    app:chipBackgroundColor="@color/chip_selector"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipEnglish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/english"
+                    app:chipBackgroundColor="@color/chip_selector"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chipDeutsch"
+                    android:layout_width="wrap_content"
+                    style="@style/Widget.Material3.Chip.Suggestion"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="@string/deutsch"
+                    app:chipBackgroundColor="@color/chip_selector"/>
+
+            </com.google.android.material.chip.ChipGroup>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-  </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

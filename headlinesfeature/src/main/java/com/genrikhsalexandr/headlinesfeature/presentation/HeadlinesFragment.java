@@ -16,7 +16,9 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.Objects;
 
-public class HeadlinesFragment extends Fragment implements HeadlinesView {
+import moxy.MvpView;
+
+public class HeadlinesFragment extends Fragment implements MvpView {
 
     TabsAdapter tabsAdapter;
     ViewPager2 viewPager;

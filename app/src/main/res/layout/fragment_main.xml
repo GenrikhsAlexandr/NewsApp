@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#ff00"
     android:fitsSystemWindows="true"
     tools:context=".presentation.MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="64dp"
         android:background="@color/ic_launcher_background"
+        android:fitsSystemWindows="true"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:fitsSystemWindows="true"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
@@ -32,40 +32,41 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-        <LinearLayout
-            android:id="@+id/layoutSearchView"
-            android:layout_width="match_parent"
-            android:layout_height="74dp"
-            android:visibility="gone"
-            android:orientation="vertical"
-            android:background="@color/ic_launcher_background"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
     <LinearLayout
+        android:id="@+id/layoutSearchView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="74dp"
+        android:background="@color/ic_launcher_background"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/ivSearchView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_back"
-                android:layout_marginEnd="10dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="10dp"
-                android:layout_gravity="center"/>
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_back" />
 
-    <androidx.appcompat.widget.SearchView
-        android:id="@+id/searchView"
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
-        app:searchHintIcon="@drawable/ic_search"
-        app:searchIcon="@drawable/ic_search"
-        android:background="@color/ic_launcher_background"
-        app:closeIcon="@drawable/ic_close"
-        android:iconifiedByDefault="true"/>
-    </LinearLayout>
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="match_parent"
+                android:layout_height="74dp"
+                android:background="@color/ic_launcher_background"
+                android:iconifiedByDefault="true"
+                app:closeIcon="@drawable/ic_close"
+                app:searchHintIcon="@drawable/ic_search"
+                app:searchIcon="@drawable/ic_search" />
         </LinearLayout>
+    </LinearLayout>
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarFilter"
@@ -108,14 +109,16 @@
         app:menu="@menu/bottom_navigation_menu"
         tools:ignore="MissingConstraints" />
 
-    <include
-        layout="@layout/container_fragment"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:name="com.genrikhsalexandr.headlinesfeature.presentation.HeadlinesFragment"
         android:layout_width="0dp"
-        android:visibility="visible"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appBar" />
+        app:layout_constraintTop_toBottomOf="@id/appBar"
+        tools:layout="@layout/fragment_headlines">
 
+    </androidx.fragment.app.FragmentContainerView>
 </androidx.constraintlayout.widget.ConstraintLayout>

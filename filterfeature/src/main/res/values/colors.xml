@@ -9,6 +9,9 @@
     <color name="bottom_navigation_item">#00829C</color>
     <color name="background_tabs">#F8F9FB</color>
     <color name="color_divider">#BFC8CC</color>
+    <color name="color_choose_date">#70787C</color>
+    <color name="color_checked_chips">#CEE7F0</color>
+    <color name="icon_button">#061E25</color>
 
 
 </resources>

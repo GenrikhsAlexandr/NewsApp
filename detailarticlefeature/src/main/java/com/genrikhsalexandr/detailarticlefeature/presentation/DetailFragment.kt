@@ -5,6 +5,9 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -117,11 +120,24 @@ class DetailFragment : Fragment() {
 
     private fun setTextClickListeners() {
         val articleUrl = article?.url
-        binding.contentDetail.setOnClickListener {
-            val uri = Uri.parse(articleUrl)
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            startActivity(intent)
+        val fullText = binding.contentDetail.text.toString()
+        val lastSentenceStart = fullText.lastIndexOf(".")+1
+        val spannableString = SpannableString(fullText)
+        val clickableSpan = object : ClickableSpan() {
+            override fun onClick(widget: View) {
+                val uri = Uri.parse(articleUrl)
+                val intent = Intent(Intent.ACTION_VIEW, uri)
+                startActivity(intent)
+            }
         }
+        spannableString.setSpan(
+            clickableSpan,
+            lastSentenceStart,
+            fullText.length,
+            SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        binding.contentDetail.text = spannableString
+        binding.contentDetail.movementMethod = LinkMovementMethod.getInstance()
     }
 
     private fun subscribe() {

@@ -1,7 +1,5 @@
 package com.genrikhsalexandr.filterfeature.presentation
 
-import android.content.Context
-import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.genrikhsalexandr.filterfeature.R
 import com.genrikhsalexandr.filterfeature.databinding.FragmentFilterBinding
-import com.google.android.material.button.MaterialButton
+import com.google.android.material.datepicker.MaterialDatePicker
+
 
 class FilterFragment : Fragment() {
 
@@ -31,30 +30,31 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       /* binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
-            if (!isChecked) return@addOnButtonCheckedListener
-            when (checkedId) {
-                R.id.popular -> Toast.makeText(
-                    context, "Popular Clicked",
-                    Toast.LENGTH_SHORT
-                ).show()
+        /* binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
+             if (!isChecked) return@addOnButtonCheckedListener
+             when (checkedId) {
+                 R.id.popular -> Toast.makeText(
+                     context, "Popular Clicked",
+                     Toast.LENGTH_SHORT
+                 ).show()
 
-                R.id.news -> {
-                    viewModel.onButtonClicked()
-                    Toast.makeText(
-                        context, "New Clicked",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                 R.id.news -> {
+                     viewModel.onButtonClicked()
+                     Toast.makeText(
+                         context, "New Clicked",
+                         Toast.LENGTH_SHORT
+                     ).show()
+                 }
 
-                R.id.relevant -> Toast.makeText(
-                    context, "Relevant Clicked",
-                    Toast.LENGTH_SHORT
-                ).show()
+                 R.id.relevant -> Toast.makeText(
+                     context, "Relevant Clicked",
+                     Toast.LENGTH_SHORT
+                 ).show()
 
-            }
-        }*/
+             }
+         }*/
         isButtonChecked()
+        buttonCalendarClick()
     }
 
     companion object {
@@ -105,7 +105,36 @@ class FilterFragment : Fragment() {
                         )
                     }
                 }
+                // binding.toggleButton.clearChecked()
             }
+        }
+    }
+
+    private fun buttonCalendarClick() {
+        binding.calendar.setOnClickListener {
+            openCalendar()
+        }
+    }
+
+    private fun openCalendar() {
+        val dateRangePicker =
+            MaterialDatePicker.Builder.dateRangePicker()
+                .setTitleText("Select dates")
+                .setSelection(
+                    androidx.core.util.Pair(
+                        MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                        MaterialDatePicker.todayInUtcMilliseconds()
+                    )
+                )
+                .build()
+        dateRangePicker.show(parentFragmentManager, dateRangePicker.toString())
+
+        dateRangePicker.addOnPositiveButtonClickListener {
+            binding.tvSelectDate.text = dateRangePicker.headerText
+            binding.tvSelectDate.setTextColor(resources.getColor(R.color.primary_text))
+            binding.calendar.setIconResource(R.drawable.ic_selected_date)
+            binding.calendar.setIconTintResource(R.color.light_text)
+            binding.calendar.setBackgroundColor(resources.getColor(R.color.primary_text))
         }
     }
 

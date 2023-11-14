@@ -38,11 +38,11 @@ class NavigatorImpl : Navigator {
     }
 
     override fun navigateToHeadlines(fragmentManager: FragmentManager) {
-        val headlinesFragment = HeadlinesFragment.newInstance()
-        fragmentManager.commit {
-            replace(R.id.fragment_container, headlinesFragment)
-            addToBackStack(null)
-        }
+        /* val headlinesFragment = HeadlinesFragment.newInstance()
+         fragmentManager.commit {
+             replace(R.id.fragment_container, headlinesFragment)
+             addToBackStack(null)
+         }*/
         listener?.onNavigated(Screen.Headlines)
     }
 

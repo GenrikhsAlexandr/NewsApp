@@ -70,11 +70,15 @@ class MainFragment : Fragment() {
             binding.appBar.isVisible = true
             binding.toolbar.isVisible = true
             binding.appBarFilter.isVisible = false
+            parentFragmentManager.popBackStack()
         }
 
         binding.toolbarFilter.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
                 com.genrikhsalexandr.filterfeature.R.id.checked -> {
+
+                    //написать код сохранить фильтр
+
                     Toast.makeText(context, "Filter saved", Toast.LENGTH_LONG).show()
                     parentFragmentManager.popBackStack()
                     binding.appBar.isVisible = true

@@ -7,6 +7,7 @@ import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
+import com.genrikhsalexandr.detailarticlefeature.presentation.DetailForSearchFragment
 import com.genrikhsalexandr.detailarticlefeature.presentation.DetailFragment
 import com.genrikhsalexandr.filterfeature.presentation.FilterFragment
 import com.genrikhsalexandr.headlinesfeature.presentation.HeadlinesFragment
@@ -38,11 +39,11 @@ class NavigatorImpl : Navigator {
     }
 
     override fun navigateToHeadlines(fragmentManager: FragmentManager) {
-        /* val headlinesFragment = HeadlinesFragment.newInstance()
+        val headlinesFragment = HeadlinesFragment.newInstance()
          fragmentManager.commit {
              replace(R.id.fragment_container, headlinesFragment)
              addToBackStack(null)
-         }*/
+         }
         listener?.onNavigated(Screen.Headlines)
     }
 
@@ -109,5 +110,18 @@ class NavigatorImpl : Navigator {
     override fun navigateBackDetailArticle(fragmentManager: FragmentManager) {
         fragmentManager.popBackStack()
         listener?.onNavigated(Screen.Default)
+    }
+
+    override fun navigateBackDetailArticleForSearch(fragmentManager: FragmentManager) {
+        fragmentManager.popBackStack()
+        listener?.onNavigated(Screen.Search)    }
+
+    override fun navigateToDetailsArticleForSearch(article: Article, fragmentManager: FragmentManager) {
+        val detailForSearchFragment = DetailForSearchFragment.newInstance(article)
+        fragmentManager.commit {
+            replace(R.id.fragment_container, detailForSearchFragment)
+            addToBackStack(null)
+        }
+        listener?.onNavigated(Screen.DetailArticle)
     }
 }

@@ -48,8 +48,8 @@ dependencies {
     implementation ("io.reactivex.rxjava3:rxjava:3.1.5")
     implementation ("io.reactivex.rxjava3:rxandroid:3.0.2")
 
-    implementation ("com.github.moxy-community:moxy-androidx:2.2.2")
-    implementation ("com.github.moxy-community:moxy:2.2.2")
+    api ("com.github.moxy-community:moxy-androidx:2.2.2")
+    api ("com.github.moxy-community:moxy:2.2.2")
     ksp ("com.github.moxy-community:moxy-compiler:2.2.2")
 
     ksp("androidx.room:room-compiler:2.6.0")

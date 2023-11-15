@@ -26,14 +26,14 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
 
-class DetailFragment : Fragment() {
+class DetailForSearchFragment : Fragment() {
 
     companion object {
 
         private const val BUNDLE_KEY_ARTICLE = "article"
 
-        fun newInstance(article: Article): DetailFragment {
-            return DetailFragment().apply {
+        fun newInstance(article: Article): DetailForSearchFragment {
+            return DetailForSearchFragment().apply {
                 arguments = bundleOf(
                     BUNDLE_KEY_ARTICLE to article
                 )
@@ -52,7 +52,7 @@ class DetailFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as DetailComponentProvider).provideDetailComponent()
-            .inject1(this)
+            .inject2(this)
     }
 
     private var article: Article? = null
@@ -70,7 +70,7 @@ class DetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.toolbarArticle.setNavigationOnClickListener {
-            viewModel.onNavigationBackDetailArticle(parentFragmentManager)
+            viewModel.onNavigationBackDetailArticleForSearch(parentFragmentManager)
         }
 
         binding.toolbarArticle.setOnMenuItemClickListener { item ->
@@ -121,7 +121,7 @@ class DetailFragment : Fragment() {
     private fun setTextClickListeners() {
         val articleUrl = article?.url
         val fullText = binding.contentDetail.text.toString()
-        val lastSentenceStart = fullText.lastIndexOf(".")+1
+        val lastSentenceStart = fullText.lastIndexOf(".") + 1
         val spannableString = SpannableString(fullText)
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {

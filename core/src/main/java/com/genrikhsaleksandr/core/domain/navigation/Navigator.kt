@@ -34,5 +34,9 @@ interface Navigator {
    fun navigateBackSearch (fragmentManager: FragmentManager)
 
    fun navigateBackDetailArticle (fragmentManager: FragmentManager)
+   fun navigateBackDetailArticleForSearch (fragmentManager: FragmentManager)
+
+    fun navigateToDetailsArticleForSearch(article: Article, fragmentManager: FragmentManager)
+
 
 }

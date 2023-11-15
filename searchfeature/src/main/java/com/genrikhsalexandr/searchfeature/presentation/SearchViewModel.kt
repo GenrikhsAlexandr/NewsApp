@@ -47,6 +47,6 @@ class SearchViewModel @Inject constructor(
     }
 
     fun onNewsItemClick(article:Article, fragment: FragmentManager){
-        navigator.navigateToDetailsArticle(article, fragment)
+        navigator.navigateToDetailsArticleForSearch(article, fragment)
     }
 }

@@ -49,4 +49,7 @@ class DetailViewModel @Inject constructor(
     fun onNavigationBackDetailArticle(fragment: FragmentManager) {
         navigator.navigateBackDetailArticle(fragment)
     }
+    fun onNavigationBackDetailArticleForSearch(fragment: FragmentManager) {
+        navigator.navigateBackDetailArticleForSearch(fragment)
+    }
 }

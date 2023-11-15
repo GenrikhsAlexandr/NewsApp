@@ -3,6 +3,7 @@ package com.genrikhsalexandr.searchfeature.presentation
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsalexandr.searchfeature.domain.SearchInteractor
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
@@ -18,10 +20,10 @@ class SearchViewModel @Inject constructor(
     private val navigator: Navigator,
 
     ) : ViewModel() {
-    private val _news: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
+    private val _query: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
 
-    val news: StateFlow<List<SearchListItem>> = _news.map { news ->
-        news.map {
+    val query: StateFlow<List<SearchListItem>> = _query.map { query ->
+        query.map {
             SearchListItem(
                 sourceName = it.sourceName,
                 title = it.title,
@@ -32,7 +34,19 @@ class SearchViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
+
+    fun setQuery(q: String) {
+        viewModelScope.launch {
+            _query.value =
+                interactor.getArticlesListForSearch(q) ?: emptyList()
+        }
+    }
+
     fun onNavigationBackSearch(fragment: FragmentManager) {
         navigator.navigateBackSearch(fragment)
+    }
+
+    fun onNewsItemClick(article:Article, fragment: FragmentManager){
+        navigator.navigateToDetailsArticle(article, fragment)
     }
 }

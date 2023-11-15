@@ -10,10 +10,12 @@ import com.genrikhsalexandr.headlinesfeature.databinding.ListItemArticleBinding;
 import com.genrikhsalexandr.headlinesfeature.presentation.ArticleItemList;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HeadlinesAdapter extends RecyclerView.Adapter<HeadlinesAdapter.ArticleViewHolder> {
-    private List<ArticleItemList> list;
+    private List<ArticleItemList> list = new  ArrayList<>();
+
     private final OnArticleItemClickListener onArticleItemClickListener;
 
     public HeadlinesAdapter(OnArticleItemClickListener onArticleItemClickListener) {
@@ -71,5 +73,3 @@ public class HeadlinesAdapter extends RecyclerView.Adapter<HeadlinesAdapter.Arti
         void onItemClick(Article article);
     }
 }
-
-

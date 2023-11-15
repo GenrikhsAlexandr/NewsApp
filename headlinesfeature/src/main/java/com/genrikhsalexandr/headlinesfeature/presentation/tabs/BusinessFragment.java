@@ -56,6 +56,7 @@ public class BusinessFragment extends MvpAppCompatFragment implements BusinessVi
         HeadlinesAdapter adapter = new HeadlinesAdapter(article ->
                 presenter.onNewsItemClick(article, getParentFragmentManager()));
         binding.rvBusiness.setAdapter(adapter);
+        System.out.println("adapter = " + adapter.getItemCount());
     }
 
     @Override

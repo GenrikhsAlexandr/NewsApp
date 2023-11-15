@@ -36,7 +36,7 @@
                 tools:src="@color/light_text" />
 
             <TextView
-                android:id="@+id/tvCompany"
+                android:id="@+id/nameSource"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -46,7 +46,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/tvNews"
+            android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

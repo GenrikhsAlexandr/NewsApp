@@ -13,11 +13,15 @@ import com.genrikhsalexandr.newsapp.di.ApplicationComponent
 import com.genrikhsalexandr.newsapp.di.DaggerApplicationComponent
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
 import com.genrikhsalexandr.newsapp.navigation.NavigatorImpl
+import com.genrikhsalexandr.searchfeature.di.DaggerSearchComponent
+import com.genrikhsalexandr.searchfeature.di.SearchComponent
+import com.genrikhsalexandr.searchfeature.di.SearchComponentProvider
 import com.genrikhsalexandr.souresfeature.di.DaggerSourcesComponent
 import com.genrikhsalexandr.souresfeature.di.SourcesComponent
 import com.genrikhsalexandr.souresfeature.di.SourcesComponentProvider
 
-class ArticleApplication : Application(), FavoritesComponentProvider, MainComponentProvider, SourcesComponentProvider,DetailComponentProvider {
+class ArticleApplication : Application(), FavoritesComponentProvider, MainComponentProvider,
+    SourcesComponentProvider, DetailComponentProvider, SearchComponentProvider {
 
     private val navigationModule: NavigationModule by lazy {
         NavigationModule(
@@ -55,5 +59,13 @@ class ArticleApplication : Application(), FavoritesComponentProvider, MainCompon
         return DaggerDetailComponent.builder()
             .coreDataModule(dataModule)
             .navigationModule(navigationModule)
-            .build()    }
+            .build()
+    }
+
+    override fun provideSearchComponent(): SearchComponent {
+        return DaggerSearchComponent.builder()
+            .navigationModule(navigationModule)
+            .coreDataModule(dataModule)
+            .build()
+    }
 }

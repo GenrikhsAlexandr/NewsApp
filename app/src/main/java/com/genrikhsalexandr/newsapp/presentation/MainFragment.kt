@@ -51,18 +51,9 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mainToolBar()
         bottomNavigation()
-        clickedBackSearchView()
         clickedBackFilterToolBar()
         subscribe()
         onClickNavigationIcon()
-    }
-
-    private fun clickedBackSearchView() {
-        binding.ivSearchView.setOnClickListener {
-            viewModel.onNavigationBackSearch(parentFragmentManager)
-            binding.layoutSearchView.isVisible = false
-
-        }
     }
 
     private fun clickedBackFilterToolBar() {
@@ -96,9 +87,6 @@ class MainFragment : Fragment() {
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.search -> {
                     viewModel.onSearchClick(parentFragmentManager)
-                    binding.searchView.requestFocus()
-                    binding.layoutSearchView.isVisible = true
-
                     true
                 }
 
@@ -120,7 +108,6 @@ class MainFragment : Fragment() {
                     viewModel.onHeadlinesClick(parentFragmentManager)
                     binding.toolbar.title = getString(R.string.app_name)
                     binding.appBarFilter.isVisible = false
-                    binding.layoutSearchView.isVisible = false
                     true
                 }
 
@@ -128,16 +115,13 @@ class MainFragment : Fragment() {
                     viewModel.onFavoritesClick(parentFragmentManager)
                     binding.toolbar.title = getString(R.string.saved)
                     binding.appBarFilter.isVisible = false
-                    binding.layoutSearchView.isVisible = false
                     true
                 }
 
                 R.id.sources -> {
                     viewModel.onSourcesClick(parentFragmentManager)
-                    binding.layoutSearchView.isVisible = false
                     binding.toolbar.title = getString(R.string.sources)
                     binding.appBarFilter.isVisible = false
-                    binding.layoutSearchView.isVisible = false
                     true
                 }
 

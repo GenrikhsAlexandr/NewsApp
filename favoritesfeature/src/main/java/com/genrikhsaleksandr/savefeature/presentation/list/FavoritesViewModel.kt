@@ -39,7 +39,7 @@ class FavoritesViewModel @Inject constructor(
         viewModelScope
         viewModelScope.launch {
             try {
-                _news.value = interactor.getArticlesList("${Category.GENERAL}") ?: emptyList()
+                _news.value = interactor.getArticlesListForCategory("${Category.GENERAL}") ?: emptyList()
                 println("news = ${_news.value}")
                 println("idArticle = ${news.value}")
             } catch (e: Exception) {
@@ -50,14 +50,6 @@ class FavoritesViewModel @Inject constructor(
 
     suspend fun getFavoritesArticle(article: Article): List<Article> {
         return interactor.getFavoritesArticles()
-    }
-
-    private suspend fun saveFavoritesArticle(article: Article) {
-        interactor.saveFavoritesArticle(article)
-    }
-
-    suspend fun deleteFavoritesArticle(article: Article) {
-        interactor.deleteFavoriteArticle(article)
     }
 
     fun onNewsItemClick(article: Article, fragmentManager: FragmentManager) {

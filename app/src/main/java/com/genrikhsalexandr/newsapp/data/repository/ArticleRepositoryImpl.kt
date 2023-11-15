@@ -6,6 +6,7 @@ import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
 import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.network.NewsService
+import com.genrikhsalexandr.searchfeature.data.dto.SearchDtoMapper
 import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -24,6 +25,7 @@ class ArticleRepositoryImpl @Inject constructor(
     private val mapper: NewsDtoMapper,
     private val sourcesMapper: SourcesDtoMapper,
     private val articlesSourcesMapper: ArticlesSourceDtoMapper,
+    private val articlesSearchMapper: SearchDtoMapper,
 ) : ArticleRepository {
     companion object {
         private const val BASE_URL = "https://newsapi.org/"
@@ -57,18 +59,33 @@ class ArticleRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun getArticles(category:String): List<Article>? = withContext(Dispatchers.IO) {
+    override suspend fun getArticlesForCategory(category: String): List<Article>? =
+        withContext(Dispatchers.IO) {
 
-        try {
-            val response = service.getNews(
-                category = category,
-            )
-            mapper.mapNewsListDtoToListArticle(response)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
+            try {
+                val responseForCategory = service.getNews(
+                    category = category,
+                )
+                mapper.mapNewsListDtoToListArticle(responseForCategory)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
         }
-    }
+
+    override suspend fun getArticlesForQuery(query: String): List<Article>? =
+        withContext(Dispatchers.IO) {
+
+            try {
+                val responseForQuery = service.getQueryArticle(
+                    q = query,
+                )
+                articlesSearchMapper.mapSearchListDtoToArticleList(responseForQuery)
+            } catch (e: Exception) {
+                e.printStackTrace()
+                null
+            }
+        }
 
     override suspend fun getArticlesSource(sourceId: String?): List<Article>? {
         return try {
@@ -99,7 +116,7 @@ class ArticleRepositoryImpl @Inject constructor(
 
     override suspend fun saveFavoriteArticle(article: Article): Article {
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)
-       val updateId = articleDao.insertArticle(articleDbModel)
+        val updateId = articleDao.insertArticle(articleDbModel)
         return mapper.mapArticleDbModelToArticle(articleDbModel.copy(id = updateId))
     }
 

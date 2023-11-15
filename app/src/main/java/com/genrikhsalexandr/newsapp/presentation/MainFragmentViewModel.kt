@@ -48,7 +48,7 @@ class MainFragmentViewModel @Inject constructor(
             }
 
             is Screen.Search -> {
-                isAppBarVisible.value = true
+                isAppBarVisible.value = false
                 isNavigationIconVisible.value = false
 
             }
@@ -104,7 +104,4 @@ class MainFragmentViewModel @Inject constructor(
             navigator.navigateArticlesSourceToSources(fragment)
         }
 
-        fun onNavigationBackSearch(fragment: FragmentManager) {
-            navigator.navigateBackSearch(fragment)
-        }
     }

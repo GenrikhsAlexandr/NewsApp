@@ -1,7 +1,6 @@
 package com.genrikhsalexandr.searchfeature.data.dto
 
 import com.genrikhsaleksandr.core.domain.model.Article
-import com.genrikhsaleksandr.core.domain.model.Source
 import javax.inject.Inject
 
 class SearchDtoMapper @Inject constructor() {

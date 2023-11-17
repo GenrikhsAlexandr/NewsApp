@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature.data.database
+package com.genrikhsaleksandr.core.data.database
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

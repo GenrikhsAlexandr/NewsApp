@@ -1,16 +1,18 @@
 package com.genrikhsalexandr.newsapp.data.repository
 
+import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.core.domain.model.Source
-import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
-import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
+import com.genrikhsaleksandr.core.data.NewsListDtoMapper
+import com.genrikhsaleksandr.core.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.network.NewsService
 import com.genrikhsalexandr.searchfeature.data.dto.SearchDtoMapper
 import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
@@ -22,7 +24,7 @@ import javax.inject.Inject
 
 class ArticleRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao,
-    private val mapper: NewsDtoMapper,
+    private val mapper: NewsListDtoMapper,
     private val sourcesMapper: SourcesDtoMapper,
     private val articlesSourcesMapper: ArticlesSourceDtoMapper,
     private val articlesSearchMapper: SearchDtoMapper,
@@ -72,6 +74,10 @@ class ArticleRepositoryImpl @Inject constructor(
                 null
             }
         }
+
+    override fun getArticlesForCategoryBlocking(category: Category): List<Article>? = runBlocking {
+        getArticlesForCategory(category.name)
+    }
 
     override suspend fun getArticlesForQuery(query: String): List<Article>? =
         withContext(Dispatchers.IO) {

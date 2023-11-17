@@ -9,6 +9,9 @@ import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
 import com.genrikhsalexandr.detailarticlefeature.di.DaggerDetailComponent
 import com.genrikhsalexandr.detailarticlefeature.di.DetailComponent
 import com.genrikhsalexandr.detailarticlefeature.di.DetailComponentProvider
+import com.genrikhsalexandr.headlinesfeature.di.DaggerHeadlinesComponent
+import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponent
+import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider
 import com.genrikhsalexandr.newsapp.di.ApplicationComponent
 import com.genrikhsalexandr.newsapp.di.DaggerApplicationComponent
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
@@ -21,7 +24,8 @@ import com.genrikhsalexandr.souresfeature.di.SourcesComponent
 import com.genrikhsalexandr.souresfeature.di.SourcesComponentProvider
 
 class ArticleApplication : Application(), FavoritesComponentProvider, MainComponentProvider,
-    SourcesComponentProvider, DetailComponentProvider, SearchComponentProvider {
+    SourcesComponentProvider, DetailComponentProvider, SearchComponentProvider,
+    HeadlinesComponentProvider {
 
     private val navigationModule: NavigationModule by lazy {
         NavigationModule(
@@ -64,6 +68,13 @@ class ArticleApplication : Application(), FavoritesComponentProvider, MainCompon
 
     override fun provideSearchComponent(): SearchComponent {
         return DaggerSearchComponent.builder()
+            .navigationModule(navigationModule)
+            .coreDataModule(dataModule)
+            .build()
+    }
+
+    override fun provideHeadlinesComponent(): HeadlinesComponent {
+        return DaggerHeadlinesComponent.builder()
             .navigationModule(navigationModule)
             .coreDataModule(dataModule)
             .build()

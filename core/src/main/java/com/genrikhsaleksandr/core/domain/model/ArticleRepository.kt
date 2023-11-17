@@ -1,9 +1,13 @@
 package com.genrikhsaleksandr.core.domain.model
 
+import com.genrikhsaleksandr.core.domain.Category
+
 interface ArticleRepository {
     suspend fun getFavoritesArticle(): List<Article>
 
     suspend fun getArticlesForCategory(category:String): List<Article>?
+
+    fun getArticlesForCategoryBlocking(category: Category): List<Article>?
 
     suspend fun getArticlesForQuery(query:String): List<Article>?
 

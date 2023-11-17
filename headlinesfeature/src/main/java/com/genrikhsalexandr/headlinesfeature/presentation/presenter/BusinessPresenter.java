@@ -3,11 +3,13 @@ package com.genrikhsalexandr.headlinesfeature.presentation.presenter;
 
 import androidx.fragment.app.FragmentManager;
 
+import com.genrikhsaleksandr.core.domain.Category;
 import com.genrikhsaleksandr.core.domain.model.Article;
 import com.genrikhsaleksandr.core.navigation.Navigator;
+import com.genrikhsaleksandr.core.presentation.ArticleItemList;
 import com.genrikhsalexandr.headlinesfeature.domain.HeadlinesInteractor;
-import com.genrikhsalexandr.headlinesfeature.presentation.ArticleItemList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -18,18 +20,45 @@ import moxy.MvpPresenter;
 @InjectViewState
 public class BusinessPresenter extends MvpPresenter<BusinessView> {
 
-    @Inject
     Navigator navigator;
 
     HeadlinesInteractor interactor;
 
-    public BusinessPresenter() {
+
+    @Inject
+    public BusinessPresenter(
+            HeadlinesInteractor interactor,
+            Navigator navigator
+    ) {
+        this.interactor = interactor;
+        this.navigator = navigator;
         getViewState().setLoading(true);
-        // Здесь надо будет делать запрос получить список новостей
+        interactor.getArticlesList(Category.BUSINESS)
+                .subscribe(this::onArticlesLoaded, this::onError);
+    }
+
+    private void onError(Throwable throwable) {
+        String errorMessage = "An error occurred: " + throwable.getMessage();
+        System.err.println(errorMessage);
+    }
+
+    private void onArticlesLoaded(List<Article> articles) {
+        List<ArticleItemList> articlesItems = new ArrayList<>(articles.size());
+        articles.forEach(article -> articlesItems.add(
+                new ArticleItemList(
+                        article.getSourceName(),
+                        article.getTitle(),
+                        article.getUrlToImage(),
+                        article,
+                        article.getId()
+                )
+        ));
+        System.out.println("articles = " + articles.size());
+        getViewState().setLoading(false);
+        getViewState().showArticles(articlesItems);
     }
 
     public void onNewsItemClick(Article article, FragmentManager fragmentManager) {
         navigator.navigateToDetailsArticle(article, fragmentManager);
     }
-
 }

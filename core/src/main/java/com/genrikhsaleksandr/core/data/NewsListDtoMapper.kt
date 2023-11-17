@@ -1,13 +1,13 @@
-package com.genrikhsaleksandr.savefeature.data
+package com.genrikhsaleksandr.core.data
 
 import com.genrikhsaleksandr.core.domain.model.Article
-import com.genrikhsaleksandr.savefeature.data.database.ArticleDbModel
-import com.genrikhsaleksandr.savefeature.data.dto.NewsListDto
+import com.genrikhsaleksandr.core.data.database.ArticleDbModel
+import com.genrikhsaleksandr.core.data.dto.NewsListDto
 import javax.inject.Inject
 
-class NewsDtoMapper @Inject constructor() {
+class NewsListDtoMapper @Inject constructor() {
 
-    fun mapNewsListDtoToListArticle(articleDto: NewsListDto): List<Article> {
+   fun mapNewsListDtoToListArticle(articleDto: NewsListDto): List<Article> {
         return articleDto.articles.map {
             Article(
                 sourceName = it.source.name,

@@ -68,6 +68,7 @@ class SourcesFragment @Inject constructor(
                 adapter.submitData(source)
             }
         }
+        println("adapterSourse = ${adapter.itemCount}")
     }
 
     override fun onDestroyView() {

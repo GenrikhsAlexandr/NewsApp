@@ -1,8 +1,8 @@
-package com.genrikhsaleksandr.savefeature.presentation.list
+package com.genrikhsaleksandr.core.presentation
 
 import com.genrikhsaleksandr.core.domain.model.Article
 
-data class NewsItemList(
+data class ArticleItemList(
     val sourceName: String?,
     val title: String,
     val urlToImage: String?,

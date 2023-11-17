@@ -1,26 +1,26 @@
-package com.genrikhsaleksandr.savefeature.presentation.list
+package com.genrikhsaleksandr.core.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.genrikhsaleksandr.core.databinding.ListItemArticleBinding
 import com.genrikhsaleksandr.core.domain.model.Article
-import com.genrikhsaleksandr.savefeature.databinding.ListItemNewsBinding
 import com.squareup.picasso.Picasso
 
-class FavoritesAdapter(
-    val onNewsItemClickListener: ((Article) -> Unit)
-) : RecyclerView.Adapter<FavoritesAdapter.NewsViewHolder>() {
+class CoreAdapter(
+    val onNewsItemClickListener: ((Article)->Unit)
+) : RecyclerView.Adapter<CoreAdapter.NewsViewHolder>() {
 
-    private lateinit var list: List<NewsItemList>
+    private var list: List<ArticleItemList> = ArrayList()
 
-    fun submitData(list: List<NewsItemList>) {
+    fun submitData(list: List<ArticleItemList>) {
         this.list = list
         notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
-            ListItemNewsBinding.inflate(
+            ListItemArticleBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -36,12 +36,12 @@ class FavoritesAdapter(
         holder.bind(list[position])
     }
 
-    inner class NewsViewHolder(private val binding: ListItemNewsBinding) :
+    inner class NewsViewHolder(private val binding: ListItemArticleBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(listItem: NewsItemList) {
+        fun bind(listItem: ArticleItemList) {
             with(binding) {
                 nameSource.text = listItem.sourceName
-                title.text = listItem.title
+                titleArticle.text = listItem.title
                 root.setOnClickListener {
                     onNewsItemClickListener(
                         listItem.article
@@ -51,8 +51,8 @@ class FavoritesAdapter(
             if (listItem.urlToImage != null) {
                 Picasso.get()
                     .load(listItem.urlToImage.toString())
-                    .into(binding.imageNews)
-            }  else binding.imageNews.setImageResource(com.genrikhsaleksandr.core.R.drawable.element)
+                    .into(binding.imageArticle)
+            }  else binding.imageArticle.setImageResource(com.genrikhsaleksandr.core.R.drawable.element)
         }
     }
 }

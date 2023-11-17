@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.navigation.Navigator
+import com.genrikhsaleksandr.core.presentation.ArticleItemList
 import com.genrikhsaleksandr.savefeature.domain.FavoritesInteractor
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -23,9 +24,9 @@ class FavoritesViewModel @Inject constructor(
 
     private val _news: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
 
-    val news: StateFlow<List<NewsItemList>> = _news.map { news ->
+    val news: StateFlow<List<ArticleItemList>> = _news.map { news ->
         news.map {
-            NewsItemList(
+            ArticleItemList(
                 sourceName = it.sourceName,
                 title = it.title,
                 urlToImage = it.urlToImage,
@@ -35,11 +36,12 @@ class FavoritesViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-   fun init (){
+    fun init() {
         viewModelScope
         viewModelScope.launch {
             try {
-                _news.value = interactor.getArticlesListForCategory("${Category.GENERAL}") ?: emptyList()
+                _news.value =
+                    interactor.getArticlesListForCategory("${Category.GENERAL}") ?: emptyList()
                 println("news = ${_news.value}")
                 println("idArticle = ${news.value}")
             } catch (e: Exception) {

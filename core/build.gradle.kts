@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.9.20-RC"
     id("kotlin-kapt")
 
 }
@@ -32,6 +34,10 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -42,12 +48,12 @@ dependencies {
     api ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     api("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
-    api ("com.android.databinding:viewbinding:8.1.2")
+    api ("com.android.databinding:viewbinding:8.1.4")
 
     api ("androidx.recyclerview:recyclerview:1.3.2")
 
-    api("androidx.navigation:navigation-fragment-ktx:2.7.4")
-    api("androidx.navigation:navigation-ui-ktx:2.7.4")
+    api("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    api("androidx.navigation:navigation-ui-ktx:2.7.5")
 
     api("com.google.android.material:material:1.10.0")
 
@@ -64,6 +70,8 @@ dependencies {
 
     api("androidx.room:room-ktx:2.6.0")
     api("androidx.room:room-rxjava3:2.6.0")
+    ksp("androidx.room:room-compiler:2.6.0")
+
 
     api("com.squareup.okhttp3:okhttp:5.0.0-alpha.10")
     api("com.squareup.okhttp3:logging-interceptor:4.7.2")

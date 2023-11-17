@@ -1,5 +1,3 @@
-import java.util.regex.Pattern.compile
-
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
@@ -50,7 +48,7 @@ dependencies {
 
     api ("com.github.moxy-community:moxy-androidx:2.2.2")
     api ("com.github.moxy-community:moxy:2.2.2")
-    ksp ("com.github.moxy-community:moxy-compiler:2.2.2")
+    kapt ("com.github.moxy-community:moxy-compiler:2.2.2")
 
     ksp("androidx.room:room-compiler:2.6.0")
     kapt("com.google.dagger:dagger-compiler:2.46.1")

@@ -1,29 +1,30 @@
 package com.genrikhsalexandr.headlinesfeature.di;
 
-import androidx.lifecycle.ViewModel;
-
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository;
+import com.genrikhsaleksandr.core.navigation.Navigator;
 import com.genrikhsalexandr.headlinesfeature.domain.HeadlinesInteractor;
+import com.genrikhsalexandr.headlinesfeature.presentation.presenter.BusinessPresenter;
 
 import javax.inject.Singleton;
 
-import dagger.Binds;
 import dagger.Module;
 import dagger.Provides;
-import dagger.multibindings.IntoMap;
 
 @Module
-public interface  HeadlinesModule{
+public class HeadlinesModule {
 
-    @Module
-    static class HeadlinesModuleImpl {
-        @Provides
-        @Singleton
-        HeadlinesInteractor provideFavoritesInteractor(ArticleRepository articleRepository) {
-            return new HeadlinesInteractor(articleRepository);
-        }
+    @Provides
+    @Singleton
+    HeadlinesInteractor provideHeadlinesInteractor(ArticleRepository articleRepository) {
+        return new HeadlinesInteractor(articleRepository);
+    }
+
+    @Provides
+    @Singleton
+    BusinessPresenter provideBusinessPresenter(
+            HeadlinesInteractor headlinesInteractor,
+            Navigator navigator
+    ) {
+        return new BusinessPresenter(headlinesInteractor, navigator);
     }
 }
-
-
-

@@ -9,13 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
+import com.genrikhsaleksandr.core.presentation.CoreAdapter
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
 import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
 import com.genrikhsaleksandr.savefeature.di.FavoritesViewModelFactory
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class FavoritesFragment: Fragment() {
+class FavoritesFragment : Fragment() {
 
     companion object {
 
@@ -33,7 +34,7 @@ class FavoritesFragment: Fragment() {
     private var _binding: FragmentFavoritesBinding? = null
     private val binding: FragmentFavoritesBinding get() = _binding!!
 
-    private val adapter: FavoritesAdapter = FavoritesAdapter(
+    private val adapter: CoreAdapter = CoreAdapter(
         onNewsItemClickListener = {
             viewModel.onNewsItemClick(it, parentFragmentManager)
         }
@@ -59,7 +60,7 @@ class FavoritesFragment: Fragment() {
         viewModel.init()
 
         binding.rvFavorites.addItemDecoration(
-            DividerItemDecoration (requireContext(), DividerItemDecoration.VERTICAL)
+            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         )
 
         binding.rvFavorites.adapter = adapter
@@ -74,5 +75,4 @@ class FavoritesFragment: Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }

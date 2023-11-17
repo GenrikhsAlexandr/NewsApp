@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.savefeature.data.database
+package com.genrikhsaleksandr.core.data.database
 
 import android.content.Context
 import androidx.room.Database

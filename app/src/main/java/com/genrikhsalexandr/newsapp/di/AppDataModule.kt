@@ -2,9 +2,9 @@ package com.genrikhsalexandr.newsapp.di
 
 import android.app.Application
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
-import com.genrikhsaleksandr.savefeature.data.NewsDtoMapper
-import com.genrikhsaleksandr.savefeature.data.database.AppDatabase
-import com.genrikhsaleksandr.savefeature.data.database.ArticleDao
+import com.genrikhsaleksandr.core.data.NewsListDtoMapper
+import com.genrikhsaleksandr.core.data.database.AppDatabase
+import com.genrikhsaleksandr.core.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.repository.ArticleRepositoryImpl
 import com.genrikhsalexandr.searchfeature.data.dto.SearchDtoMapper
 import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
@@ -20,25 +20,25 @@ object AppDataModule {
     @Singleton
     fun provideArticleRepository(
         dao: ArticleDao,
-        articleMapper: NewsDtoMapper,
+        mapper: NewsListDtoMapper,
         sourcesMapper: SourcesDtoMapper,
         articlesSourceMapper: ArticlesSourceDtoMapper,
         searchDtoMapper: SearchDtoMapper
     ): ArticleRepository {
         return ArticleRepositoryImpl(
             dao,
-            articleMapper,
+            mapper,
             sourcesMapper,
             articlesSourceMapper,
-            searchDtoMapper
+            searchDtoMapper,
         )
     }
 
     @Provides
     @Singleton
     fun provideMapperNewsDto(
-    ): NewsDtoMapper {
-        return NewsDtoMapper()
+    ): NewsListDtoMapper {
+        return NewsListDtoMapper()
     }
 
     @Provides

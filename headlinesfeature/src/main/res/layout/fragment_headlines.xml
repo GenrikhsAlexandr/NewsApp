@@ -43,17 +43,18 @@
                 android:icon="@drawable/ic_science"
                 android:text="@string/Science" />
 
-            <com.google.android.material.tabs.TabItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:icon="@drawable/ic_entertaiment"
-                android:text="@string/Entertainment" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:icon="@drawable/ic_health"
                 android:text="@string/Health" />
+
+            <com.google.android.material.tabs.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:icon="@drawable/ic_entertaiment"
+                android:text="@string/Entertainment" />
 
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"

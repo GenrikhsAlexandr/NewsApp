@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 
 import com.genrikhsaleksandr.core.presentation.ArticleItemList;
 import com.genrikhsaleksandr.core.presentation.CoreAdapter;
-import com.genrikhsalexandr.headlinesfeature.databinding.FragmentScienceBinding;
+import com.genrikhsalexandr.headlinesfeature.databinding.FragmentEntertaimentBinding;
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider;
+import com.genrikhsalexandr.headlinesfeature.presentation.presenter.EntertainmentPresenter;
 import com.genrikhsalexandr.headlinesfeature.presentation.presenter.HeadlinesView;
-import com.genrikhsalexandr.headlinesfeature.presentation.presenter.SciencePresenter;
 
 import java.util.List;
 
@@ -25,23 +25,23 @@ import kotlin.Unit;
 import moxy.MvpAppCompatFragment;
 
 
-public class ScienceFragment extends MvpAppCompatFragment implements HeadlinesView {
+public class EntertainmentFragment extends MvpAppCompatFragment implements HeadlinesView {
 
-    public ScienceFragment() {
+    public EntertainmentFragment() {
     }
 
-    public static ScienceFragment newInstance() {
-        return new ScienceFragment();
+    public static EntertainmentFragment newInstance() {
+        return new EntertainmentFragment();
     }
 
-    private FragmentScienceBinding _binding;
+    private FragmentEntertaimentBinding _binding;
 
-    private FragmentScienceBinding getBinding() {
+    private FragmentEntertaimentBinding getBinding() {
         return _binding;
     }
 
     @Inject
-    SciencePresenter presenter;
+    EntertainmentPresenter presenter;
 
     CoreAdapter adapter;
 
@@ -63,7 +63,7 @@ public class ScienceFragment extends MvpAppCompatFragment implements HeadlinesVi
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        _binding = FragmentScienceBinding.inflate(inflater, container, false);
+        _binding = FragmentEntertaimentBinding.inflate(inflater, container, false);
         return getBinding().getRoot();
     }
 
@@ -75,8 +75,8 @@ public class ScienceFragment extends MvpAppCompatFragment implements HeadlinesVi
             presenter.onNewsItemClick(article, getParentFragmentManager());
             return Unit.INSTANCE;
         });
-        getBinding().rvScience.setAdapter(adapter);
-        getBinding().rvScience.addItemDecoration(
+        getBinding().rvEntertainment.setAdapter(adapter);
+        getBinding().rvEntertainment.addItemDecoration(
                 new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         );
     }
@@ -89,7 +89,7 @@ public class ScienceFragment extends MvpAppCompatFragment implements HeadlinesVi
 
     @Override
     public void showArticles(List<ArticleItemList> news) {
-        getBinding().rvScience.setVisibility(View.VISIBLE);
+        getBinding().rvEntertainment.setVisibility(View.VISIBLE);
         adapter.submitData(news);
         System.out.println("showArticles = " + news);
     }

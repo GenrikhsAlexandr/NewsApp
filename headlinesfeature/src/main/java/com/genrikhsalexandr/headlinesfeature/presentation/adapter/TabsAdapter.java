@@ -5,7 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 import com.genrikhsalexandr.headlinesfeature.presentation.tabs.BusinessFragment;
-import com.genrikhsalexandr.headlinesfeature.presentation.tabs.EntertaimentFragment;
+import com.genrikhsalexandr.headlinesfeature.presentation.tabs.EntertainmentFragment;
 import com.genrikhsalexandr.headlinesfeature.presentation.tabs.GeneralFragment;
 import com.genrikhsalexandr.headlinesfeature.presentation.tabs.HealthFragment;
 import com.genrikhsalexandr.headlinesfeature.presentation.tabs.ScienceFragment;
@@ -32,7 +32,7 @@ public class TabsAdapter extends FragmentStateAdapter {
                 return HealthFragment.newInstance();
 
             case 4:
-                return EntertaimentFragment.newInstance();
+                return EntertainmentFragment.newInstance();
 
             case 5:
                 return TechnologyFragment.newInstance();

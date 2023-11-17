@@ -18,11 +18,11 @@ import moxy.InjectViewState;
 import moxy.MvpPresenter;
 
 @InjectViewState
-public class GeneralPresenter extends MvpPresenter<BusinessView> {
+public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
 
     Navigator navigator;
 
-    HeadlinesInteractor interactor;
+     HeadlinesInteractor interactor;
 
     @Inject
     public GeneralPresenter(
@@ -32,7 +32,7 @@ public class GeneralPresenter extends MvpPresenter<BusinessView> {
         this.interactor = interactor;
         this.navigator = navigator;
         getViewState().setLoading(true);
-        interactor.getArticlesList(Category.GENERAL)
+      interactor.getArticlesList(Category.GENERAL)
                 .subscribe(this::onArticlesLoaded, this::onError);
     }
 

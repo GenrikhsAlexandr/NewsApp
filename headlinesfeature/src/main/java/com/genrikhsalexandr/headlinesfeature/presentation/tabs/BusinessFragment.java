@@ -15,7 +15,7 @@ import com.genrikhsaleksandr.core.presentation.CoreAdapter;
 import com.genrikhsalexandr.headlinesfeature.databinding.FragmentBusinessBinding;
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider;
 import com.genrikhsalexandr.headlinesfeature.presentation.presenter.BusinessPresenter;
-import com.genrikhsalexandr.headlinesfeature.presentation.presenter.BusinessView;
+import com.genrikhsalexandr.headlinesfeature.presentation.presenter.HeadlinesView;
 
 import java.util.List;
 
@@ -24,7 +24,7 @@ import javax.inject.Inject;
 import kotlin.Unit;
 import moxy.MvpAppCompatFragment;
 
-public class BusinessFragment extends MvpAppCompatFragment implements BusinessView {
+public class BusinessFragment extends MvpAppCompatFragment implements HeadlinesView {
 
     public BusinessFragment() {
     }
@@ -71,7 +71,7 @@ public class BusinessFragment extends MvpAppCompatFragment implements BusinessVi
         super.onViewCreated(view, savedInstanceState);
         adapter = new CoreAdapter(article ->
         {
-            presenter.onNewsItemClick(article, getParentFragmentManager());
+            presenter.onNewsItemClick(article, getChildFragmentManager());
             return Unit.INSTANCE;
         });
         getBinding().rvBusiness.setAdapter(adapter);

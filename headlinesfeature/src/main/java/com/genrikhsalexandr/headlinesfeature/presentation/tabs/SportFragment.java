@@ -1,5 +1,6 @@
 package com.genrikhsalexandr.headlinesfeature.presentation.tabs;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,29 +8,94 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 
+import com.genrikhsaleksandr.core.presentation.ArticleItemList;
+import com.genrikhsaleksandr.core.presentation.CoreAdapter;
 import com.genrikhsalexandr.headlinesfeature.databinding.FragmentSportBinding;
+import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider;
+import com.genrikhsalexandr.headlinesfeature.presentation.presenter.HeadlinesView;
+import com.genrikhsalexandr.headlinesfeature.presentation.presenter.SportPresenter;
 
-public class SportFragment extends Fragment {
-    private FragmentSportBinding binding = null;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import kotlin.Unit;
+import moxy.MvpAppCompatFragment;
+
+public class SportFragment extends MvpAppCompatFragment implements HeadlinesView {
+
+    public SportFragment() {
+    }
+
+    public static SportFragment newInstance() {
+        return new SportFragment();
+    }
+
+    private FragmentSportBinding _binding;
+
+    private FragmentSportBinding getBinding() {
+        return _binding;
+    }
+
+    @Inject
+    SportPresenter presenter;
+
+    CoreAdapter adapter;
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ((HeadlinesComponentProvider) requireActivity().getApplication())
+                .provideHeadlinesComponent()
+                .inject(this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenter.attachView(this);
+    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = FragmentSportBinding.inflate(inflater, container, false);
-        Bundle arguments = getArguments();
-        assert arguments != null;
-        String message = arguments.getString("message");
-        return binding.getRoot();
+        _binding = FragmentSportBinding.inflate(inflater, container, false);
+        return getBinding().getRoot();
     }
 
-    public static SportFragment newInstance() {
-        SportFragment fragment = new SportFragment();
-        Bundle args = new Bundle();
-        args.putString("message", "Hello SportFragment");
-        fragment.setArguments(args);
-        return fragment;
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        adapter = new CoreAdapter(article ->
+        {
+            presenter.onNewsItemClick(article, getChildFragmentManager());
+            return Unit.INSTANCE;
+        });
+        getBinding().rvSport.setAdapter(adapter);
+        getBinding().rvSport.addItemDecoration(
+                new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
+        );
+    }
+
+    @Override
+    public void setLoading(Boolean isLoading) {
+        System.out.println("isLoading = " + isLoading);
+        getBinding().progressBar.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+    }
+
+    @Override
+    public void showArticles(List<ArticleItemList> news) {
+        getBinding().rvSport.setVisibility(View.VISIBLE);
+        adapter.submitData(news);
+        System.out.println("showArticles = " + news);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _binding = null;
     }
 }

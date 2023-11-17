@@ -3,7 +3,7 @@ package com.genrikhsalexandr.headlinesfeature.di;
 import com.genrikhsaleksandr.core.di.CoreDataModule;
 import com.genrikhsaleksandr.core.di.NavigationModule;
 import com.genrikhsalexandr.headlinesfeature.presentation.tabs.BusinessFragment;
-import com.genrikhsalexandr.headlinesfeature.presentation.tabs.EntertaimentFragment;
+import com.genrikhsalexandr.headlinesfeature.presentation.tabs.EntertainmentFragment;
 import com.genrikhsalexandr.headlinesfeature.presentation.tabs.GeneralFragment;
 import com.genrikhsalexandr.headlinesfeature.presentation.tabs.HealthFragment;
 import com.genrikhsalexandr.headlinesfeature.presentation.tabs.ScienceFragment;
@@ -23,7 +23,7 @@ import dagger.Component;
 public interface HeadlinesComponent {
     void inject(BusinessFragment businessFragment);
 
-    void inject(EntertaimentFragment entertaimentFragment);
+    void inject(EntertainmentFragment entertainmentFragment);
 
     void inject(GeneralFragment generalFragment);
 

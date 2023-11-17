@@ -14,8 +14,8 @@ import com.genrikhsaleksandr.core.presentation.ArticleItemList;
 import com.genrikhsaleksandr.core.presentation.CoreAdapter;
 import com.genrikhsalexandr.headlinesfeature.databinding.FragmentGeneralBinding;
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider;
-import com.genrikhsalexandr.headlinesfeature.presentation.presenter.BusinessView;
 import com.genrikhsalexandr.headlinesfeature.presentation.presenter.GeneralPresenter;
+import com.genrikhsalexandr.headlinesfeature.presentation.presenter.HeadlinesView;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ import kotlin.Unit;
 import moxy.MvpAppCompatFragment;
 
 
-public class GeneralFragment extends MvpAppCompatFragment implements BusinessView {
+public class GeneralFragment extends MvpAppCompatFragment implements HeadlinesView {
 
     public GeneralFragment() {
     }
@@ -39,6 +39,8 @@ public class GeneralFragment extends MvpAppCompatFragment implements BusinessVie
     private FragmentGeneralBinding getBinding() {
         return _binding;
     }
+
+
 
     @Inject
     GeneralPresenter presenter;

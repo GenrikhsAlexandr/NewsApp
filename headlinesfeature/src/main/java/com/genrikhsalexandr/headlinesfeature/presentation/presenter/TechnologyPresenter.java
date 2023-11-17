@@ -18,7 +18,7 @@ import moxy.InjectViewState;
 import moxy.MvpPresenter;
 
 @InjectViewState
-public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
+public class TechnologyPresenter extends MvpPresenter<HeadlinesView> {
 
     Navigator navigator;
 
@@ -26,14 +26,14 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
 
 
     @Inject
-    public BusinessPresenter(
+    public TechnologyPresenter(
             HeadlinesInteractor interactor,
             Navigator navigator
     ) {
         this.interactor = interactor;
         this.navigator = navigator;
         getViewState().setLoading(true);
-        interactor.getArticlesList(Category.BUSINESS)
+        interactor.getArticlesList(Category.TECHNOLOGY)
                 .subscribe(this::onArticlesLoaded, this::onError);
     }
 

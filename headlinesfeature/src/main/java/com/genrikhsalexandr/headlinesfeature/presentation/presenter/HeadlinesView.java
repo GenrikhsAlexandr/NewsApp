@@ -8,7 +8,7 @@ import moxy.MvpView;
 import moxy.viewstate.strategy.AddToEndSingleStrategy;
 import moxy.viewstate.strategy.StateStrategyType;
 
-public interface BusinessView extends MvpView {
+public interface HeadlinesView extends MvpView {
 
     @StateStrategyType(AddToEndSingleStrategy.class)
     void setLoading(Boolean isLoading);

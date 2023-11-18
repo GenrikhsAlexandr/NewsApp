@@ -71,7 +71,7 @@ public class SportFragment extends MvpAppCompatFragment implements HeadlinesView
         super.onViewCreated(view, savedInstanceState);
         adapter = new CoreAdapter(article ->
         {
-            presenter.onNewsItemClick(article, getChildFragmentManager());
+            presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
             return Unit.INSTANCE;
         });
         getBinding().rvSport.setAdapter(adapter);

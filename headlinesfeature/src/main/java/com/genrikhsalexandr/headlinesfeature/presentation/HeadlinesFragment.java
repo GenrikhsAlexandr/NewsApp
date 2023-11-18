@@ -56,7 +56,6 @@ public class HeadlinesFragment extends Fragment implements MvpView {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override

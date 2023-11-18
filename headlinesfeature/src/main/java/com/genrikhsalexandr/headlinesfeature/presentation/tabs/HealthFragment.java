@@ -71,7 +71,7 @@ public class HealthFragment extends MvpAppCompatFragment implements HeadlinesVie
         super.onViewCreated(view, savedInstanceState);
         adapter = new CoreAdapter(article ->
         {
-            presenter.onNewsItemClick(article, getChildFragmentManager());
+            presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
             return Unit.INSTANCE;
         });
         getBinding().rvHealth.setAdapter(adapter);

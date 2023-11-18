@@ -72,7 +72,7 @@ public class EntertainmentFragment extends MvpAppCompatFragment implements Headl
         super.onViewCreated(view, savedInstanceState);
         adapter = new CoreAdapter(article ->
         {
-            presenter.onNewsItemClick(article, getParentFragmentManager());
+            presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
             return Unit.INSTANCE;
         });
         getBinding().rvEntertainment.setAdapter(adapter);

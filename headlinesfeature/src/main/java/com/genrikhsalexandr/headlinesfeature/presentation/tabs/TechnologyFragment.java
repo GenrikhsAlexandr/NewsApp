@@ -71,7 +71,7 @@ public class TechnologyFragment extends MvpAppCompatFragment implements Headline
         super.onViewCreated(view, savedInstanceState);
         adapter = new CoreAdapter(article ->
         {
-            presenter.onNewsItemClick(article, getChildFragmentManager());
+            presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
             return Unit.INSTANCE;
         });
         getBinding().rvTechnology.setAdapter(adapter);

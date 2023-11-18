@@ -1,6 +1,5 @@
 package com.genrikhsalexandr.headlinesfeature.presentation.presenter;
 
-
 import androidx.fragment.app.FragmentManager;
 
 import com.genrikhsaleksandr.core.domain.Category;
@@ -15,6 +14,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
@@ -26,6 +26,8 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
 
     HeadlinesInteractor interactor;
 
+    Disposable disposable;
+
 
     @Inject
     public BusinessPresenter(
@@ -35,10 +37,11 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
         this.interactor = interactor;
         this.navigator = navigator;
         getViewState().setLoading(true);
-        interactor.getArticlesList(Category.BUSINESS)
+        disposable = interactor.getArticlesList(Category.BUSINESS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onArticlesLoaded, this::onError);    }
+                .subscribe(this::onArticlesLoaded, this::onError);
+    }
 
     private void onError(Throwable throwable) {
         String errorMessage = "An error occurred: " + throwable.getMessage();
@@ -63,5 +66,13 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
 
     public void onNewsItemClick(Article article, FragmentManager fragmentManager) {
         navigator.navigateToDetailsArticle(article, fragmentManager);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 }

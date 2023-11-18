@@ -15,6 +15,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
@@ -26,6 +27,8 @@ public class SciencePresenter extends MvpPresenter<HeadlinesView> {
 
     HeadlinesInteractor interactor;
 
+    Disposable disposable;
+
 
     @Inject
     public SciencePresenter(
@@ -35,7 +38,7 @@ public class SciencePresenter extends MvpPresenter<HeadlinesView> {
         this.interactor = interactor;
         this.navigator = navigator;
         getViewState().setLoading(true);
-        interactor.getArticlesList(Category.SCIENCE)
+        disposable = interactor.getArticlesList(Category.SCIENCE)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onArticlesLoaded, this::onError);
@@ -64,5 +67,13 @@ public class SciencePresenter extends MvpPresenter<HeadlinesView> {
 
     public void onNewsItemClick(Article article, FragmentManager fragmentManager) {
         navigator.navigateToDetailsArticle(article, fragmentManager);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (disposable != null && !disposable.isDisposed()) {
+            disposable.dispose();
+        }
     }
 }

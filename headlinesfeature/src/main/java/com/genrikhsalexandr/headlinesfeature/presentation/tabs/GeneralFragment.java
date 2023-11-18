@@ -74,7 +74,7 @@ public class GeneralFragment extends MvpAppCompatFragment implements HeadlinesVi
         super.onViewCreated(view, savedInstanceState);
         adapter = new CoreAdapter(article ->
         {
-            presenter.onNewsItemClick(article, getParentFragmentManager());
+            presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
             return Unit.INSTANCE;
         });
         getBinding().rvGeneral.setAdapter(adapter);

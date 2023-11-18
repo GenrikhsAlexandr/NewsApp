@@ -14,6 +14,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
 
@@ -33,6 +35,8 @@ public class EntertainmentPresenter extends MvpPresenter<HeadlinesView> {
         this.navigator = navigator;
         getViewState().setLoading(true);
         interactor.getArticlesList(Category.ENTERTAINMENT)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onArticlesLoaded, this::onError);
     }
 

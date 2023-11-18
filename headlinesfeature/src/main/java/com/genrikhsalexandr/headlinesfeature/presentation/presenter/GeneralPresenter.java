@@ -14,6 +14,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import moxy.InjectViewState;
 import moxy.MvpPresenter;
 
@@ -33,8 +35,9 @@ public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
         this.navigator = navigator;
         getViewState().setLoading(true);
       interactor.getArticlesList(Category.GENERAL)
-                .subscribe(this::onArticlesLoaded, this::onError);
-    }
+              .subscribeOn(Schedulers.io())
+              .observeOn(AndroidSchedulers.mainThread())
+              .subscribe(this::onArticlesLoaded, this::onError);    }
 
     private void onError(Throwable throwable) {
         String errorMessage = "An error occurred: " + throwable.getMessage();

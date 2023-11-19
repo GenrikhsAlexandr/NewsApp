@@ -28,7 +28,8 @@ class NewsListDtoMapper @Inject constructor() {
         urlToImage = articleDbModel.urlToImage,
         content = articleDbModel.content,
         sourceId = articleDbModel.sourceId,
-        url = articleDbModel.url
+        url = articleDbModel.url,
+        id = articleDbModel.id
     )
 
     fun mapArticleToArticleDbModel(article: Article) = ArticleDbModel(

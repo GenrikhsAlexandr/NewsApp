@@ -37,7 +37,6 @@ class MainFragment : Fragment() {
         (requireActivity().application as MainComponentProvider).provideMainComponent().inject(this)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

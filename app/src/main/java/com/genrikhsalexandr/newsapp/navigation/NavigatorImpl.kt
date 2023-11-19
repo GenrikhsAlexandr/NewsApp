@@ -23,7 +23,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToDetailsArticle(article: Article, fragmentManager: FragmentManager) {
         val detailFragment = DetailFragment.newInstance(article)
         fragmentManager.commit {
-            add(R.id.fragment_container, detailFragment)
+            add(R.id.fragmentContainer, detailFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.DetailArticle)
@@ -32,7 +32,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToFavorites(fragmentManager: FragmentManager) {
         val favoritesFragment = FavoritesFragment.newInstance()
         fragmentManager.commit {
-            replace(R.id.fragment_container, favoritesFragment)
+            replace(R.id.fragmentContainer, favoritesFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.Favorites)
@@ -41,7 +41,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToHeadlines(fragmentManager: FragmentManager) {
         val headlinesFragment = HeadlinesFragment.newInstance()
          fragmentManager.commit {
-             replace(R.id.fragment_container, headlinesFragment)
+             replace(R.id.fragmentContainer, headlinesFragment)
              addToBackStack(null)
          }
         listener?.onNavigated(Screen.Headlines)
@@ -50,7 +50,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToSources(fragmentManager: FragmentManager) {
         val sourcesFragment = SourcesFragment.newInstance()
         fragmentManager.commit {
-            replace(R.id.fragment_container, sourcesFragment)
+            replace(R.id.fragmentContainer, sourcesFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.Sources("Source"))
@@ -62,7 +62,7 @@ class NavigatorImpl : Navigator {
     ) {
         val articlesSourceFragment = ArticlesSourceFragment.newInstance(articlesSource)
         fragmentManager.commit {
-            replace(R.id.fragment_container, articlesSourceFragment)
+            replace(R.id.fragmentContainer, articlesSourceFragment)
             setReorderingAllowed(true)
             addToBackStack(null)
         }
@@ -73,7 +73,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToSearch(fragmentManager: FragmentManager) {
         val searchFragment = SearchFragment.newInstance()
         fragmentManager.commit {
-            replace(R.id.fragment_container, searchFragment)
+            replace(R.id.fragmentContainer, searchFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.Search)
@@ -82,7 +82,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToFilter(fragmentManager: FragmentManager) {
         val filterFragment = FilterFragment.newInstance()
         fragmentManager.commit {
-            replace(R.id.fragment_container, filterFragment)
+            replace(R.id.fragmentContainer, filterFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.Filter)
@@ -119,7 +119,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToDetailsArticleForSearch(article: Article, fragmentManager: FragmentManager) {
         val detailForSearchFragment = DetailForSearchFragment.newInstance(article)
         fragmentManager.commit {
-            replace(R.id.fragment_container, detailForSearchFragment)
+            replace(R.id.fragmentContainer, detailForSearchFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.DetailArticle)

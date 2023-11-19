@@ -3,7 +3,6 @@ package com.genrikhsaleksandr.savefeature.presentation.list
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsaleksandr.core.presentation.ArticleItemList
@@ -36,22 +35,18 @@ class FavoritesViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    fun init() {
+   fun init() {
         viewModelScope
         viewModelScope.launch {
             try {
                 _news.value =
-                    interactor.getArticlesListForCategory("${Category.GENERAL}") ?: emptyList()
+                    interactor.getFavoritesArticles() ?: emptyList()
                 println("news = ${_news.value}")
                 println("idArticle = ${news.value}")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
-    }
-
-    suspend fun getFavoritesArticle(article: Article): List<Article> {
-        return interactor.getFavoritesArticles()
     }
 
     fun onNewsItemClick(article: Article, fragmentManager: FragmentManager) {

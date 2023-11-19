@@ -37,7 +37,7 @@ public class TechnologyPresenter extends MvpPresenter<HeadlinesView> {
         this.interactor = interactor;
         this.navigator = navigator;
         getViewState().setLoading(true);
-        disposable =  interactor.getArticlesList(Category.TECHNOLOGY)
+        disposable = interactor.getArticlesList(Category.TECHNOLOGY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onArticlesLoaded, this::onError);
@@ -74,5 +74,12 @@ public class TechnologyPresenter extends MvpPresenter<HeadlinesView> {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+    }
+
+    public void onRefresh() {
+        disposable = interactor.getArticlesList(Category.TECHNOLOGY)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onArticlesLoaded, this::onError);
     }
 }

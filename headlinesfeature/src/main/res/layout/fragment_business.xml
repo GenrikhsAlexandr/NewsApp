@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:background="#ffff">
+    android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvBusiness"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="7" />
+        android:layout_gravity="center"
+        android:background="#ffff">
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:indeterminate="true"
-        android:visibility="visible">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvBusiness"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="7" />
 
-    </com.google.android.material.progressindicator.CircularProgressIndicator>
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:indeterminate="true"
+            android:visibility="visible">
 
-</FrameLayout>
+        </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+    </FrameLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

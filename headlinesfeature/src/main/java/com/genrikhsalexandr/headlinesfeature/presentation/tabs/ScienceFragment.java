@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.genrikhsaleksandr.core.presentation.ArticleItemList;
 import com.genrikhsaleksandr.core.presentation.CoreAdapter;
@@ -79,6 +80,14 @@ public class ScienceFragment extends MvpAppCompatFragment implements HeadlinesVi
         getBinding().rvScience.addItemDecoration(
                 new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         );
+        SwipeRefreshLayout swipeRefresh = getBinding().swipeRefresh;
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.onRefresh();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -90,7 +99,7 @@ public class ScienceFragment extends MvpAppCompatFragment implements HeadlinesVi
     @Override
     public void showArticles(List<ArticleItemList> news) {
         getBinding().rvScience.setVisibility(View.VISIBLE);
-        adapter.submitData(news);
+        adapter.submitList(news);
         System.out.println("showArticles = " + news);
     }
 

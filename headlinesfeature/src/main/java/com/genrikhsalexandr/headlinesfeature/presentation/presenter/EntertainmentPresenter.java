@@ -75,4 +75,11 @@ public class EntertainmentPresenter extends MvpPresenter<HeadlinesView> {
             disposable.dispose();
         }
     }
+
+    public void onRefresh() {
+        disposable = interactor.getArticlesList(Category.ENTERTAINMENT)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onArticlesLoaded, this::onError);
+    }
 }

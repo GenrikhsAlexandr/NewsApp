@@ -75,4 +75,12 @@ public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
             disposable.dispose();
         }
     }
+
+    public void onRefresh() {
+        getViewState().setLoading(true);
+        disposable = interactor.getArticlesList(Category.GENERAL)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onArticlesLoaded, this::onError);
+    }
 }

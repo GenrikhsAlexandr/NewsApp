@@ -77,6 +77,16 @@ class DetailFragment : Fragment() {
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.saved -> {
                     viewModel.onFavoriteButtonClicked()
+                    if (viewModel.isIconClick.value && !viewModel.isFavorite.value) {
+                        lifecycleScope.launch {
+                            article?.let { viewModel.saveFavoritesArticle(it) }
+                        }
+                    }
+                    if (!viewModel.isIconClick.value && viewModel.isFavorite.value) {
+                        lifecycleScope.launch {
+                            article?.let { viewModel.deleteFavoritesArticle(it) }
+                        }
+                    }
                     true
                 }
 
@@ -121,7 +131,7 @@ class DetailFragment : Fragment() {
     private fun setTextClickListeners() {
         val articleUrl = article?.url
         val fullText = binding.contentDetail.text.toString()
-        val lastSentenceStart = fullText.lastIndexOf(".")+1
+        val lastSentenceStart = fullText.lastIndexOf(".") + 1
         val spannableString = SpannableString(fullText)
         val clickableSpan = object : ClickableSpan() {
             override fun onClick(widget: View) {

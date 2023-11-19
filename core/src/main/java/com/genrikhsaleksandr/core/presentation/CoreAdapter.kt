@@ -2,38 +2,31 @@ package com.genrikhsaleksandr.core.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.genrikhsaleksandr.core.databinding.ListItemArticleBinding
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.squareup.picasso.Picasso
 
 class CoreAdapter(
-    val onNewsItemClickListener: ((Article)->Unit)
-) : RecyclerView.Adapter<CoreAdapter.NewsViewHolder>() {
+    val onNewsItemClickListener: ((Article) -> Unit)
+) : ListAdapter<ArticleItemList, CoreAdapter.NewsViewHolder>(CoreDiffUtil()) {
 
-    private var list: List<ArticleItemList> = ArrayList()
-
-    fun submitData(list: List<ArticleItemList>) {
-        this.list = list
-        notifyDataSetChanged()
+    override fun getItemViewType(position: Int): Int {
+        return getItem(position).article.viewType
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         return NewsViewHolder(
             ListItemArticleBinding.inflate(
                 LayoutInflater.from(parent.context),
-                parent,
-                false
+                parent, false
             )
         )
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(getItem(position))
     }
 
     inner class NewsViewHolder(private val binding: ListItemArticleBinding) :
@@ -52,7 +45,7 @@ class CoreAdapter(
                 Picasso.get()
                     .load(listItem.urlToImage.toString())
                     .into(binding.imageArticle)
-            }  else binding.imageArticle.setImageResource(com.genrikhsaleksandr.core.R.drawable.element)
+            } else binding.imageArticle.setImageResource(com.genrikhsaleksandr.core.R.drawable.element)
         }
     }
 }

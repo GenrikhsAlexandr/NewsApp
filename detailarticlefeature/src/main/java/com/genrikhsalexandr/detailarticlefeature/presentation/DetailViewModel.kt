@@ -32,6 +32,7 @@ class DetailViewModel @Inject constructor(
         this.article = article
         viewModelScope.launch {
             _isFavorite.value = interactor.isFavorite(article)
+            println("articleId=${article.id}")
         }
     }
 
@@ -42,7 +43,7 @@ class DetailViewModel @Inject constructor(
 
     suspend fun deleteFavoritesArticle(article: Article) {
         interactor.deleteFavoriteArticle(article)
-        println("saveArticle")
+        println("deleteArticle")
 
     }
 

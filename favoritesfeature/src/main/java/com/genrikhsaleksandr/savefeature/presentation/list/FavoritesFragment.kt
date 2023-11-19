@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.genrikhsaleksandr.core.presentation.CoreAdapter
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
 import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
@@ -51,13 +52,12 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
-        println("onCreateView")
+        viewModel.init()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.init()
 
         binding.rvFavorites.addItemDecoration(
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
@@ -66,8 +66,17 @@ class FavoritesFragment : Fragment() {
         binding.rvFavorites.adapter = adapter
         lifecycleScope.launch {
             viewModel.news.collect { news ->
-                adapter.submitData(news)
+                adapter.submitList(news)
             }
+        }
+        val swipeRefresh: SwipeRefreshLayout = binding.swipeRefresh
+        swipeRefresh.setOnRefreshListener {
+            lifecycleScope.launch {
+                viewModel.news.collect { news ->
+                    adapter.submitList(news)
+                }
+            }
+            swipeRefresh.isRefreshing = false
         }
     }
 

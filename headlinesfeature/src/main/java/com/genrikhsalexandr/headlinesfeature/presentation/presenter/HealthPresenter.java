@@ -38,10 +38,11 @@ public class HealthPresenter extends MvpPresenter<HeadlinesView> {
         this.interactor = interactor;
         this.navigator = navigator;
         getViewState().setLoading(true);
-       disposable = interactor.getArticlesList(Category.HEALTH)
+        disposable = interactor.getArticlesList(Category.HEALTH)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onArticlesLoaded, this::onError);    }
+                .subscribe(this::onArticlesLoaded, this::onError);
+    }
 
     private void onError(Throwable throwable) {
         String errorMessage = "An error occurred: " + throwable.getMessage();
@@ -74,5 +75,12 @@ public class HealthPresenter extends MvpPresenter<HeadlinesView> {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+    }
+
+    public void onRefresh() {
+        disposable = interactor.getArticlesList(Category.HEALTH)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onArticlesLoaded, this::onError);
     }
 }

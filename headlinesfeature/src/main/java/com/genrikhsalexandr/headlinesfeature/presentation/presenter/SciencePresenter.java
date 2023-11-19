@@ -76,4 +76,11 @@ public class SciencePresenter extends MvpPresenter<HeadlinesView> {
             disposable.dispose();
         }
     }
+
+    public void onRefresh() {
+        disposable = interactor.getArticlesList(Category.SCIENCE)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(this::onArticlesLoaded, this::onError);
+    }
 }

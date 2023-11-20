@@ -20,6 +20,14 @@ class DetailViewModel @Inject constructor(
 
     fun onFavoriteButtonClicked() {
         isIconClick.value = !isIconClick.value
+        viewModelScope.launch {
+            if (isIconClick.value) {
+                saveFavoritesArticle(article)
+            } else {
+                deleteFavoritesArticle(article)
+            }
+        }
+        println("isIconClick = ${isIconClick.value}")
     }
 
     private lateinit var article: Article

@@ -101,7 +101,7 @@ class DetailForSearchFragment : Fragment() {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
             val outputFormat = SimpleDateFormat("MMM dd, yyyy | hh:mm a", Locale.US)
             val date = inputFormat.parse(it.publishedAt)
-            val formattedDate = outputFormat.format(date)
+            val formattedDate = date?.let { formattedDate -> outputFormat.format(formattedDate) }
 
             binding.dateDetail.text = formattedDate
             binding.titleDetail.text = it.title
@@ -154,8 +154,10 @@ class DetailForSearchFragment : Fragment() {
             viewModel.isFavorite.collect { isFavorite ->
                 val menuItem = binding.toolbarArticle.menu.findItem(R.id.saved)
                 if (isFavorite) {
+                    viewModel.isIconClick.value = true
                     menuItem.setIcon(R.drawable.ic_favoriteschoose)
                 } else {
+                    viewModel.isIconClick.value = false
                     menuItem.setIcon(R.drawable.ic_favorites)
                 }
             }

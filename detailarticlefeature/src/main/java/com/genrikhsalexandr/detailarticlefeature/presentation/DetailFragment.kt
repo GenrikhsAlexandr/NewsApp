@@ -77,16 +77,6 @@ class DetailFragment : Fragment() {
             return@setOnMenuItemClickListener when (item.itemId) {
                 R.id.saved -> {
                     viewModel.onFavoriteButtonClicked()
-                    if (viewModel.isIconClick.value && !viewModel.isFavorite.value) {
-                        lifecycleScope.launch {
-                            article?.let { viewModel.saveFavoritesArticle(it) }
-                        }
-                    }
-                    if (!viewModel.isIconClick.value && viewModel.isFavorite.value) {
-                        lifecycleScope.launch {
-                            article?.let { viewModel.deleteFavoritesArticle(it) }
-                        }
-                    }
                     true
                 }
 
@@ -113,7 +103,7 @@ class DetailFragment : Fragment() {
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US)
             val outputFormat = SimpleDateFormat("MMM dd, yyyy | hh:mm a", Locale.US)
             val date = inputFormat.parse(it.publishedAt)
-            val formattedDate = outputFormat.format(date)
+            val formattedDate = date?.let { formatDate -> outputFormat.format(formatDate) }
 
             binding.dateDetail.text = formattedDate
             binding.titleDetail.text = it.title
@@ -166,8 +156,10 @@ class DetailFragment : Fragment() {
             viewModel.isFavorite.collect { isFavorite ->
                 val menuItem = binding.toolbarArticle.menu.findItem(R.id.saved)
                 if (isFavorite) {
+                    viewModel.isIconClick.value = true
                     menuItem.setIcon(R.drawable.ic_favoriteschoose)
                 } else {
+                    viewModel.isIconClick.value = false
                     menuItem.setIcon(R.drawable.ic_favorites)
                 }
             }

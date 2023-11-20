@@ -48,6 +48,6 @@
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="8"
-        tools:listitem="@layout/list_item_search" />
+        tools:listitem="@layout/list_item_article" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -36,6 +36,7 @@ class FavoritesFragment : Fragment() {
     private val binding: FragmentFavoritesBinding get() = _binding!!
 
     private val adapter: CoreAdapter = CoreAdapter(
+        false,
         onNewsItemClickListener = {
             viewModel.onNewsItemClick(it, parentFragmentManager)
         }

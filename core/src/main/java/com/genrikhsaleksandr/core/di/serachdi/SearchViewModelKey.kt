@@ -1,4 +1,4 @@
-package com.genrikhsalexandr.searchfeature.di
+package com.genrikhsaleksandr.core.di.serachdi
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

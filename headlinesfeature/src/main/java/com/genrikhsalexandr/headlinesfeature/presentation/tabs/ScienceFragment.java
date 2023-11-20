@@ -71,7 +71,9 @@ public class ScienceFragment extends MvpAppCompatFragment implements HeadlinesVi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new CoreAdapter(article ->
+        adapter = new CoreAdapter(
+                false,
+                article ->
         {
             presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
             return Unit.INSTANCE;

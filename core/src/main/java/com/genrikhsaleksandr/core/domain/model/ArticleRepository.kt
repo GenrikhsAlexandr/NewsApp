@@ -9,8 +9,6 @@ interface ArticleRepository {
 
     fun getArticlesForCategoryBlocking(category: Category): List<Article>?
 
-    suspend fun getArticlesForQuery(query:String): List<Article>?
-
     suspend fun saveFavoriteArticle(article: Article): Article
 
     suspend fun deleteFavoriteArticle(article: Article)

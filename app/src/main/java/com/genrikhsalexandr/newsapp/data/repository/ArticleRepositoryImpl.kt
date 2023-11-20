@@ -1,13 +1,12 @@
 package com.genrikhsalexandr.newsapp.data.repository
 
+import com.genrikhsaleksandr.core.data.NewsListDtoMapper
+import com.genrikhsaleksandr.core.data.database.ArticleDao
 import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.core.domain.model.Source
-import com.genrikhsaleksandr.core.data.NewsListDtoMapper
-import com.genrikhsaleksandr.core.data.database.ArticleDao
 import com.genrikhsalexandr.newsapp.data.network.NewsService
-import com.genrikhsalexandr.searchfeature.data.dto.SearchDtoMapper
 import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -27,7 +26,6 @@ class ArticleRepositoryImpl @Inject constructor(
     private val mapper: NewsListDtoMapper,
     private val sourcesMapper: SourcesDtoMapper,
     private val articlesSourcesMapper: ArticlesSourceDtoMapper,
-    private val articlesSearchMapper: SearchDtoMapper,
 ) : ArticleRepository {
     companion object {
         private const val BASE_URL = "https://newsapi.org/"
@@ -79,23 +77,9 @@ class ArticleRepositoryImpl @Inject constructor(
         getArticlesForCategory(category.name)
     }
 
-    override suspend fun getArticlesForQuery(query: String): List<Article>? =
-        withContext(Dispatchers.IO) {
-
-            try {
-                val responseForQuery = service.getQueryArticle(
-                    q = query,
-                )
-                articlesSearchMapper.mapSearchListDtoToArticleList(responseForQuery)
-            } catch (e: Exception) {
-                e.printStackTrace()
-                null
-            }
-        }
-
-    override suspend fun getArticlesSource(sourceId: String?): List<Article>? {
+    override suspend fun getArticlesSource(articlesSourceId: String?): List<Article>? {
         return try {
-            val response = service.getArticlesSource(sources = sourceId)
+            val response = service.getArticlesSource(sources = articlesSourceId)
             articlesSourcesMapper.mapArticlesSourceDto(response)
         } catch (e: Exception) {
             e.printStackTrace()

@@ -4,11 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.genrikhsaleksandr.core.R
 import com.genrikhsaleksandr.core.databinding.ListItemArticleBinding
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.squareup.picasso.Picasso
 
 class CoreAdapter(
+    val isPrimaryBackground:Boolean,
     val onNewsItemClickListener: ((Article) -> Unit)
 ) : ListAdapter<ArticleItemList, CoreAdapter.NewsViewHolder>(CoreDiffUtil()) {
 
@@ -40,6 +42,9 @@ class CoreAdapter(
                         listItem.article
                     )
                 }
+                if (isPrimaryBackground){
+                    root.setBackgroundResource(R.color.ic_launcher_background)
+                } else root.setBackgroundResource(R.color.background_tabs)
             }
             if (listItem.urlToImage != null) {
                 Picasso.get()

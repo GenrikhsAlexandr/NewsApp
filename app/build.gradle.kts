@@ -49,7 +49,6 @@ dependencies {
     implementation(project(":detailarticlefeature"))
     implementation(project(":souresfeature"))
     implementation(project(":headlinesfeature"))
-    implementation(project(":searchfeature"))
     implementation(project(":filterfeature"))
 
     kapt("com.google.dagger:dagger-compiler:2.46.1")

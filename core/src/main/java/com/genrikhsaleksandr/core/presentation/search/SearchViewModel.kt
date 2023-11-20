@@ -1,30 +1,30 @@
-package com.genrikhsalexandr.searchfeature.presentation
+package com.genrikhsaleksandr.core.presentation.search
 
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
+import com.genrikhsaleksandr.core.domain.model.SearchRepository
 import com.genrikhsaleksandr.core.navigation.Navigator
-import com.genrikhsalexandr.searchfeature.domain.SearchInteractor
+import com.genrikhsaleksandr.core.presentation.ArticleItemList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
-    private val interactor: SearchInteractor,
     private val navigator: Navigator,
+    private val searchRepository: SearchRepository
 
     ) : ViewModel() {
+
     private val _query: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
 
-    val query: StateFlow<List<SearchListItem>> = _query.map { query ->
+    val query: StateFlow<List<ArticleItemList>> = _query.map { query ->
         query.map {
-            SearchListItem(
+            ArticleItemList(
                 sourceName = it.sourceName,
                 title = it.title,
                 urlToImage = it.urlToImage,
@@ -34,12 +34,8 @@ class SearchViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-
-    fun setQuery(q: String) {
-        viewModelScope.launch {
-            _query.value =
-                interactor.getArticlesListForSearch(q) ?: emptyList()
-        }
+    fun onSearchQuery(query: String) {
+        searchRepository.setSearchRequest(query)
     }
 
     fun onNavigationBackSearch(fragment: FragmentManager) {

@@ -3,6 +3,9 @@ package com.genrikhsalexandr.newsapp
 import android.app.Application
 import com.genrikhsaleksandr.core.di.CoreDataModule
 import com.genrikhsaleksandr.core.di.NavigationModule
+import com.genrikhsaleksandr.core.di.serachdi.DaggerSearchComponent
+import com.genrikhsaleksandr.core.di.serachdi.SearchComponent
+import com.genrikhsaleksandr.core.di.serachdi.SearchComponentProvider
 import com.genrikhsaleksandr.savefeature.di.DaggerFavoritesComponent
 import com.genrikhsaleksandr.savefeature.di.FavoritesComponent
 import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
@@ -16,9 +19,7 @@ import com.genrikhsalexandr.newsapp.di.ApplicationComponent
 import com.genrikhsalexandr.newsapp.di.DaggerApplicationComponent
 import com.genrikhsalexandr.newsapp.di.MainComponentProvider
 import com.genrikhsalexandr.newsapp.navigation.NavigatorImpl
-import com.genrikhsalexandr.searchfeature.di.DaggerSearchComponent
-import com.genrikhsalexandr.searchfeature.di.SearchComponent
-import com.genrikhsalexandr.searchfeature.di.SearchComponentProvider
+
 import com.genrikhsalexandr.souresfeature.di.DaggerSourcesComponent
 import com.genrikhsalexandr.souresfeature.di.SourcesComponent
 import com.genrikhsalexandr.souresfeature.di.SourcesComponentProvider

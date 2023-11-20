@@ -1,4 +1,4 @@
-package com.genrikhsalexandr.searchfeature.di
+package com.genrikhsaleksandr.core.di.serachdi
 
 interface SearchComponentProvider {
     fun provideSearchComponent(): SearchComponent

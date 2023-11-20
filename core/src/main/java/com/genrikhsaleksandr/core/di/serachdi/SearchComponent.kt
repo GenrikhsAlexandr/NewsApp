@@ -1,8 +1,8 @@
-package com.genrikhsalexandr.searchfeature.di
+package com.genrikhsaleksandr.core.di.serachdi
 
 import com.genrikhsaleksandr.core.di.CoreDataModule
 import com.genrikhsaleksandr.core.di.NavigationModule
-import com.genrikhsalexandr.searchfeature.presentation.SearchFragment
+import com.genrikhsaleksandr.core.presentation.search.SearchFragment
 import dagger.Component
 import javax.inject.Singleton
 
@@ -17,5 +17,5 @@ import javax.inject.Singleton
 )
 interface SearchComponent {
 
-    fun inject(favoritesFragment: SearchFragment)
+    fun inject(searchFragment: SearchFragment)
 }

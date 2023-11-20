@@ -70,7 +70,9 @@ public class HealthFragment extends MvpAppCompatFragment implements HeadlinesVie
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new CoreAdapter(article ->
+        adapter = new CoreAdapter(
+                false,
+                article ->
         {
             presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
             return Unit.INSTANCE;

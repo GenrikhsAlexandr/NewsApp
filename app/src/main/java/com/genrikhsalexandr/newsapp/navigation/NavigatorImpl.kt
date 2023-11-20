@@ -6,13 +6,13 @@ import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsaleksandr.core.navigation.Navigator
+import com.genrikhsaleksandr.core.presentation.search.SearchFragment
 import com.genrikhsaleksandr.savefeature.presentation.list.FavoritesFragment
 import com.genrikhsalexandr.detailarticlefeature.presentation.DetailForSearchFragment
 import com.genrikhsalexandr.detailarticlefeature.presentation.DetailFragment
 import com.genrikhsalexandr.filterfeature.presentation.FilterFragment
 import com.genrikhsalexandr.headlinesfeature.presentation.HeadlinesFragment
 import com.genrikhsalexandr.newsapp.R
-import com.genrikhsalexandr.searchfeature.presentation.SearchFragment
 import com.genrikhsalexandr.souresfeature.presentation.articlessource.ArticlesSourceFragment
 import com.genrikhsalexandr.souresfeature.presentation.sources.SourcesFragment
 

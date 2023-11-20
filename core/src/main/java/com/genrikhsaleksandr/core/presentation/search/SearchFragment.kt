@@ -1,4 +1,4 @@
-package com.genrikhsalexandr.searchfeature.presentation
+package com.genrikhsaleksandr.core.presentation.search
 
 import android.content.Context
 import android.os.Bundle
@@ -6,14 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
-import com.genrikhsalexandr.searchfeature.databinding.FragmentSearchBinding
-import com.genrikhsalexandr.searchfeature.di.SearchComponentProvider
-import com.genrikhsalexandr.searchfeature.di.SearchViewModelFactory
+import com.genrikhsaleksandr.core.databinding.FragmentSearchBinding
+import com.genrikhsaleksandr.core.di.serachdi.SearchComponentProvider
+import com.genrikhsaleksandr.core.di.serachdi.SearchViewModelFactory
+import com.genrikhsaleksandr.core.presentation.CoreAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,7 +31,8 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchViewModel by viewModels { viewModelFactory }
 
-    private val adapter: SearchAdapter = SearchAdapter(
+    private val adapter: CoreAdapter = CoreAdapter(
+        isPrimaryBackground = true,
         onNewsItemClickListener = {
             viewModel.onNewsItemClick(it, parentFragmentManager)
         }
@@ -53,7 +54,6 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -65,7 +65,7 @@ class SearchFragment : Fragment() {
         binding.rvSearch.adapter = adapter
         lifecycleScope.launch {
             viewModel.query.collect {
-                adapter.submitData(it)
+                adapter.submitList(it)
             }
         }
 
@@ -78,11 +78,9 @@ class SearchFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
-
             override fun onQueryTextChange(newText: String?): Boolean {
-
                 if (newText != null) {
-                    viewModel.setQuery(newText)
+                    viewModel.onSearchQuery(newText)
                 }
                 return true
             }

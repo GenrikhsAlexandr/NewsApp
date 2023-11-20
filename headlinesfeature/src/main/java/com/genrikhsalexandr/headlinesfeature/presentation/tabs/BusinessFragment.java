@@ -70,11 +70,13 @@ public class BusinessFragment extends MvpAppCompatFragment implements HeadlinesV
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        adapter = new CoreAdapter(article ->
-        {
-            presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
-            return Unit.INSTANCE;
-        });
+        adapter = new CoreAdapter(
+                false,
+                article ->
+                {
+                    presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
+                    return Unit.INSTANCE;
+                });
         getBinding().rvBusiness.setAdapter(adapter);
         getBinding().rvBusiness.addItemDecoration(
                 new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)

@@ -38,12 +38,9 @@ class SearchFragment : Fragment() {
         }
     )
 
-
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding get() = _binding!!
-
     lateinit var searchView: SearchView
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -68,16 +65,16 @@ class SearchFragment : Fragment() {
                 adapter.submitList(it)
             }
         }
-
         getQuery()
     }
 
     private fun getQuery() {
         searchView = binding.searchView
-       binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
+
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText != null) {
                     viewModel.onSearchQuery(newText)

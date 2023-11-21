@@ -35,15 +35,15 @@ class SearchViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     init {
-        viewModelScope
         viewModelScope.launch {
-            try {
-                searchRepository.allArticles.collect{
+            searchRepository.allArticles.collect {
+                try {
                     _news.value = it.map { articleItemList ->
-                        articleItemList.article}
+                        articleItemList.article
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }

@@ -64,7 +64,7 @@ class SearchFragment : Fragment() {
         onBackIconClick()
         binding.rvSearch.adapter = adapter
         lifecycleScope.launch {
-            viewModel.query.collect {
+            viewModel.news.collect {
                 adapter.submitList(it)
             }
         }

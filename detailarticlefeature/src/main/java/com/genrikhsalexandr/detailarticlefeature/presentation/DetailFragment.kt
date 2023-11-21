@@ -107,6 +107,7 @@ class DetailFragment : Fragment() {
 
             binding.dateDetail.text = formattedDate
             binding.titleDetail.text = it.title
+            binding.sourceName.text = it.sourceName
             binding.collapsingToolbarArticle.title = it.title
             if (it.urlToImage != null) {
                 Picasso.get()

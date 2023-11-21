@@ -19,13 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:collapsedTitleTextAppearance="@style/TextAppearance.Material3.TitleLarge"
-            app:titleTextEllipsize="end"
             app:collapsedTitleTextColor="@color/light_text"
             app:contentScrim="@color/ic_launcher_background"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:titleEnabled="true"
             app:expandedTitleTextColor="@android:color/transparent"
-            app:title="skakdjsjdjsdjjadhahdhdsfdsbfmdbfmdmfmdsbmsbdmfj">
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title=""
+            app:titleEnabled="true"
+            app:titleTextEllipsize="end">
 
             <ImageView
                 android:id="@+id/imageArticle"
@@ -80,7 +80,7 @@
                         android:layout_height="match_parent"
                         android:ellipsize="end"
                         android:maxLines="2"
-                        android:text="Americans are getting worried about the job market"
+                        android:text=""
                         android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
                         android:textColor="@color/dark_text" />
 
@@ -88,15 +88,15 @@
                         android:id="@+id/dateDetail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Mar 20, 2023 | 10:57 AM"
+                        android:text=""
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                         android:textColor="@color/on_surface_variant" />
 
                     <TextView
-                        android:id="@+id/sourceDetail"
+                        android:id="@+id/sourceName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="FOX NEWS"
+                        android:text=""
                         android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                         android:textColor="@color/on_surface_variant" />
 

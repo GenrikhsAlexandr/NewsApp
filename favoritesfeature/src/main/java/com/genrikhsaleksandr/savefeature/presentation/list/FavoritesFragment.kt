@@ -68,6 +68,7 @@ class FavoritesFragment : Fragment() {
         lifecycleScope.launch {
             viewModel.news.collect { news ->
                 adapter.submitList(news)
+                println("news = $news")
             }
         }
         val swipeRefresh: SwipeRefreshLayout = binding.swipeRefresh

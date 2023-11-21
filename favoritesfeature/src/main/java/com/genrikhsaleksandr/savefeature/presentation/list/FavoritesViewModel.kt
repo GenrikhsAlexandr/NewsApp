@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.genrikhsaleksandr.core.domain.model.Article
+import com.genrikhsaleksandr.core.domain.model.SearchRepository
 import com.genrikhsaleksandr.core.navigation.Navigator
 import com.genrikhsaleksandr.core.presentation.ArticleItemList
 import com.genrikhsaleksandr.savefeature.domain.FavoritesInteractor
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class FavoritesViewModel @Inject constructor(
     private val interactor: FavoritesInteractor,
     private val navigator: Navigator,
+    private val repository:SearchRepository
 
     ) : ViewModel() {
 
@@ -40,9 +42,10 @@ class FavoritesViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 _news.value =
-                    interactor.getFavoritesArticles() ?: emptyList()
-                println("news = ${_news.value}")
-                println("idArticle = ${news.value}")
+                    interactor.getFavoritesArticles()
+                _news.collect{
+                    repository.setArticle(it)
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }

@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
@@ -20,10 +21,9 @@ class SearchViewModel @Inject constructor(
 
     ) : ViewModel() {
 
-    private val _query: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
-
-    val query: StateFlow<List<ArticleItemList>> = _query.map { query ->
-        query.map {
+    private val _news: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
+    val news: StateFlow<List<ArticleItemList>> = _news.map { news ->
+        news.map {
             ArticleItemList(
                 sourceName = it.sourceName,
                 title = it.title,
@@ -34,6 +34,19 @@ class SearchViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
+    init {
+        viewModelScope
+        viewModelScope.launch {
+            try {
+                searchRepository.allArticles.collect{
+                    _news.value = it.map { articleItemList ->
+                        articleItemList.article}
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
     fun onSearchQuery(query: String) {
         searchRepository.setSearchRequest(query)
     }

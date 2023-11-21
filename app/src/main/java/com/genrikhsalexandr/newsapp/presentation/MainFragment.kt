@@ -34,7 +34,8 @@ class MainFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        (requireActivity().application as MainComponentProvider).provideMainComponent().inject(this)
+        (requireActivity().application as MainComponentProvider).provideMainComponent()
+            .inject(this)
     }
 
     override fun onCreateView(
@@ -144,13 +145,11 @@ class MainFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.toolBarTitle.collect {
                 binding.toolbar.title = it
-
             }
         }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isAppBarVisible.collect {
                 binding.appBar.isVisible = it
-
             }
         }
     }

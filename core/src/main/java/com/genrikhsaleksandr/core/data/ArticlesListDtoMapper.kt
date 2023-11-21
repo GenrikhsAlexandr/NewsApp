@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class ArticlesListDtoMapper @Inject constructor() {
 
-    fun mapNewsListDtoToListArticle(articleDto: ArticlesListDto): List<Article> {
+    fun mapArticlesListDtoToListArticle(articleDto: ArticlesListDto): List<Article> {
         return articleDto.articles.map {
             Article(
                 sourceName = it.source.name,

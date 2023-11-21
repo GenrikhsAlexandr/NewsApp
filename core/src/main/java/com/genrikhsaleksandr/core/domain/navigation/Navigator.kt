@@ -1,9 +1,9 @@
 package com.genrikhsaleksandr.core.navigation
 
 import androidx.fragment.app.FragmentManager
-import com.genrikhsaleksandr.core.domain.navigation.Screen
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.Source
+import com.genrikhsaleksandr.core.domain.navigation.Screen
 
 interface Navigator {
 
@@ -26,8 +26,6 @@ interface Navigator {
     fun navigateToSearch(fragmentManager: FragmentManager)
 
     fun navigateToFilter(fragmentManager: FragmentManager)
-
-   fun navigateToFilterDate(fragmentManager: FragmentManager)
 
    fun navigateArticlesSourceToSources(fragmentManager: FragmentManager)
 

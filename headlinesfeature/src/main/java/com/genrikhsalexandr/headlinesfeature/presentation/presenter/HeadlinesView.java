@@ -1,6 +1,6 @@
 package com.genrikhsalexandr.headlinesfeature.presentation.presenter;
 
-import com.genrikhsaleksandr.core.presentation.ArticleItemList;
+import com.genrikhsaleksandr.core.presentation.ItemList;
 
 import java.util.List;
 
@@ -14,5 +14,5 @@ public interface HeadlinesView extends MvpView {
     void setLoading(Boolean isLoading);
 
     @StateStrategyType(AddToEndSingleStrategy.class)
-    void showArticles(List<ArticleItemList> news);
+    void showArticles(List<ItemList> news);
 }

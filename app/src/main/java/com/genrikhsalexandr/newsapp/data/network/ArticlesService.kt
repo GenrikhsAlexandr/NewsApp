@@ -6,11 +6,12 @@ import com.genrikhsalexandr.souresfeature.data.dto.sources.SourcesListDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-interface NewsService {
+interface ArticlesService {
 
     @GET("v2/top-headlines")
     suspend fun getArticles(
         @Query(QUERY_PARAM_CATEGORY) category: String? = null,
+        @Query(QUERY_PARAM_PAGE) page: Int? = null,
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "c671c3a213884080b9986d20a5ba091a",
     ): ArticlesListDto
 
@@ -28,6 +29,7 @@ interface NewsService {
     companion object {
         private const val QUERY_PARAM_API_KEY = "apiKey"
         private const val QUERY_PARAM_CATEGORY = "category"
+        private const val QUERY_PARAM_PAGE = "page"
         private const val QUERY_PARAM_SOURCE = "sources"
     }
 }

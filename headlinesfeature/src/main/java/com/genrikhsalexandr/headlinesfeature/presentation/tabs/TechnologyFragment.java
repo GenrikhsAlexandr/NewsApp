@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.genrikhsaleksandr.core.presentation.ArticleItemList;
+import com.genrikhsaleksandr.core.presentation.ItemList;
 import com.genrikhsaleksandr.core.presentation.adapter.CoreAdapter;
 import com.genrikhsalexandr.headlinesfeature.databinding.FragmentTechnologyBinding;
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider;
@@ -73,20 +74,28 @@ public class TechnologyFragment extends MvpAppCompatFragment implements Headline
         adapter = new CoreAdapter(
                 false,
                 article ->
-        {
-            presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
-            return Unit.INSTANCE;
-        });
+                {
+                    presenter.onArticleItemClick(article, requireParentFragment().getParentFragmentManager());
+                    return Unit.INSTANCE;
+                });
         getBinding().rvTechnology.setAdapter(adapter);
         getBinding().rvTechnology.addItemDecoration(
                 new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         );
         SwipeRefreshLayout swipeRefresh = getBinding().swipeRefresh;
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefresh.setOnRefreshListener(() -> {
+            presenter.onRefresh();
+            swipeRefresh.setRefreshing(false);
+        });
+
+        getBinding().rvTechnology.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onRefresh() {
-                presenter.onRefresh();
-                swipeRefresh.setRefreshing(false);
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    presenter.loadNextPage();
+                }
             }
         });
     }
@@ -98,10 +107,10 @@ public class TechnologyFragment extends MvpAppCompatFragment implements Headline
     }
 
     @Override
-    public void showArticles(List<ArticleItemList> news) {
+    public void showArticles(List<ItemList> article) {
         getBinding().rvTechnology.setVisibility(View.VISIBLE);
-        adapter.submitList(news);
-        System.out.println("showArticles = " + news);
+        adapter.submitList(article);
+        System.out.println("showArticles = " + article);
     }
 
     @Override

@@ -8,6 +8,8 @@ import com.genrikhsaleksandr.core.domain.model.Article;
 import com.genrikhsaleksandr.core.domain.model.SearchRepository;
 import com.genrikhsaleksandr.core.navigation.Navigator;
 import com.genrikhsaleksandr.core.presentation.ArticleItemList;
+import com.genrikhsaleksandr.core.presentation.ItemList;
+import com.genrikhsaleksandr.core.presentation.LoadingItemList;
 import com.genrikhsalexandr.headlinesfeature.domain.HeadlinesInteractor;
 
 import java.util.ArrayList;
@@ -26,24 +28,52 @@ public class TechnologyPresenter extends MvpPresenter<HeadlinesView> {
     Navigator navigator;
     HeadlinesInteractor interactor;
     Disposable disposable;
-    SearchRepository repository;
-
+    SearchRepository searchRepository;
+    private List<Article> articles;
+    private Integer currentPage = 1;
 
     @Inject
     public TechnologyPresenter(
             HeadlinesInteractor interactor,
             Navigator navigator,
-            SearchRepository repository
+            SearchRepository searchRepository
 
     ) {
         this.interactor = interactor;
         this.navigator = navigator;
-        this.repository = repository;
+        this.searchRepository = searchRepository;
         getViewState().setLoading(true);
-        disposable = interactor.getArticlesList(Category.TECHNOLOGY)
+        loadFirstPage();
+    }
+
+    private void loadFirstPage() {
+        currentPage = 1;
+        getViewState().setLoading(true);
+        disposable = interactor.getArticlesList(currentPage, Category.TECHNOLOGY)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onArticlesLoaded, this::onError);
+                .subscribe(
+                        articles -> {
+                            this.articles = articles;
+                            onPageLoaded();
+                        },
+                        this::onError
+                );
+    }
+
+    public void loadNextPage() {
+        currentPage++;
+        getViewState().setLoading(true);
+        disposable = interactor.getArticlesList(currentPage, Category.TECHNOLOGY)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        articles -> {
+                            this.articles.addAll(articles);
+                            onPageLoaded();
+                        },
+                        this::onError
+                );
     }
 
     private void onError(Throwable throwable) {
@@ -51,24 +81,25 @@ public class TechnologyPresenter extends MvpPresenter<HeadlinesView> {
         System.err.println(errorMessage);
     }
 
-    private void onArticlesLoaded(List<Article> articles) {
-        List<ArticleItemList> articlesItems = new ArrayList<>(articles.size());
-        articles.forEach(article -> articlesItems.add(
-                new ArticleItemList(
-                        article.getSourceName(),
-                        article.getTitle(),
-                        article.getUrlToImage(),
-                        article,
-                        article.getId()
-                )
-        ));
-        System.out.println("articles = " + articles.size());
+    private void onPageLoaded() {
+        List<ItemList> articlesItems = new ArrayList<>(articles.size());
+        articles.forEach(article ->
+                articlesItems.add(
+                        new ArticleItemList(
+                                article.getSourceName(),
+                                article.getTitle(),
+                                article.getUrlToImage(),
+                                article,
+                                article.getId()
+                        )
+                ));
+        articlesItems.add(LoadingItemList.INSTANCE);
         getViewState().setLoading(false);
-        repository.setArticle(articles);
+        searchRepository.setArticles(articles);
         getViewState().showArticles(articlesItems);
     }
 
-    public void onNewsItemClick(Article article, FragmentManager fragmentManager) {
+    public void onArticleItemClick(Article article, FragmentManager fragmentManager) {
         navigator.navigateToDetailsArticle(article, fragmentManager);
     }
 
@@ -81,9 +112,6 @@ public class TechnologyPresenter extends MvpPresenter<HeadlinesView> {
     }
 
     public void onRefresh() {
-        disposable = interactor.getArticlesList(Category.TECHNOLOGY)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(this::onArticlesLoaded, this::onError);
+        loadFirstPage();
     }
 }

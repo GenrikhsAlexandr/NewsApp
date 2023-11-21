@@ -17,7 +17,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="7" />
+            tools:itemCount="7"
+            tools:listitem="@layout/list_item_article" />
+
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBar"
@@ -25,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|bottom"
             android:indeterminate="true"
-            android:visibility="visible">
+            android:visibility="gone">
 
         </com.google.android.material.progressindicator.CircularProgressIndicator>
 

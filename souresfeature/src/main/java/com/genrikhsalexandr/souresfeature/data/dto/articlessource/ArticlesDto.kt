@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ArticlesDto(
-    val source: SourceNewsDto,
+    val source: SourceArticlesDto,
     val title: String,
-    val publishedAt:String,
-    val url:String
+    val publishedAt: String,
+    val url: String
 )

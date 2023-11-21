@@ -12,22 +12,24 @@
         android:layout_gravity="center"
         android:background="#ffff">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvGeneral"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:itemCount="7" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvGeneral"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="7"
+            tools:listitem="@layout/list_item_article" />
 
-    <com.google.android.material.progressindicator.CircularProgressIndicator
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:indeterminate="true"
-        android:visibility="visible">
 
-    </com.google.android.material.progressindicator.CircularProgressIndicator>
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:indeterminate="true"
+            android:visibility="gone">
 
-</FrameLayout>
+        </com.google.android.material.progressindicator.CircularProgressIndicator>
+
+    </FrameLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

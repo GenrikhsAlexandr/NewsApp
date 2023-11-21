@@ -18,7 +18,5 @@ sealed class Screen {
         val sourceName: String
     ) : Screen()
 
-    data object FilterDate : Screen()
-
     data object Default : Screen()
 }

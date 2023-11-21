@@ -6,7 +6,7 @@ import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsaleksandr.core.domain.model.Source
-import com.genrikhsalexandr.newsapp.data.network.NewsService
+import com.genrikhsalexandr.newsapp.data.network.ArticlesService
 import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
@@ -50,7 +50,7 @@ class ArticleRepositoryImpl @Inject constructor(
         )
         .build()
 
-    private val service: NewsService = retrofit.create(NewsService::class.java)
+    private val service: ArticlesService = retrofit.create(ArticlesService::class.java)
 
     override suspend fun getFavoritesArticle(): List<Article> {
         return articleDao.getArticleFromDb()
@@ -59,23 +59,25 @@ class ArticleRepositoryImpl @Inject constructor(
             }
     }
 
-    override suspend fun getArticlesForCategory(category: String): List<Article>? =
+    override suspend fun getArticlesForCategory(page: Int, category: String): List<Article>? =
         withContext(Dispatchers.IO) {
-
+            println("getArticlesForCategory: category = $category page = $page")
             try {
                 val responseForCategory = service.getArticles(
                     category = category,
+                    page = page
                 )
-                mapper.mapNewsListDtoToListArticle(responseForCategory)
+                mapper.mapArticlesListDtoToListArticle(responseForCategory)
             } catch (e: Exception) {
                 e.printStackTrace()
                 null
             }
         }
 
-    override fun getArticlesForCategoryBlocking(category: Category): List<Article>? = runBlocking {
-        getArticlesForCategory(category.name)
-    }
+    override fun getArticlesForCategoryBlocking(page: Int, category: Category): List<Article>? =
+        runBlocking {
+            getArticlesForCategory(page, category.name)
+        }
 
     override suspend fun getArticlesSource(articlesSourceId: String?): List<Article>? {
         return try {

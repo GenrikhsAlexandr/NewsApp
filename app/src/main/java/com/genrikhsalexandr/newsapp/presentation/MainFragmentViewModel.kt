@@ -67,8 +67,6 @@ class MainFragmentViewModel @Inject constructor(
 
             }
 
-            is Screen.FilterDate -> TODO()
-
             is Screen.Default -> {
                 isAppBarVisible.value = true
                 isNavigationIconVisible.value = false
@@ -76,32 +74,31 @@ class MainFragmentViewModel @Inject constructor(
         }
     }
 
-        init {
-            navigator.listener = navigatorListener
-        }
-
-        fun onHeadlinesClick(fragment: FragmentManager) {
-            navigator.navigateToHeadlines(fragment)
-        }
-
-        fun onFavoritesClick(fragment: FragmentManager) {
-            navigator.navigateToFavorites(fragment)
-        }
-
-        fun onSourcesClick(fragment: FragmentManager) {
-            navigator.navigateToSources(fragment)
-        }
-
-        fun onSearchClick(fragment: FragmentManager) {
-            navigator.navigateToSearch(fragment)
-        }
-
-        fun onFilterClick(fragment: FragmentManager) {
-            navigator.navigateToFilter(fragment)
-        }
-
-        fun onNavigationIconArticlesSourceClick(fragment: FragmentManager) {
-            navigator.navigateArticlesSourceToSources(fragment)
-        }
-
+    init {
+        navigator.listener = navigatorListener
     }
+
+    fun onHeadlinesClick(fragment: FragmentManager) {
+        navigator.navigateToHeadlines(fragment)
+    }
+
+    fun onFavoritesClick(fragment: FragmentManager) {
+        navigator.navigateToFavorites(fragment)
+    }
+
+    fun onSourcesClick(fragment: FragmentManager) {
+        navigator.navigateToSources(fragment)
+    }
+
+    fun onSearchClick(fragment: FragmentManager) {
+        navigator.navigateToSearch(fragment)
+    }
+
+    fun onFilterClick(fragment: FragmentManager) {
+        navigator.navigateToFilter(fragment)
+    }
+
+    fun onNavigationIconArticlesSourceClick(fragment: FragmentManager) {
+        navigator.navigateArticlesSourceToSources(fragment)
+    }
+}

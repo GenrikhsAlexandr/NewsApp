@@ -18,9 +18,9 @@ public class HeadlinesInteractor {
         this.repository = repository;
     }
 
-    public Single<List<Article>> getArticlesList(Category category) {
+    public Single<List<Article>> getArticlesList(Integer page, Category category) {
         return Single.create(emitter -> {
-            List<Article> result = repository.getArticlesForCategoryBlocking(category);
+            List<Article> result = repository.getArticlesForCategoryBlocking(page, category);
             if (result == null) {
                 emitter.onError(new Exception("No articles for category " + category));
             }

@@ -9,9 +9,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.genrikhsaleksandr.core.presentation.ArticleItemList;
+import com.genrikhsaleksandr.core.presentation.ItemList;
 import com.genrikhsaleksandr.core.presentation.adapter.CoreAdapter;
 import com.genrikhsalexandr.headlinesfeature.databinding.FragmentHealthBinding;
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider;
@@ -73,20 +74,29 @@ public class HealthFragment extends MvpAppCompatFragment implements HeadlinesVie
         adapter = new CoreAdapter(
                 false,
                 article ->
-        {
-            presenter.onNewsItemClick(article, requireParentFragment().getParentFragmentManager());
-            return Unit.INSTANCE;
-        });
+                {
+                    presenter.onArticleItemClick(article, requireParentFragment().getParentFragmentManager());
+                    return Unit.INSTANCE;
+                });
         getBinding().rvHealth.setAdapter(adapter);
         getBinding().rvHealth.addItemDecoration(
                 new DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         );
         SwipeRefreshLayout swipeRefresh = getBinding().swipeRefresh;
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefresh.setOnRefreshListener(() -> {
+            presenter.onRefresh();
+            swipeRefresh.setRefreshing(false);
+        });
+
+
+        getBinding().rvHealth.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onRefresh() {
-                presenter.onRefresh();
-                swipeRefresh.setRefreshing(false);
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if (!recyclerView.canScrollVertically(1)) {
+                    presenter.loadNextPage();
+                }
             }
         });
     }
@@ -98,10 +108,10 @@ public class HealthFragment extends MvpAppCompatFragment implements HeadlinesVie
     }
 
     @Override
-    public void showArticles(List<ArticleItemList> news) {
+    public void showArticles(List<ItemList> articles) {
         getBinding().rvHealth.setVisibility(View.VISIBLE);
-        adapter.submitList(news);
-        System.out.println("showArticles = " + news);
+        adapter.submitList(articles);
+        System.out.println("showArticles = " + articles);
     }
 
     @Override

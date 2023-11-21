@@ -27,7 +27,7 @@ object SearchRepository {
         }
     }.stateIn(CoroutineScope(Dispatchers.IO), SharingStarted.Eagerly, emptyList())
 
-    fun setArticle(article: List<Article>) {
+    fun setArticles(article: List<Article>) {
         _allArticles.value = article
     }
 

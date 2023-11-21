@@ -88,15 +88,6 @@ class NavigatorImpl : Navigator {
         listener?.onNavigated(Screen.Filter)
     }
 
-    override fun navigateToFilterDate(fragmentManager: FragmentManager) {
-        /*  val filterDateFragment = FilterDateFragment.newInstance()
-        fragmentManager.commit {
-            replace(R.id.fragment_container, filterDateFragment)
-            addToBackStack(null)
-        }*/
-        listener?.onNavigated(Screen.FilterDate)
-    }
-
     override fun navigateArticlesSourceToSources(fragmentManager: FragmentManager) {
         fragmentManager.popBackStack()
         listener?.onNavigated(Screen.Sources("Source"))

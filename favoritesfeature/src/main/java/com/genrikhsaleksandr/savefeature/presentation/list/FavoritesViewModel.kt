@@ -46,7 +46,7 @@ class FavoritesViewModel @Inject constructor(
         }
         viewModelScope.launch {
             _articles.collect {
-                repository.setArticle(it)
+                repository.setArticles(it)
             }
         }
     }

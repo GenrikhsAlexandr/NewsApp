@@ -65,16 +65,16 @@ class FavoritesFragment : Fragment() {
 
         binding.rvFavorites.adapter = adapter
         lifecycleScope.launch {
-            viewModel.articles.collect { news ->
-                adapter.submitList(news)
-                println("news = $news")
+            viewModel.articles.collect { article ->
+                adapter.submitList(article)
+                println("news = $article")
             }
         }
         val swipeRefresh: SwipeRefreshLayout = binding.swipeRefresh
         swipeRefresh.setOnRefreshListener {
             lifecycleScope.launch {
-                viewModel.articles.collect { news ->
-                    adapter.submitList(news)
+                viewModel.articles.collect { article ->
+                    adapter.submitList(article)
                 }
             }
             swipeRefresh.isRefreshing = false

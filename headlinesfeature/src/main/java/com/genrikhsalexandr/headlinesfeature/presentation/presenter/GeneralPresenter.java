@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.genrikhsaleksandr.core.domain.Category;
 import com.genrikhsaleksandr.core.domain.model.Article;
+import com.genrikhsaleksandr.core.domain.model.SearchRepository;
 import com.genrikhsaleksandr.core.navigation.Navigator;
 import com.genrikhsaleksandr.core.presentation.ArticleItemList;
 import com.genrikhsalexandr.headlinesfeature.domain.HeadlinesInteractor;
@@ -24,18 +25,21 @@ import moxy.MvpPresenter;
 public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
 
     Navigator navigator;
-
     HeadlinesInteractor interactor;
-
     Disposable disposable;
+    SearchRepository repository;
+
 
     @Inject
     public GeneralPresenter(
             HeadlinesInteractor interactor,
-            Navigator navigator
+            Navigator navigator,
+            SearchRepository repository
+
     ) {
         this.interactor = interactor;
         this.navigator = navigator;
+        this.repository = repository;
         getViewState().setLoading(true);
         disposable = interactor.getArticlesList(Category.GENERAL)
                 .subscribeOn(Schedulers.io())
@@ -61,6 +65,7 @@ public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
         ));
         System.out.println("articles = " + articles.size());
         getViewState().setLoading(false);
+        repository.setArticle(articles);
         getViewState().showArticles(articlesItems);
     }
 

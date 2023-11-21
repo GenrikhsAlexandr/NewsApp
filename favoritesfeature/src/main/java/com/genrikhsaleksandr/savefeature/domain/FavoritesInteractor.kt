@@ -7,7 +7,6 @@ import javax.inject.Inject
 class FavoritesInteractor @Inject constructor(
     private val repository: ArticleRepository,
 ) {
+
     suspend fun getFavoritesArticles(): List<Article> = repository.getFavoritesArticle()
-
-
 }

@@ -1,6 +1,5 @@
 package com.genrikhsaleksandr.core.domain.model
 
-import com.genrikhsaleksandr.core.R
 import java.io.Serializable
 
 data class Article(
@@ -12,6 +11,4 @@ data class Article(
     val content: String?,
     val url: String,
     val id: Long = 0,
-) : Serializable {
-    val viewType = R.layout.list_item_article
-}
+) : Serializable

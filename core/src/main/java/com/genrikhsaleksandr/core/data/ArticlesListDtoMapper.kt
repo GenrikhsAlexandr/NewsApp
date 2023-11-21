@@ -1,13 +1,13 @@
 package com.genrikhsaleksandr.core.data
 
-import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.data.database.ArticleDbModel
-import com.genrikhsaleksandr.core.data.dto.NewsListDto
+import com.genrikhsaleksandr.core.data.dto.ArticlesListDto
+import com.genrikhsaleksandr.core.domain.model.Article
 import javax.inject.Inject
 
-class NewsListDtoMapper @Inject constructor() {
+class ArticlesListDtoMapper @Inject constructor() {
 
-   fun mapNewsListDtoToListArticle(articleDto: NewsListDto): List<Article> {
+    fun mapNewsListDtoToListArticle(articleDto: ArticlesListDto): List<Article> {
         return articleDto.articles.map {
             Article(
                 sourceName = it.source.name,

@@ -1,10 +1,10 @@
 package com.genrikhsalexandr.newsapp.di
 
 import android.app.Application
-import com.genrikhsaleksandr.core.domain.model.ArticleRepository
-import com.genrikhsaleksandr.core.data.NewsListDtoMapper
+import com.genrikhsaleksandr.core.data.ArticlesListDtoMapper
 import com.genrikhsaleksandr.core.data.database.AppDatabase
 import com.genrikhsaleksandr.core.data.database.ArticleDao
+import com.genrikhsaleksandr.core.domain.model.ArticleRepository
 import com.genrikhsalexandr.newsapp.data.repository.ArticleRepositoryImpl
 import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
@@ -19,7 +19,7 @@ object AppDataModule {
     @Singleton
     fun provideArticleRepository(
         dao: ArticleDao,
-        mapper: NewsListDtoMapper,
+        mapper: ArticlesListDtoMapper,
         sourcesMapper: SourcesDtoMapper,
         articlesSourceMapper: ArticlesSourceDtoMapper,
     ): ArticleRepository {
@@ -34,8 +34,8 @@ object AppDataModule {
     @Provides
     @Singleton
     fun provideMapperNewsDto(
-    ): NewsListDtoMapper {
-        return NewsListDtoMapper()
+    ): ArticlesListDtoMapper {
+        return ArticlesListDtoMapper()
     }
 
     @Provides

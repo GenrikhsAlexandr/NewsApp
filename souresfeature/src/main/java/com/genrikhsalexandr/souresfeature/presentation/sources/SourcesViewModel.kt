@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 class SourcesViewModel @Inject constructor(
     private val navigator: Navigator,
-    private val interactor: SourcesInteractor
+    private val interactor: SourcesInteractor,
 ) : ViewModel() {
 
     private val _source: MutableStateFlow<List<Source>> = MutableStateFlow(emptyList())
@@ -33,7 +33,6 @@ class SourcesViewModel @Inject constructor(
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
     init {
-        viewModelScope
         viewModelScope.launch {
             try {
                 _source.value = interactor.getSourcesList() ?: emptyList()

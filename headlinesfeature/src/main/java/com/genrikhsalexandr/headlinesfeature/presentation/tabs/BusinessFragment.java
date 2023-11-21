@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.genrikhsaleksandr.core.presentation.ArticleItemList;
-import com.genrikhsaleksandr.core.presentation.CoreAdapter;
+import com.genrikhsaleksandr.core.presentation.adapter.CoreAdapter;
 import com.genrikhsalexandr.headlinesfeature.databinding.FragmentBusinessBinding;
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider;
 import com.genrikhsalexandr.headlinesfeature.presentation.presenter.BusinessPresenter;

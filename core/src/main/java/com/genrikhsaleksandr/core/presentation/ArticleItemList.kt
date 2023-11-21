@@ -1,5 +1,6 @@
 package com.genrikhsaleksandr.core.presentation
 
+import com.genrikhsaleksandr.core.R
 import com.genrikhsaleksandr.core.domain.model.Article
 
 data class ArticleItemList(
@@ -7,5 +8,7 @@ data class ArticleItemList(
     val title: String,
     val urlToImage: String?,
     val article: Article,
-    val id:Long
-)
+    val id: Long
+) {
+    val viewType = R.layout.list_item_article
+}

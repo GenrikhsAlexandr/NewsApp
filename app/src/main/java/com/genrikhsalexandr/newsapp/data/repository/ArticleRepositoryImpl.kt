@@ -1,6 +1,6 @@
 package com.genrikhsalexandr.newsapp.data.repository
 
-import com.genrikhsaleksandr.core.data.NewsListDtoMapper
+import com.genrikhsaleksandr.core.data.ArticlesListDtoMapper
 import com.genrikhsaleksandr.core.data.database.ArticleDao
 import com.genrikhsaleksandr.core.domain.Category
 import com.genrikhsaleksandr.core.domain.model.Article
@@ -23,7 +23,7 @@ import javax.inject.Inject
 
 class ArticleRepositoryImpl @Inject constructor(
     private val articleDao: ArticleDao,
-    private val mapper: NewsListDtoMapper,
+    private val mapper: ArticlesListDtoMapper,
     private val sourcesMapper: SourcesDtoMapper,
     private val articlesSourcesMapper: ArticlesSourceDtoMapper,
 ) : ArticleRepository {
@@ -63,7 +63,7 @@ class ArticleRepositoryImpl @Inject constructor(
         withContext(Dispatchers.IO) {
 
             try {
-                val responseForCategory = service.getNews(
+                val responseForCategory = service.getArticles(
                     category = category,
                 )
                 mapper.mapNewsListDtoToListArticle(responseForCategory)

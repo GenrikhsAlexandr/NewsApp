@@ -1,6 +1,6 @@
 package com.genrikhsalexandr.newsapp.data.network
 
-import com.genrikhsaleksandr.core.data.dto.NewsListDto
+import com.genrikhsaleksandr.core.data.dto.ArticlesListDto
 import com.genrikhsalexandr.souresfeature.data.dto.articlessource.SourceNewsListDto
 import com.genrikhsalexandr.souresfeature.data.dto.sources.SourcesListDto
 import retrofit2.http.GET
@@ -9,10 +9,10 @@ import retrofit2.http.Query
 interface NewsService {
 
     @GET("v2/top-headlines")
-    suspend fun getNews(
+    suspend fun getArticles(
         @Query(QUERY_PARAM_CATEGORY) category: String? = null,
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "c671c3a213884080b9986d20a5ba091a",
-    ): NewsListDto
+    ): ArticlesListDto
 
     @GET("v2/top-headlines/sources")
     suspend fun getSources(

@@ -3,7 +3,6 @@ package com.genrikhsalexandr.newsapp.presentation
 import android.animation.Animator
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
 import com.airbnb.lottie.LottieAnimationView

@@ -2,21 +2,20 @@ package com.genrikhsalexandr.souresfeature.presentation.sources
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.genrikhsaleksandr.core.domain.model.Article
 import com.genrikhsaleksandr.core.domain.model.Source
 import com.genrikhsalexandr.souresfeature.databinding.ListItemSourcesBinding
 import java.util.Locale
 
 class SourcesAdapter(
     val onNewsItemClickListener: ((Source) -> Unit)
-) : RecyclerView.Adapter<SourcesAdapter.NewsViewHolder>() {
+) : ListAdapter<SourcesItemList, SourcesAdapter.NewsViewHolder>(
+    SourceDiffUtil()
+) {
 
-    private lateinit var list: List<SourcesItemList>
-
-    fun submitData(list: List<SourcesItemList>) {
-        this.list = list
-        notifyDataSetChanged()
+    override fun getItemViewType(position: Int): Int {
+        return getItem(position).viewType
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -29,12 +28,8 @@ class SourcesAdapter(
         )
     }
 
-    override fun getItemCount(): Int {
-        return list.size
-    }
-
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.bind(list[position])
+        holder.bind(getItem(position))
     }
 
     inner class NewsViewHolder(private val binding: ListItemSourcesBinding) :

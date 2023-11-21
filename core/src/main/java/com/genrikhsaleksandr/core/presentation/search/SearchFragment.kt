@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import com.genrikhsaleksandr.core.databinding.FragmentSearchBinding
 import com.genrikhsaleksandr.core.di.serachdi.SearchComponentProvider
 import com.genrikhsaleksandr.core.di.serachdi.SearchViewModelFactory
-import com.genrikhsaleksandr.core.presentation.CoreAdapter
+import com.genrikhsaleksandr.core.presentation.adapter.CoreAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -34,7 +34,7 @@ class SearchFragment : Fragment() {
     private val adapter: CoreAdapter = CoreAdapter(
         isPrimaryBackground = true,
         onNewsItemClickListener = {
-            viewModel.onNewsItemClick(it, parentFragmentManager)
+            viewModel.onArticleItemClick(it, parentFragmentManager)
         }
     )
 
@@ -61,7 +61,7 @@ class SearchFragment : Fragment() {
         onBackIconClick()
         binding.rvSearch.adapter = adapter
         lifecycleScope.launch {
-            viewModel.news.collect {
+            viewModel.articles.collect {
                 adapter.submitList(it)
             }
         }

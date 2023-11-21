@@ -10,7 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.genrikhsaleksandr.core.presentation.CoreAdapter
+import com.genrikhsaleksandr.core.presentation.adapter.CoreAdapter
 import com.genrikhsaleksandr.savefeature.databinding.FragmentFavoritesBinding
 import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
 import com.genrikhsaleksandr.savefeature.di.FavoritesViewModelFactory
@@ -65,7 +65,7 @@ class FavoritesFragment : Fragment() {
 
         binding.rvFavorites.adapter = adapter
         lifecycleScope.launch {
-            viewModel.news.collect { news ->
+            viewModel.articles.collect { news ->
                 adapter.submitList(news)
                 println("news = $news")
             }
@@ -73,7 +73,7 @@ class FavoritesFragment : Fragment() {
         val swipeRefresh: SwipeRefreshLayout = binding.swipeRefresh
         swipeRefresh.setOnRefreshListener {
             lifecycleScope.launch {
-                viewModel.news.collect { news ->
+                viewModel.articles.collect { news ->
                     adapter.submitList(news)
                 }
             }

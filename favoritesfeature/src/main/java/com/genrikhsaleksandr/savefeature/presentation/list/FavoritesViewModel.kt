@@ -19,14 +19,13 @@ import javax.inject.Inject
 class FavoritesViewModel @Inject constructor(
     private val interactor: FavoritesInteractor,
     private val navigator: Navigator,
-    private val repository:SearchRepository
+    private val repository: SearchRepository
+) : ViewModel() {
 
-    ) : ViewModel() {
+    private val _articles: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
 
-    private val _news: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
-
-    val news: StateFlow<List<ArticleItemList>> = _news.map { news ->
-        news.map {
+    val articles: StateFlow<List<ArticleItemList>> = _articles.map { articles ->
+        articles.map {
             ArticleItemList(
                 sourceName = it.sourceName,
                 title = it.title,
@@ -40,14 +39,13 @@ class FavoritesViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             try {
-                _news.value =
-                    interactor.getFavoritesArticles()
+                _articles.value = interactor.getFavoritesArticles()
             } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
         viewModelScope.launch {
-            _news.collect{
+            _articles.collect {
                 repository.setArticle(it)
             }
         }

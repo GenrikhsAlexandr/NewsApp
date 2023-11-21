@@ -18,11 +18,10 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(
     private val navigator: Navigator,
     private val searchRepository: SearchRepository
-
     ) : ViewModel() {
 
-    private val _news: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
-    val news: StateFlow<List<ArticleItemList>> = _news.map { news ->
+    private val _articles: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
+    val articles: StateFlow<List<ArticleItemList>> = _articles.map { news ->
         news.map {
             ArticleItemList(
                 sourceName = it.sourceName,
@@ -36,14 +35,8 @@ class SearchViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            searchRepository.allArticles.collect {
-                try {
-                    _news.value = it.map { articleItemList ->
-                        articleItemList.article
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
+            searchRepository.filteredArticles.collect {
+                _articles.value = it
             }
         }
     }
@@ -55,7 +48,7 @@ class SearchViewModel @Inject constructor(
         navigator.navigateBackSearch(fragment)
     }
 
-    fun onNewsItemClick(article:Article, fragment: FragmentManager){
+    fun onArticleItemClick(article: Article, fragment: FragmentManager) {
         navigator.navigateToDetailsArticleForSearch(article, fragment)
     }
 }

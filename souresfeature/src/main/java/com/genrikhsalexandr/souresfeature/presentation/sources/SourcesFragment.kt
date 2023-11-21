@@ -58,14 +58,14 @@ class SourcesFragment @Inject constructor(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.rvFavorites.addItemDecoration(
-            DividerItemDecoration (requireContext(), DividerItemDecoration.VERTICAL)
+        binding.rvSource.addItemDecoration(
+            DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         )
 
-        binding.rvFavorites.adapter = adapter
+        binding.rvSource.adapter = adapter
         lifecycleScope.launch {
             viewModel.source.collect { source ->
-                adapter.submitData(source)
+                adapter.submitList(source)
             }
         }
         println("adapterSourse = ${adapter.itemCount}")

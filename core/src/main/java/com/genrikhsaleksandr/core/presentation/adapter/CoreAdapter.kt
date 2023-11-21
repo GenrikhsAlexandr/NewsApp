@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.core.presentation
+package com.genrikhsaleksandr.core.presentation.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.genrikhsaleksandr.core.R
 import com.genrikhsaleksandr.core.databinding.ListItemArticleBinding
 import com.genrikhsaleksandr.core.domain.model.Article
+import com.genrikhsaleksandr.core.presentation.ArticleItemList
 import com.squareup.picasso.Picasso
 
 class CoreAdapter(
@@ -15,7 +16,7 @@ class CoreAdapter(
 ) : ListAdapter<ArticleItemList, CoreAdapter.NewsViewHolder>(CoreDiffUtil()) {
 
     override fun getItemViewType(position: Int): Int {
-        return getItem(position).article.viewType
+        return getItem(position).viewType
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
@@ -50,7 +51,7 @@ class CoreAdapter(
                 Picasso.get()
                     .load(listItem.urlToImage.toString())
                     .into(binding.imageArticle)
-            } else binding.imageArticle.setImageResource(com.genrikhsaleksandr.core.R.drawable.element)
+            } else binding.imageArticle.setImageResource(R.drawable.element)
         }
     }
 }

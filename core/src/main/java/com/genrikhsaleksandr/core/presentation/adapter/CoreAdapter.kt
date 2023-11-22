@@ -71,7 +71,7 @@ class CoreAdapter(
                     root.setBackgroundResource(R.color.ic_launcher_background)
                 } else root.setBackgroundResource(R.color.background_tabs)
             }
-            if (listItem.urlToImage != null) {
+            if (!listItem.urlToImage.isNullOrEmpty()) {
                 Picasso.get()
                     .load(listItem.urlToImage.toString())
                     .into(binding.imageArticle)

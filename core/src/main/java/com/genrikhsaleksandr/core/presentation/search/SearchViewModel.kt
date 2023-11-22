@@ -51,4 +51,9 @@ class SearchViewModel @Inject constructor(
     fun onArticleItemClick(article: Article, fragment: FragmentManager) {
         navigator.navigateToDetailsArticleForSearch(article, fragment)
     }
+
+    override fun onCleared() {
+        super.onCleared()
+        searchRepository.setSearchRequest("")
+    }
 }

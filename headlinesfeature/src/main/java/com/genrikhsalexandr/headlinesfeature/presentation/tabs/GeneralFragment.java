@@ -58,6 +58,7 @@ public class GeneralFragment extends MvpAppCompatFragment implements HeadlinesVi
     @Override
     public void onStart() {
         super.onStart();
+        System.out.println("onStart = ");
         presenter.attachView(this);
     }
 
@@ -92,6 +93,7 @@ public class GeneralFragment extends MvpAppCompatFragment implements HeadlinesVi
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
+                System.out.println("onScrollStateChanged = ");
 
                 if (!recyclerView.canScrollVertically(1)) {
                     presenter.loadNextPage();

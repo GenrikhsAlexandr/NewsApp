@@ -19,7 +19,7 @@ import javax.inject.Inject
 class FavoritesViewModel @Inject constructor(
     private val interactor: FavoritesInteractor,
     private val navigator: Navigator,
-    private val repository: SearchRepository
+    private val searchRepository: SearchRepository
 ) : ViewModel() {
 
     private val _articles: MutableStateFlow<List<Article>> = MutableStateFlow(emptyList())
@@ -46,12 +46,17 @@ class FavoritesViewModel @Inject constructor(
         }
         viewModelScope.launch {
             _articles.collect {
-                repository.setArticles(it)
+                searchRepository.setArticles(it)
             }
         }
     }
 
     fun onNewsItemClick(article: Article, fragmentManager: FragmentManager) {
         navigator.navigateToDetailsArticle(article, fragmentManager)
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        searchRepository.setSearchRequest("")
     }
 }

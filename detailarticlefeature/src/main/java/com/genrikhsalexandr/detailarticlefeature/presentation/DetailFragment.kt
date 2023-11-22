@@ -109,7 +109,7 @@ class DetailFragment : Fragment() {
             binding.titleDetail.text = it.title
             binding.sourceName.text = it.sourceName
             binding.collapsingToolbarArticle.title = it.title
-            if (it.urlToImage != null) {
+            if (!it.urlToImage.isNullOrEmpty()) {
                 Picasso.get()
                     .load(it.urlToImage.toString())
                     .into(binding.imageArticle)

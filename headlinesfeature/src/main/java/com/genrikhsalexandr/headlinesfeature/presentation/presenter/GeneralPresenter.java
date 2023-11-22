@@ -111,6 +111,7 @@ public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
         if (disposable != null && !disposable.isDisposed()) {
             disposable.dispose();
         }
+        searchRepository.setSearchRequest("");
     }
 
     public void onRefresh() {

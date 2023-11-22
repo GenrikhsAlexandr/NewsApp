@@ -36,15 +36,17 @@ class FavoritesViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-    init {
-        viewModelScope.launch {
-            try {
-                _articles.value = interactor.getFavoritesArticles()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-        viewModelScope.launch {
+   init {
+       viewModelScope.launch {
+           try {
+               interactor.getFavoritesArticles().collect {
+                   _articles.value = it
+               }
+           } catch (e: Exception) {
+               e.printStackTrace()
+           }
+       }
+       viewModelScope.launch {
             _articles.collect {
                 searchRepository.setArticles(it)
             }

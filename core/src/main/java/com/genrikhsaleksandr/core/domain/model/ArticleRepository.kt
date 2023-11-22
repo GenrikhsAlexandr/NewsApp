@@ -1,9 +1,10 @@
 package com.genrikhsaleksandr.core.domain.model
 
 import com.genrikhsaleksandr.core.domain.Category
+import kotlinx.coroutines.flow.Flow
 
 interface ArticleRepository {
-    suspend fun getFavoritesArticle(): List<Article>
+    fun getFavoritesArticle(): Flow<List<Article>>
 
     suspend fun getArticlesForCategory(page: Int, category: String): List<Article>?
 

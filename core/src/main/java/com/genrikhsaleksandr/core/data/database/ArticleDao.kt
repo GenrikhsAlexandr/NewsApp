@@ -5,6 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticleDao {
@@ -12,7 +13,7 @@ interface ArticleDao {
     suspend fun insertArticle(article: ArticleDbModel):Long
 
     @Query("SELECT * FROM article")
-    suspend fun getArticleFromDb(): List<ArticleDbModel>
+    fun getArticleFromDb(): Flow<List<ArticleDbModel>>
 
     @Delete
     suspend fun deleteArticle(article: ArticleDbModel)

@@ -11,6 +11,8 @@ import com.genrikhsalexandr.souresfeature.data.ArticlesSourceDtoMapper
 import com.genrikhsalexandr.souresfeature.data.SourcesDtoMapper
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -52,11 +54,14 @@ class ArticleRepositoryImpl @Inject constructor(
 
     private val service: ArticlesService = retrofit.create(ArticlesService::class.java)
 
-    override suspend fun getFavoritesArticle(): List<Article> {
+    override fun getFavoritesArticle(): Flow<List<Article>> {
         return articleDao.getArticleFromDb()
-            .map {
-                mapper.mapArticleDbModelToArticle(it)
+            .map { dbModelList ->
+                dbModelList.map {
+                    mapper.mapArticleDbModelToArticle(it)
+                }
             }
+
     }
 
     override suspend fun getArticlesForCategory(page: Int, category: String): List<Article>? =
@@ -110,7 +115,7 @@ class ArticleRepositoryImpl @Inject constructor(
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)
         val updateId = articleDao.insertArticle(articleDbModel)
         return mapper.mapArticleDbModelToArticle(articleDbModel.copy(id = updateId))
-     }
+    }
 
     override suspend fun deleteFavoriteArticle(article: Article) {
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)

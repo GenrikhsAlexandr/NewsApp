@@ -58,11 +58,9 @@ class FavoritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.rvFavorites.addItemDecoration(
             DividerItemDecoration(requireContext(), DividerItemDecoration.VERTICAL)
         )
-
         binding.rvFavorites.adapter = adapter
         lifecycleScope.launch {
             viewModel.articles.collect { article ->

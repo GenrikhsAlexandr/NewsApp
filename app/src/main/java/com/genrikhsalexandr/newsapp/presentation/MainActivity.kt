@@ -12,8 +12,8 @@ import com.genrikhsalexandr.newsapp.R
 import com.genrikhsalexandr.newsapp.databinding.ActivityMainBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
+import kotlin.time.Duration.Companion.days
 
 class MainActivity : AppCompatActivity() {
 
@@ -54,19 +54,19 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private suspend fun checkAndDeleteOldArticles() {
-        val fourteenDaysInMillis = 14 * 24 * 60 * 60 * 1000L
-        val oldArticles = database.articleRequestDao().getArticleFromDb()
-            .filter {
-                it.createdAt < System.currentTimeMillis() - fourteenDaysInMillis
-            }
-        println("oldArticles = $oldArticles")
-        println("System.currentTimeMillis = ${System.currentTimeMillis() - fourteenDaysInMillis}")
+    private fun checkAndDeleteOldArticles() {
+        lifecycleScope.launch {
+            database.articleRequestDao().getArticleFromDb().collect { articles ->
+                val oldArticles = articles.filter {
+                    it.createdAt < System.currentTimeMillis() - 14.days.inWholeMilliseconds
+                }
+                println("oldArticles = $oldArticles")
+                println("System.currentTimeMillis = ${System.currentTimeMillis() - 14.days.inWholeMilliseconds}")
 
-        if (oldArticles.isNotEmpty()) {
-            runBlocking {
-                withContext(Dispatchers.IO) {
-                    database.articleRequestDao().deleteArticle(oldArticles.first())
+                if (oldArticles.isNotEmpty()) {
+                    withContext(Dispatchers.IO) {
+                        database.articleRequestDao().deleteArticle(oldArticles.first())
+                    }
                 }
             }
         }

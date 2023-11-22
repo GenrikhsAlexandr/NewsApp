@@ -34,6 +34,7 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
 
     private Integer currentPage = 1;
 
+    Boolean isLoading;
 
     @Inject
     public BusinessPresenter(
@@ -50,6 +51,7 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
     private void loadFirstPage() {
         currentPage = 1;
         getViewState().setLoading(true);
+        isLoading = true;
         disposable = interactor.getArticlesList(currentPage, Category.BUSINESS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -63,18 +65,22 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
     }
 
     public void loadNextPage() {
-        currentPage++;
-        getViewState().setLoading(true);
-        disposable = interactor.getArticlesList(currentPage, Category.BUSINESS)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        articles -> {
-                            this.articles.addAll(articles);
-                            onPageLoaded();
-                        },
-                        this::onError
-                );
+        if (!isLoading) {
+            currentPage++;
+            getViewState().setLoading(true);
+            isLoading = true;
+            disposable = interactor.getArticlesList(currentPage, Category.BUSINESS)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            articles -> {
+                                this.articles.addAll(articles);
+                                onPageLoaded();
+                            },
+                            this::onError
+                    );
+            System.out.println(" loadNextPage = " + currentPage);
+        }
     }
 
     private void onError(Throwable throwable) {
@@ -96,6 +102,7 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
                 ));
         articlesItems.add(LoadingItemList.INSTANCE);
         getViewState().setLoading(false);
+        isLoading = false;
         searchRepository.setArticles(articles);
         getViewState().showArticles(articlesItems);
     }

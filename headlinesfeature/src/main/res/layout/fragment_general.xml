@@ -20,7 +20,6 @@
             tools:itemCount="7"
             tools:listitem="@layout/list_item_article" />
 
-
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
@@ -28,7 +27,6 @@
             android:layout_gravity="center_horizontal|bottom"
             android:indeterminate="true"
             android:visibility="gone">
-
         </com.google.android.material.progressindicator.CircularProgressIndicator>
 
     </FrameLayout>

@@ -110,7 +110,7 @@ class ArticleRepositoryImpl @Inject constructor(
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)
         val updateId = articleDao.insertArticle(articleDbModel)
         return mapper.mapArticleDbModelToArticle(articleDbModel.copy(id = updateId))
-    }
+     }
 
     override suspend fun deleteFavoriteArticle(article: Article) {
         val articleDbModel = mapper.mapArticleToArticleDbModel(article)

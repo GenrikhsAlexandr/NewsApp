@@ -29,12 +29,9 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
     HeadlinesInteractor interactor;
     Disposable disposable;
     SearchRepository searchRepository;
-
     private List<Article> articles;
-
     private Integer currentPage = 1;
-
-    Boolean isLoading;
+    private Boolean isLoading;
 
     @Inject
     public BusinessPresenter(
@@ -60,8 +57,10 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
                             this.articles = articles;
                             onPageLoaded();
                         },
-                        this::onError
-                );
+                        throwable -> {
+                            onError(throwable);
+                            isLoading = false;
+                        });
     }
 
     public void loadNextPage() {
@@ -77,8 +76,10 @@ public class BusinessPresenter extends MvpPresenter<HeadlinesView> {
                                 this.articles.addAll(articles);
                                 onPageLoaded();
                             },
-                            this::onError
-                    );
+                            throwable -> {
+                                onError(throwable);
+                                isLoading = false;
+                            });
             System.out.println(" loadNextPage = " + currentPage);
         }
     }

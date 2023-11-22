@@ -30,10 +30,9 @@ public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
     HeadlinesInteractor interactor;
     Disposable disposable;
     SearchRepository searchRepository;
-
     private List<Article> articles;
-
     private Integer currentPage = 1;
+    private Boolean isLoading;
 
     @Inject
     public GeneralPresenter(
@@ -51,6 +50,7 @@ public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
     private void loadFirstPage() {
         currentPage = 1;
         getViewState().setLoading(true);
+        isLoading = true;
         disposable = interactor.getArticlesList(currentPage, Category.GENERAL)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,23 +59,30 @@ public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
                             this.articles = articles;
                             onPageLoaded();
                         },
-                        this::onError
-                );
+                        throwable -> {
+                            onError(throwable);
+                            isLoading = false;
+                        });
     }
 
     public void loadNextPage() {
-        currentPage++;
-        getViewState().setLoading(true);
-        disposable = interactor.getArticlesList(currentPage, Category.GENERAL)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        articles -> {
-                            this.articles.addAll(articles);
-                            onPageLoaded();
-                        },
-                        this::onError
-                );
+        if (!isLoading) {
+            currentPage++;
+            getViewState().setLoading(true);
+            isLoading = true;
+            disposable = interactor.getArticlesList(currentPage, Category.GENERAL)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            articles -> {
+                                this.articles.addAll(articles);
+                                onPageLoaded();
+                            },
+                            throwable -> {
+                                onError(throwable);
+                                isLoading = false;
+                            });
+        }
     }
 
     private void onError(Throwable throwable) {
@@ -97,6 +104,7 @@ public class GeneralPresenter extends MvpPresenter<HeadlinesView> {
                 ));
         articlesItems.add(LoadingItemList.INSTANCE);
         getViewState().setLoading(false);
+        isLoading = false;
         searchRepository.setArticles(articles);
         getViewState().showArticles(articlesItems);
     }

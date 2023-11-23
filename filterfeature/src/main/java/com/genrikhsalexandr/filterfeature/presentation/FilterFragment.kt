@@ -6,19 +6,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.genrikhsalexandr.filterfeature.R
 import com.genrikhsalexandr.filterfeature.databinding.FragmentFilterBinding
+import com.genrikhsalexandr.filterfeature.domain.FilterButton
 import com.google.android.material.datepicker.MaterialDatePicker
-
+import kotlinx.coroutines.launch
 
 class FilterFragment : Fragment() {
+    companion object {
+        fun newInstance(): FilterFragment {
+            return FilterFragment()
+        }
+    }
 
     private var _binding: FragmentFilterBinding? = null
 
     private val binding: FragmentFilterBinding get() = _binding!!
 
     private val viewModel: FilterViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,84 +36,51 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        /* binding.toggleButton.addOnButtonCheckedListener { toggleButton, checkedId, isChecked ->
-             if (!isChecked) return@addOnButtonCheckedListener
-             when (checkedId) {
-                 R.id.popular -> Toast.makeText(
-                     context, "Popular Clicked",
-                     Toast.LENGTH_SHORT
-                 ).show()
-
-                 R.id.news -> {
-                     viewModel.onButtonClicked()
-                     Toast.makeText(
-                         context, "New Clicked",
-                         Toast.LENGTH_SHORT
-                     ).show()
-                 }
-
-                 R.id.relevant -> Toast.makeText(
-                     context, "Relevant Clicked",
-                     Toast.LENGTH_SHORT
-                 ).show()
-
-             }
-         }*/
         isButtonChecked()
         buttonCalendarClick()
-    }
-
-    companion object {
-        fun newInstance(): FilterFragment {
-            return FilterFragment()
-        }
+        subscribe()
     }
 
     private fun isButtonChecked() {
-
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
-                when (checkedId) {
-                    R.id.popular -> {
-                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.icon_checked, 0, 0, 0
-                        )
-                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0, 0, 0
-                        )
-                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0, 0, 0
-                        )
-
-                    }
-
-                    R.id.news -> {
-                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.icon_checked, 0, 0, 0
-                        )
-                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0, 0, 0
-                        )
-                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0, 0, 0
-                        )
-                    }
-
-                    R.id.relevant -> {
-                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.icon_checked, 0, 0, 0
-                        )
-                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0, 0, 0
-                        )
-                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0, 0, 0
-                        )
-                    }
+                val button = when (checkedId) {
+                    R.id.popular -> FilterButton.Popular
+                    R.id.news -> FilterButton.News
+                    R.id.relevant -> FilterButton.Relevant
+                    else -> FilterButton.None
                 }
-                // binding.toggleButton.clearChecked()
+
+                lifecycleScope.launch {
+                    viewModel.onButtonClicked(button)
+                }
             }
         }
+    }
+
+    private fun subscribe() {
+        lifecycleScope.launch {
+            viewModel.selectedButton.collect { selectedButton ->
+                updateButtonState(selectedButton)
+            }
+        }
+    }
+
+    private fun updateButtonState(selectedButton: FilterButton) {
+        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
+            if (selectedButton == FilterButton.Popular) R.drawable.icon_checked else 0,
+            0, 0, 0
+        )
+
+        binding.news.setCompoundDrawablesWithIntrinsicBounds(
+            if (selectedButton == FilterButton.News) R.drawable.icon_checked else 0,
+            0, 0, 0
+        )
+
+        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
+            if (selectedButton == FilterButton.Relevant) R.drawable.icon_checked else 0,
+            0, 0, 0
+        )
     }
 
     private fun buttonCalendarClick() {
@@ -137,7 +110,6 @@ class FilterFragment : Fragment() {
             binding.calendar.setBackgroundColor(resources.getColor(R.color.primary_text))
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

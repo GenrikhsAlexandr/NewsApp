@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -43,11 +44,11 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        activity?.enableEdgeToEdge()
         super.onViewCreated(view, savedInstanceState)
         mainToolBar()
         bottomNavigation()
@@ -67,16 +68,12 @@ class MainFragment : Fragment() {
         binding.toolbarFilter.setOnMenuItemClickListener { item ->
             return@setOnMenuItemClickListener when (item.itemId) {
                 com.genrikhsalexandr.filterfeature.R.id.checked -> {
-
-                    //написать код сохранить фильтр
-
                     Toast.makeText(context, "Filter saved", Toast.LENGTH_LONG).show()
                     parentFragmentManager.popBackStack()
                     binding.appBar.isVisible = true
                     binding.appBarFilter.isVisible = false
                     true
                 }
-
                 else -> false
             }
         }

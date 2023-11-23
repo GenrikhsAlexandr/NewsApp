@@ -3,11 +3,13 @@
     <style name="Base.Theme.NewsApp" parent="Theme.Material3.Light.NoActionBar">
 
         <item name="android:navigationBarColor">@color/ic_launcher_background</item>
-        <item name="android:statusBarColor">@color/ic_launcher_background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="colorControlActivated">@color/light_text</item>
         <item name="android:editTextColor">@color/light_text</item>
         <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:fitsSystemWindows">true</item>
+
     </style>
 
     <style name="ToolbarTextStyle">
@@ -17,7 +19,6 @@
     <style name="App.Custom.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/bottom_navigation_item</item>
     </style>
-
 
     <style name="CustomOutlineBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/ic_launcher_background</item>

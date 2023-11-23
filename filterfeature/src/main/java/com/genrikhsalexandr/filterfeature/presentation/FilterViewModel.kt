@@ -1,17 +1,19 @@
 package com.genrikhsalexandr.filterfeature.presentation
 
 import androidx.lifecycle.ViewModel
+import com.genrikhsalexandr.filterfeature.domain.FilterButton
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 
 class FilterViewModel : ViewModel() {
+    private val _selectedButton = MutableStateFlow<FilterButton>(FilterButton.None)
+    val selectedButton: StateFlow<FilterButton> = _selectedButton
 
-    val isButtonPopularClick: MutableStateFlow<Boolean> = MutableStateFlow(false)
-
-    val isButtonNewClick: MutableStateFlow<Boolean> = MutableStateFlow(false)
-
-    val isButtonRelevantClick: MutableStateFlow<Boolean> = MutableStateFlow(false)
-
-    fun onButtonClicked() {
-        isButtonNewClick.value = !isButtonNewClick.value
+    fun onButtonClicked(button: FilterButton) {
+        _selectedButton.value = if (_selectedButton.value == button) {
+            FilterButton.None
+        } else {
+            button
+        }
     }
 }

@@ -18,7 +18,6 @@ import com.genrikhsalexandr.souresfeature.presentation.sources.SourcesFragment
 
 class NavigatorImpl : Navigator {
 
-
     override var listener: Navigator.Listener? = null
     override fun navigateToDetailsArticle(article: Article, fragmentManager: FragmentManager) {
         val detailFragment = DetailFragment.newInstance(article)
@@ -69,7 +68,6 @@ class NavigatorImpl : Navigator {
         listener?.onNavigated(Screen.ArticlesSource(articlesSource.sourceName))
     }
 
-
     override fun navigateToSearch(fragmentManager: FragmentManager) {
         val searchFragment = SearchFragment.newInstance()
         fragmentManager.commit {
@@ -82,7 +80,7 @@ class NavigatorImpl : Navigator {
     override fun navigateToFilter(fragmentManager: FragmentManager) {
         val filterFragment = FilterFragment.newInstance()
         fragmentManager.commit {
-            replace(R.id.fragmentContainer, filterFragment)
+            add(R.id.fragmentContainer, filterFragment)
             addToBackStack(null)
         }
         listener?.onNavigated(Screen.Filter)

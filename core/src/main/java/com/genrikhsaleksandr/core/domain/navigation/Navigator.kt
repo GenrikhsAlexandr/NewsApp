@@ -21,18 +21,19 @@ interface Navigator {
 
     fun navigateToSources(fragmentManager: FragmentManager)
 
-    fun navigateToArticlesSource(articlesSource:Source, fragmentManager: FragmentManager)
+    fun navigateToArticlesSource(articlesSource: Source, fragmentManager: FragmentManager)
 
     fun navigateToSearch(fragmentManager: FragmentManager)
 
     fun navigateToFilter(fragmentManager: FragmentManager)
 
-   fun navigateArticlesSourceToSources(fragmentManager: FragmentManager)
+    fun navigateArticlesSourceToSources(fragmentManager: FragmentManager)
 
-   fun navigateBackSearch (fragmentManager: FragmentManager)
-
-   fun navigateBackDetailArticle (fragmentManager: FragmentManager)
-   fun navigateBackDetailArticleForSearch (fragmentManager: FragmentManager)
+    fun navigateBackSearch(fragmentManager: FragmentManager)
+    fun navigateBackFilter(fragmentManager: FragmentManager)
+    fun navigateSavedFilter(fragmentManager: FragmentManager)
+    fun navigateBackDetailArticle(fragmentManager: FragmentManager)
+    fun navigateBackDetailArticleForSearch(fragmentManager: FragmentManager)
 
     fun navigateToDetailsArticleForSearch(article: Article, fragmentManager: FragmentManager)
 

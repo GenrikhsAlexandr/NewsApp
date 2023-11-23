@@ -1,12 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffff"
     android:focusable="true"
-    tools:context="com.genrikhsalexandr.filterfeature.presentation.FilterFragment">
+    android:background="#ffff"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarFilter"
+        android:layout_width="match_parent"
+        android:layout_height="74dp"
+        android:background="@color/ic_launcher_background">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarFilter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ic_launcher_background"
+            app:menu="@menu/filter_toolbar"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/filter"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/ToolbarTextStyle"
+            app:titleTextColor="@color/light_text" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -32,31 +32,6 @@
     </com.google.android.material.appbar.AppBarLayout>
 
 
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appBarFilter"
-        android:layout_width="match_parent"
-        android:layout_height="74dp"
-        android:background="@color/ic_launcher_background"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbarFilter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/ic_launcher_background"
-            app:menu="@menu/filter_toolbar"
-            app:navigationIcon="@drawable/ic_back"
-            app:title="@string/filter"
-            app:titleCentered="true"
-            app:titleTextAppearance="@style/ToolbarTextStyle"
-            app:titleTextColor="@color/light_text" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         style="@style/Widget.Material3.BottomNavigationView"

@@ -54,7 +54,7 @@ class MainFragmentViewModel @Inject constructor(
             }
 
             is Screen.Filter -> {
-                isAppBarVisible.value = true
+                isAppBarVisible.value = false
                 isNavigationIconVisible.value = false
 
             }

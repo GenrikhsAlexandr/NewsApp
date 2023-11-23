@@ -39,10 +39,10 @@ class NavigatorImpl : Navigator {
 
     override fun navigateToHeadlines(fragmentManager: FragmentManager) {
         val headlinesFragment = HeadlinesFragment.newInstance()
-         fragmentManager.commit {
-             replace(R.id.fragmentContainer, headlinesFragment)
-             addToBackStack(null)
-         }
+        fragmentManager.commit {
+            replace(R.id.fragmentContainer, headlinesFragment)
+            addToBackStack(null)
+        }
         listener?.onNavigated(Screen.Headlines)
     }
 
@@ -96,6 +96,16 @@ class NavigatorImpl : Navigator {
         listener?.onNavigated(Screen.Default)
     }
 
+    override fun navigateBackFilter(fragmentManager: FragmentManager) {
+        fragmentManager.popBackStack()
+        listener?.onNavigated(Screen.Default)
+    }
+
+    override fun navigateSavedFilter(fragmentManager: FragmentManager) {
+        fragmentManager.popBackStack()
+        listener?.onNavigated(Screen.Default)
+    }
+
     override fun navigateBackDetailArticle(fragmentManager: FragmentManager) {
         fragmentManager.popBackStack()
         listener?.onNavigated(Screen.Default)
@@ -103,9 +113,13 @@ class NavigatorImpl : Navigator {
 
     override fun navigateBackDetailArticleForSearch(fragmentManager: FragmentManager) {
         fragmentManager.popBackStack()
-        listener?.onNavigated(Screen.Search)    }
+        listener?.onNavigated(Screen.Search)
+    }
 
-    override fun navigateToDetailsArticleForSearch(article: Article, fragmentManager: FragmentManager) {
+    override fun navigateToDetailsArticleForSearch(
+        article: Article,
+        fragmentManager: FragmentManager
+    ) {
         val detailForSearchFragment = DetailForSearchFragment.newInstance(article)
         fragmentManager.commit {
             replace(R.id.fragmentContainer, detailForSearchFragment)

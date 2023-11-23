@@ -12,6 +12,9 @@ import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
 import com.genrikhsalexandr.detailarticlefeature.di.DaggerDetailComponent
 import com.genrikhsalexandr.detailarticlefeature.di.DetailComponent
 import com.genrikhsalexandr.detailarticlefeature.di.DetailComponentProvider
+import com.genrikhsalexandr.filterfeature.di.DaggerFilterComponent
+import com.genrikhsalexandr.filterfeature.di.FilterComponent
+import com.genrikhsalexandr.filterfeature.di.FilterComponentProvider
 import com.genrikhsalexandr.headlinesfeature.di.DaggerHeadlinesComponent
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponent
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider
@@ -26,7 +29,7 @@ import com.genrikhsalexandr.souresfeature.di.SourcesComponentProvider
 
 class ArticleApplication : Application(), FavoritesComponentProvider, MainComponentProvider,
     SourcesComponentProvider, DetailComponentProvider, SearchComponentProvider,
-    HeadlinesComponentProvider {
+    HeadlinesComponentProvider, FilterComponentProvider {
 
     private val navigationModule: NavigationModule by lazy {
         NavigationModule(
@@ -80,4 +83,11 @@ class ArticleApplication : Application(), FavoritesComponentProvider, MainCompon
             .coreDataModule(dataModule)
             .build()
     }
+
+    override fun provideFilterComponent(): FilterComponent {
+        return DaggerFilterComponent.builder()
+            .navigationModule(navigationModule)
+            .build()
+    }
+
 }

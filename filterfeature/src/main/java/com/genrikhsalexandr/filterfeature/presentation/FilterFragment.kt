@@ -1,17 +1,22 @@
 package com.genrikhsalexandr.filterfeature.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.genrikhsalexandr.filterfeature.R
 import com.genrikhsalexandr.filterfeature.databinding.FragmentFilterBinding
+import com.genrikhsalexandr.filterfeature.di.FilterComponentProvider
+import com.genrikhsalexandr.filterfeature.di.FilterViewModelFactory
 import com.genrikhsalexandr.filterfeature.domain.FilterButton
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class FilterFragment : Fragment() {
     companion object {
@@ -24,7 +29,16 @@ class FilterFragment : Fragment() {
 
     private val binding: FragmentFilterBinding get() = _binding!!
 
-    private val viewModel: FilterViewModel by viewModels()
+    @Inject
+    lateinit var viewModelFactory: FilterViewModelFactory
+
+    private val viewModel: FilterViewModel by viewModels { viewModelFactory }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as FilterComponentProvider).provideFilterComponent()
+            .inject(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,6 +53,26 @@ class FilterFragment : Fragment() {
         isButtonChecked()
         buttonCalendarClick()
         subscribe()
+        setOnMenuItemClickListener()
+
+        binding.toolbarFilter.setNavigationOnClickListener {
+            viewModel.onNavigationBackFilter(parentFragmentManager)
+        }
+
+    }
+
+    private fun setOnMenuItemClickListener() {
+        binding.toolbarFilter.setOnMenuItemClickListener { item ->
+            return@setOnMenuItemClickListener when (item.itemId) {
+                R.id.checked -> {
+                    viewModel.onNavigationSavedFilter(parentFragmentManager)
+                    Toast.makeText(context, "Filter saved", Toast.LENGTH_LONG).show()
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun isButtonChecked() {

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -52,31 +51,8 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         mainToolBar()
         bottomNavigation()
-        clickedBackFilterToolBar()
         subscribe()
         onClickNavigationIcon()
-    }
-
-    private fun clickedBackFilterToolBar() {
-        binding.toolbarFilter.setNavigationOnClickListener {
-            binding.appBar.isVisible = true
-            binding.toolbar.isVisible = true
-            binding.appBarFilter.isVisible = false
-            parentFragmentManager.popBackStack()
-        }
-
-        binding.toolbarFilter.setOnMenuItemClickListener { item ->
-            return@setOnMenuItemClickListener when (item.itemId) {
-                com.genrikhsalexandr.filterfeature.R.id.checked -> {
-                    Toast.makeText(context, "Filter saved", Toast.LENGTH_LONG).show()
-                    parentFragmentManager.popBackStack()
-                    binding.appBar.isVisible = true
-                    binding.appBarFilter.isVisible = false
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
     private fun mainToolBar() {
@@ -89,7 +65,6 @@ class MainFragment : Fragment() {
 
                 R.id.filter -> {
                     viewModel.onFilterClick(parentFragmentManager)
-                    binding.appBarFilter.isVisible = true
                     true
                 }
 
@@ -104,21 +79,18 @@ class MainFragment : Fragment() {
                 R.id.headlines -> {
                     viewModel.onHeadlinesClick(parentFragmentManager)
                     binding.toolbar.title = getString(R.string.app_name)
-                    binding.appBarFilter.isVisible = false
                     true
                 }
 
                 R.id.favorite -> {
                     viewModel.onFavoritesClick(parentFragmentManager)
                     binding.toolbar.title = getString(R.string.saved)
-                    binding.appBarFilter.isVisible = false
                     true
                 }
 
                 R.id.sources -> {
                     viewModel.onSourcesClick(parentFragmentManager)
                     binding.toolbar.title = getString(R.string.sources)
-                    binding.appBarFilter.isVisible = false
                     true
                 }
 

@@ -1,4 +1,4 @@
-package com.genrikhsalexandr.filterfeature.di
+package com.genrikhsaleksandr.core.di.filterdi
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

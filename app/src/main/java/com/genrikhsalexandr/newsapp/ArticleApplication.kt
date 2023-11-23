@@ -3,6 +3,9 @@ package com.genrikhsalexandr.newsapp
 import android.app.Application
 import com.genrikhsaleksandr.core.di.CoreDataModule
 import com.genrikhsaleksandr.core.di.NavigationModule
+import com.genrikhsaleksandr.core.di.filterdi.DaggerFilterComponent
+import com.genrikhsaleksandr.core.di.filterdi.FilterComponent
+import com.genrikhsaleksandr.core.di.filterdi.FilterComponentProvider
 import com.genrikhsaleksandr.core.di.serachdi.DaggerSearchComponent
 import com.genrikhsaleksandr.core.di.serachdi.SearchComponent
 import com.genrikhsaleksandr.core.di.serachdi.SearchComponentProvider
@@ -12,9 +15,7 @@ import com.genrikhsaleksandr.savefeature.di.FavoritesComponentProvider
 import com.genrikhsalexandr.detailarticlefeature.di.DaggerDetailComponent
 import com.genrikhsalexandr.detailarticlefeature.di.DetailComponent
 import com.genrikhsalexandr.detailarticlefeature.di.DetailComponentProvider
-import com.genrikhsalexandr.filterfeature.di.DaggerFilterComponent
-import com.genrikhsalexandr.filterfeature.di.FilterComponent
-import com.genrikhsalexandr.filterfeature.di.FilterComponentProvider
+
 import com.genrikhsalexandr.headlinesfeature.di.DaggerHeadlinesComponent
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponent
 import com.genrikhsalexandr.headlinesfeature.di.HeadlinesComponentProvider
@@ -87,6 +88,7 @@ class ArticleApplication : Application(), FavoritesComponentProvider, MainCompon
     override fun provideFilterComponent(): FilterComponent {
         return DaggerFilterComponent.builder()
             .navigationModule(navigationModule)
+            .coreDataModule(dataModule)
             .build()
     }
 

@@ -1,6 +1,7 @@
 package com.genrikhsaleksandr.core.di
 
 import com.genrikhsaleksandr.core.domain.model.ArticleRepository
+import com.genrikhsaleksandr.core.domain.model.FilterRepository
 import com.genrikhsaleksandr.core.domain.model.SearchRepository
 import dagger.Module
 import dagger.Provides
@@ -12,7 +13,7 @@ class CoreDataModule(
 ) {
     @Provides
     @Singleton
-    fun  provideArticleRepository(): ArticleRepository {
+    fun provideArticleRepository(): ArticleRepository {
         return repository
     }
 
@@ -20,5 +21,11 @@ class CoreDataModule(
     @Singleton
     fun provideSearchRepository(): SearchRepository {
         return SearchRepository
+    }
+
+    @Provides
+    @Singleton
+    fun provideFilterRepository(): FilterRepository {
+        return FilterRepository
     }
 }

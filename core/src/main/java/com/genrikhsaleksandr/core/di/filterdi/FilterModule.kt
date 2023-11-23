@@ -1,7 +1,7 @@
-package com.genrikhsalexandr.filterfeature.di
+package com.genrikhsaleksandr.core.di.filterdi
 
 import androidx.lifecycle.ViewModel
-import com.genrikhsalexandr.filterfeature.presentation.FilterViewModel
+import com.genrikhsaleksandr.core.presentation.filter.FilterViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

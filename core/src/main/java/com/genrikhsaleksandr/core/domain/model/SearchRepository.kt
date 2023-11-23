@@ -33,6 +33,5 @@ object SearchRepository {
 
     fun setSearchRequest(request: String) {
         _searchRequest.value = request
-        println("setSearchRequest: $request")
     }
 }

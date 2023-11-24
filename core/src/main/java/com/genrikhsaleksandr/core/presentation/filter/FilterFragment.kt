@@ -8,11 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.core.R
 import com.genrikhsaleksandr.core.databinding.FragmentFilterBinding
 import com.genrikhsaleksandr.core.di.filterdi.FilterComponentProvider
 import com.genrikhsaleksandr.core.di.filterdi.FilterViewModelFactory
+import com.genrikhsaleksandr.core.domain.model.ArticleTag
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class FilterFragment : Fragment() {
@@ -47,14 +50,14 @@ class FilterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        isButtonChecked()
+        isArticleTagClick()
         buttonCalendarClick()
         setOnMenuItemClickListener()
-
+        isLanguageClick()
+        subscribe()
         binding.toolbarFilter.setNavigationOnClickListener {
             viewModel.onNavigationBackFilter(parentFragmentManager)
         }
-
     }
 
     private fun setOnMenuItemClickListener() {
@@ -71,11 +74,12 @@ class FilterFragment : Fragment() {
         }
     }
 
-    private fun isButtonChecked() {
+    private fun isArticleTagClick() {
         binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
             if (isChecked) {
                 when (checkedId) {
                     R.id.popular -> {
+                        viewModel.setArticleTag(ArticleTag.POPULAR)
                         binding.popular.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.icon_checked, 0,
                             0, 0
@@ -91,6 +95,7 @@ class FilterFragment : Fragment() {
                     }
 
                     R.id.news -> {
+                        viewModel.setArticleTag(ArticleTag.NEW)
                         binding.news.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.icon_checked, 0,
                             0, 0
@@ -106,6 +111,8 @@ class FilterFragment : Fragment() {
                     }
 
                     R.id.relevant -> {
+                        viewModel.setArticleTag(ArticleTag.RELEVANT)
+
                         binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
                             R.drawable.icon_checked, 0,
                             0, 0
@@ -119,6 +126,26 @@ class FilterFragment : Fragment() {
                             0, 0
                         )
                     }
+                }
+            }
+        }
+    }
+
+
+    private fun isLanguageClick() {
+        binding.chipGroup.setOnCheckedChangeListener { _, isChecked ->
+
+        }
+    }
+
+    private fun subscribe() {
+        lifecycleScope.launch {
+            viewModel.state.observe(viewLifecycleOwner) { state ->
+                if (state.selectedDate.value != null) {
+                    binding.tvSelectDate.text = state.selectedDate.value.toString()
+                    binding.calendar.setIconResource(R.drawable.ic_selected_date)
+                    binding.calendar.setIconTintResource(R.color.light_text)
+                    binding.calendar.setBackgroundColor(resources.getColor(R.color.primary_text))
                 }
             }
         }
@@ -144,15 +171,17 @@ class FilterFragment : Fragment() {
         dateRangePicker.show(parentFragmentManager, dateRangePicker.toString())
 
         dateRangePicker.addOnPositiveButtonClickListener {
-            dateRangePicker.selection?.let { viewModel.setDate(it) }
-            println("dateRangePicker = ${dateRangePicker.selection}")
+
             binding.tvSelectDate.text = dateRangePicker.headerText
+            viewModel.setDate(binding.tvSelectDate.text)
+
             binding.tvSelectDate.setTextColor(resources.getColor(R.color.primary_text))
             binding.calendar.setIconResource(R.drawable.ic_selected_date)
             binding.calendar.setIconTintResource(R.color.light_text)
             binding.calendar.setBackgroundColor(resources.getColor(R.color.primary_text))
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

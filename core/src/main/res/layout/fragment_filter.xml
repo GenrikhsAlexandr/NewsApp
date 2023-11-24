@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#ffff"
     android:focusable="true"
+    android:clickable="true"
     android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout

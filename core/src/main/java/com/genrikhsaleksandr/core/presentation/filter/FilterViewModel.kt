@@ -1,6 +1,5 @@
 package com.genrikhsaleksandr.core.presentation.filter
 
-import androidx.core.util.Pair
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -22,13 +21,9 @@ class FilterViewModel @Inject constructor(
 
     init {
         _state.value = FilterViewState(
-            selectedTag = ArticleTag.POPULAR,
-            selectedDate = null,
-            selectedLanguage = listOf(
-                LocaleFilter.Russian(),
-                LocaleFilter.English(),
-                LocaleFilter.Deutsch()
-            )
+            selectedTag = filterRepository.articleTag,
+            selectedDate = filterRepository.date,
+            selectedLanguage = filterRepository.language
         )
     }
 
@@ -48,7 +43,7 @@ class FilterViewModel @Inject constructor(
         filterRepository.setArticleTag(articleTag)
     }
 
-    fun setDate(date: Pair<Long, Long>) {
+    fun setDate(date: CharSequence) {
         filterRepository.setDate(date)
     }
 }

@@ -1,11 +1,13 @@
 package com.genrikhsaleksandr.core.presentation.filter
 
 import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -14,6 +16,7 @@ import com.genrikhsaleksandr.core.databinding.FragmentFilterBinding
 import com.genrikhsaleksandr.core.di.filterdi.FilterComponentProvider
 import com.genrikhsaleksandr.core.di.filterdi.FilterViewModelFactory
 import com.genrikhsaleksandr.core.domain.model.ArticleTag
+import com.genrikhsaleksandr.core.domain.model.LocaleFilter
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -48,6 +51,7 @@ class FilterFragment : Fragment() {
         return binding.root
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         isArticleTagClick()
@@ -133,30 +137,54 @@ class FilterFragment : Fragment() {
 
 
     private fun isLanguageClick() {
-        binding.chipGroup.setOnCheckedChangeListener { _, isChecked ->
-
+        binding.chipDeutsch.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onLanguageChipClicked(LocaleFilter.Deutsch(isEnable = isChecked))
+        }
+        binding.chipEnglish.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onLanguageChipClicked(LocaleFilter.English(isEnable = isChecked))
+        }
+        binding.chipRussian.setOnCheckedChangeListener { _, isChecked ->
+            viewModel.onLanguageChipClicked(LocaleFilter.Russian(isEnable = isChecked))
         }
     }
 
     private fun subscribe() {
         lifecycleScope.launch {
             viewModel.state.observe(viewLifecycleOwner) { state ->
-                if (state.selectedDate.value != null) {
-                    binding.tvSelectDate.text = state.selectedDate.value.toString()
+                if (state.selectedDate != null) {
+                    binding.tvSelectDate.text = state.selectedDate
+                    binding.tvSelectDate.setTextColor(resources.getColor(R.color.primary_text))
                     binding.calendar.setIconResource(R.drawable.ic_selected_date)
                     binding.calendar.setIconTintResource(R.color.light_text)
                     binding.calendar.setBackgroundColor(resources.getColor(R.color.primary_text))
+                }
+                state.selectedLanguage.forEach {
+                    when (it) {
+                        is LocaleFilter.Deutsch -> {
+                            binding.chipDeutsch.isChecked = it.isEnable
+                        }
+
+                        is LocaleFilter.English -> {
+                            binding.chipEnglish.isChecked = it.isEnable
+                        }
+
+                        is LocaleFilter.Russian -> {
+                            binding.chipRussian.isChecked = it.isEnable
+                        }
+                    }
                 }
             }
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun buttonCalendarClick() {
         binding.calendar.setOnClickListener {
             openCalendar()
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun openCalendar() {
         val dateRangePicker =
             MaterialDatePicker.Builder.dateRangePicker()
@@ -169,19 +197,10 @@ class FilterFragment : Fragment() {
                 )
                 .build()
         dateRangePicker.show(parentFragmentManager, dateRangePicker.toString())
-
         dateRangePicker.addOnPositiveButtonClickListener {
-
-            binding.tvSelectDate.text = dateRangePicker.headerText
-            viewModel.setDate(binding.tvSelectDate.text)
-
-            binding.tvSelectDate.setTextColor(resources.getColor(R.color.primary_text))
-            binding.calendar.setIconResource(R.drawable.ic_selected_date)
-            binding.calendar.setIconTintResource(R.color.light_text)
-            binding.calendar.setBackgroundColor(resources.getColor(R.color.primary_text))
+            viewModel.setDate(it)
         }
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

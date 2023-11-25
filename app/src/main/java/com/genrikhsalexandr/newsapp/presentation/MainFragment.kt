@@ -28,7 +28,6 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainFragmentViewModel by viewModels { viewModelFactory }
 
-
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding get() = _binding!!
 

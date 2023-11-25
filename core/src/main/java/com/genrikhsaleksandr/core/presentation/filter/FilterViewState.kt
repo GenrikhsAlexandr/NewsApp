@@ -7,4 +7,6 @@ data class FilterViewState(
     val selectedTag: ArticleTag,
     val selectedDate: String?,
     val selectedLanguage: List<LocaleFilter>
-)
+) {
+
+}

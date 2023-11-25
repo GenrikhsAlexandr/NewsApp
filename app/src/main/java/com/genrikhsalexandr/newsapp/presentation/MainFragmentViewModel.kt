@@ -20,56 +20,41 @@ class MainFragmentViewModel @Inject constructor(
     private val _toolBarTitle: MutableStateFlow<String> = MutableStateFlow("News App")
     val toolBarTitle = _toolBarTitle
 
-
     private val navigatorListener: Navigator.Listener = Navigator.Listener { destination: Screen ->
+        isNavigationIconVisible.value = destination is Screen.ArticlesSource
         when (destination) {
             is Screen.Headlines -> {
                 isAppBarVisible.value = true
-                isNavigationIconVisible.value = false
             }
 
             is Screen.Favorites -> {
                 isAppBarVisible.value = true
-                isNavigationIconVisible.value = false
-
             }
 
             is Screen.Sources -> {
-                _toolBarTitle.value = destination.fragmentName
                 isAppBarVisible.value = true
-                isNavigationIconVisible.value = false
-
+                _toolBarTitle.value = destination.fragmentName
             }
 
             is Screen.DetailArticle -> {
                 isAppBarVisible.value = false
-                isNavigationIconVisible.value = false
-
             }
 
             is Screen.Search -> {
                 isAppBarVisible.value = false
-                isNavigationIconVisible.value = false
-
             }
 
             is Screen.Filter -> {
                 isAppBarVisible.value = false
-                isNavigationIconVisible.value = false
-
             }
 
             is Screen.ArticlesSource -> {
-                _toolBarTitle.value = destination.sourceName
-                isNavigationIconVisible.value = true
                 isAppBarVisible.value = true
-
-
+                _toolBarTitle.value = destination.sourceName
             }
 
             is Screen.Default -> {
                 isAppBarVisible.value = true
-                isNavigationIconVisible.value = false
             }
         }
     }

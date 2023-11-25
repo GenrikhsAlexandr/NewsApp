@@ -30,7 +30,6 @@ class SourcesFragment @Inject constructor(
 
     private val viewModel: SourcesViewModel by viewModels { viewModelFactory }
 
-
     private var _binding: FragmentSourcesBinding? = null
     private val binding: FragmentSourcesBinding get() = _binding!!
 
@@ -39,7 +38,6 @@ class SourcesFragment @Inject constructor(
             viewModel.onNewsItemClick(it, parentFragmentManager)
         }
     )
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -75,5 +73,4 @@ class SourcesFragment @Inject constructor(
         super.onDestroyView()
         _binding = null
     }
-
 }

@@ -29,7 +29,6 @@ class ArticlesSourceViewModel @Inject constructor(
         }
     }.stateIn(viewModelScope, SharingStarted.Eagerly, emptyList())
 
-
     fun setArticlesId(articlesSourceId: String) {
         viewModelScope.launch {
             _articlesSource.value =

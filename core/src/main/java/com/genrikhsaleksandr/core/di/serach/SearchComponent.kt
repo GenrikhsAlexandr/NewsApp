@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.core.di.serachdi
+package com.genrikhsaleksandr.core.di.serach
 
 import com.genrikhsaleksandr.core.di.CoreDataModule
 import com.genrikhsaleksandr.core.di.NavigationModule

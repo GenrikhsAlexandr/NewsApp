@@ -1,7 +1,5 @@
 package com.genrikhsaleksandr.core.presentation.filter
 
-import android.icu.util.Calendar
-import androidx.core.util.Pair
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,57 +9,41 @@ import com.genrikhsaleksandr.core.domain.model.ArticleTag
 import com.genrikhsaleksandr.core.domain.model.FilterRepository
 import com.genrikhsaleksandr.core.domain.model.LocaleFilter
 import com.genrikhsaleksandr.core.navigation.Navigator
-import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Locale
 import javax.inject.Inject
 
 class FilterViewModel @Inject constructor(
     private val navigator: Navigator,
-    private val filterRepository: FilterRepository
-
+    private val filterRepository: FilterRepository,
+    private val reducer: FilterReducer = FilterReducer()
 ) : ViewModel() {
 
-    private val _state = MutableLiveData<FilterViewState>()
-    val state: LiveData<FilterViewState> get() = _state
-
-    private var dateFormat: String? = null
+    private val _state = MutableLiveData<FilterState>()
+    val state: LiveData<FilterState> get() = _state
 
     init {
         viewModelScope.launch {
-            combine(
-                filterRepository.articleTag,
-                filterRepository.date,
-                filterRepository.language
-            ) { articleTag, mapDate, language ->
-                FilterViewState(
-                    selectedTag = articleTag,
-                    selectedDate = dateFormat,
-                    selectedLanguage = language
-                )
-            }.collect {
-                _state.value = it
+            filterRepository.date.collect {
+                sendEvent(FilterEvent.DateSelected(it))
             }
         }
         viewModelScope.launch {
-            filterRepository.date.collect {
-                if (it != null) {
-                    val startDateInMillis = FilterRepository.date.value?.first ?: 0L
-                    val endDateInMillis = FilterRepository.date.value?.second ?: 0L
-                    val calendar = Calendar.getInstance()
-                    calendar.timeInMillis = startDateInMillis
-                    val startDate = calendar.time
-                    calendar.timeInMillis = endDateInMillis
-                    val endDate = calendar.time
-                    val dateStartFormatter = SimpleDateFormat("MMM d", Locale.getDefault())
-                    val dateEndFormatter = SimpleDateFormat("MMM d yyyy", Locale.getDefault())
-                    val formattedStartDate = dateStartFormatter.format(startDate)
-                    val formattedEndDate = dateEndFormatter.format(endDate)
-                    dateFormat = "$formattedStartDate - $formattedEndDate"
+            filterRepository.languageFilters.collect {
+                sendEvent(FilterEvent.LanguagesSelected(it))
+            }
+        }
+        viewModelScope.launch {
+            filterRepository.articleTag.collect {
+                sendEvent(FilterEvent.ArticleTagSelected(it))
+                filterRepository.articleTag.collect {
+                    sendEvent(FilterEvent.ArticleTagSelected(it))
                 }
             }
         }
+    }
+
+    private fun sendEvent(event: FilterEvent) {
+        _state.value = reducer.reduceState(_state.value, event)
     }
 
     fun onNavigationBackFilter(fragment: FragmentManager) {

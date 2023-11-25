@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.core.di.filterdi
+package com.genrikhsaleksandr.core.di.filter
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey

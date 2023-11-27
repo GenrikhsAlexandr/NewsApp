@@ -15,7 +15,7 @@ import javax.inject.Inject
 class FilterViewModel @Inject constructor(
     private val navigator: Navigator,
     private val filterRepository: FilterRepository,
-    private val reducer: FilterReducer = FilterReducer()
+    private val reducer: FilterReducer
 ) : ViewModel() {
 
     private val _state = MutableLiveData<FilterState>()

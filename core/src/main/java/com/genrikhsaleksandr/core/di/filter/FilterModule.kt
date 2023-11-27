@@ -1,7 +1,7 @@
 package com.genrikhsaleksandr.core.di.filter
 
 import androidx.lifecycle.ViewModel
-import com.genrikhsaleksandr.core.presentation.filter.FilterReducer
+import com.genrikhsaleksandr.core.domain.model.ArticleTag
 import com.genrikhsaleksandr.core.presentation.filter.FilterViewModel
 import dagger.Binds
 import dagger.Module
@@ -22,6 +22,8 @@ internal interface FilterModule {
 
         @Provides
         @Singleton
-        fun provideFilterReducer(): FilterReducer = FilterReducer()
+        fun provideArticleTag(): ArticleTag {
+            return ArticleTag.RELEVANT
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.genrikhsaleksandr.core.presentation.filter
 
 import com.genrikhsaleksandr.core.domain.model.ArticleTag
+import com.genrikhsaleksandr.core.domain.model.FilterRepository
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -12,10 +13,12 @@ class FilterReducer {
 
     fun reduceState(currentState: FilterState?, event: FilterEvent): FilterState {
         if (currentState == null) {
+            val dateValue = FilterRepository.date.value
+            val selectedDateText = if (dateValue != null) formatDate(dateValue) else null
             return FilterState(
                 selectedTag = ArticleTag.RELEVANT,
-                selectedDateText = null,
-                selectedDateValue = null,
+                selectedDateText = selectedDateText,
+                selectedDateValue = FilterRepository.date.value,
                 selectedLanguage = emptyList()
             )
         }

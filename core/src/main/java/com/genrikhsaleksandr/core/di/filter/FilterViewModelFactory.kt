@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.core.di.serachdi
+package com.genrikhsaleksandr.core.di.filter
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,7 @@ import javax.inject.Provider
 import javax.inject.Singleton
 
 @Singleton
-class SearchViewModelFactory @Inject
+class FilterViewModelFactory @Inject
 constructor(
     private val viewModelProviders: Map<Class<out ViewModel>,
             @JvmSuppressWildcards Provider<ViewModel>>

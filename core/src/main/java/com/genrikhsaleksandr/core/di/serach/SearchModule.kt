@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.core.di.serachdi
+package com.genrikhsaleksandr.core.di.serach
 
 import androidx.lifecycle.ViewModel
 import com.genrikhsaleksandr.core.presentation.search.SearchViewModel

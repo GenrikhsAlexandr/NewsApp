@@ -2,20 +2,23 @@ package com.genrikhsaleksandr.core.domain.model
 
 import java.util.Locale
 
-sealed class LocaleFilter {
+sealed interface LocaleFilter {
+    val isEnabled: Boolean
+    val locale: Locale
+
     data class Russian(
-        val isEnable: Boolean = false,
-        val locale: Locale = Locale("ru")
-    ) : LocaleFilter()
+        override val isEnabled: Boolean = false,
+        override val locale: Locale = Locale("ru")
+    ) : LocaleFilter
 
     data class English(
-        val isEnable: Boolean = false,
-        val locale: Locale = Locale.US
-    ) : LocaleFilter()
+        override val isEnabled: Boolean = false,
+        override val locale: Locale = Locale.US
+    ) : LocaleFilter
 
     data class Deutsch(
-        val isEnable: Boolean = false,
-        val locale: Locale = Locale.GERMAN
-    ) : LocaleFilter()
+        override val isEnabled: Boolean = false,
+        override val locale: Locale = Locale.GERMAN
+    ) : LocaleFilter
 
 }

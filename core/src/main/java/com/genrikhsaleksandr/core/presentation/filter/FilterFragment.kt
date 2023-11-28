@@ -8,13 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.util.Pair
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.genrikhsaleksandr.core.R
 import com.genrikhsaleksandr.core.databinding.FragmentFilterBinding
-import com.genrikhsaleksandr.core.di.filterdi.FilterComponentProvider
-import com.genrikhsaleksandr.core.di.filterdi.FilterViewModelFactory
+import com.genrikhsaleksandr.core.di.filter.FilterComponentProvider
+import com.genrikhsaleksandr.core.di.filter.FilterViewModelFactory
 import com.genrikhsaleksandr.core.domain.model.ArticleTag
 import com.genrikhsaleksandr.core.domain.model.LocaleFilter
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -79,103 +80,84 @@ class FilterFragment : Fragment() {
     }
 
     private fun isArticleTagClick() {
-        binding.toggleButton.addOnButtonCheckedListener { group, checkedId, isChecked ->
-            if (isChecked) {
-                when (checkedId) {
-                    R.id.popular -> {
-                        viewModel.setArticleTag(ArticleTag.POPULAR)
-                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.icon_checked, 0,
-                            0, 0
-                        )
-                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0,
-                            0, 0
-                        )
-                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0,
-                            0, 0
-                        )
-                    }
-
-                    R.id.news -> {
-                        viewModel.setArticleTag(ArticleTag.NEW)
-                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.icon_checked, 0,
-                            0, 0
-                        )
-                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0,
-                            0, 0
-                        )
-                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0,
-                            0, 0
-                        )
-                    }
-
-                    R.id.relevant -> {
-                        viewModel.setArticleTag(ArticleTag.RELEVANT)
-
-                        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
-                            R.drawable.icon_checked, 0,
-                            0, 0
-                        )
-                        binding.news.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0,
-                            0, 0
-                        )
-                        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
-                            0, 0,
-                            0, 0
-                        )
-                    }
-                }
+        binding.toggleButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
+            if (!isChecked) {
+                return@addOnButtonCheckedListener
             }
+            viewModel.setArticleTag(
+                when (checkedId) {
+                    R.id.popular -> ArticleTag.POPULAR
+                    R.id.news -> ArticleTag.NEW
+                    R.id.relevant -> ArticleTag.RELEVANT
+                    else -> error("Unknown id")
+                }
+            )
         }
     }
 
-
     private fun isLanguageClick() {
         binding.chipDeutsch.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.onLanguageChipClicked(LocaleFilter.Deutsch(isEnable = isChecked))
+            viewModel.onLanguageChipClicked(LocaleFilter.Deutsch(isEnabled = isChecked))
         }
         binding.chipEnglish.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.onLanguageChipClicked(LocaleFilter.English(isEnable = isChecked))
+            viewModel.onLanguageChipClicked(LocaleFilter.English(isEnabled = isChecked))
         }
         binding.chipRussian.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.onLanguageChipClicked(LocaleFilter.Russian(isEnable = isChecked))
+            viewModel.onLanguageChipClicked(LocaleFilter.Russian(isEnabled = isChecked))
         }
     }
 
     private fun subscribe() {
         lifecycleScope.launch {
             viewModel.state.observe(viewLifecycleOwner) { state ->
-                if (state.selectedDate != null) {
-                    binding.tvSelectDate.text = state.selectedDate
-                    binding.tvSelectDate.setTextColor(resources.getColor(R.color.primary_text))
-                    binding.calendar.setIconResource(R.drawable.ic_selected_date)
-                    binding.calendar.setIconTintResource(R.color.light_text)
-                    binding.calendar.setBackgroundColor(resources.getColor(R.color.primary_text))
-                }
-                state.selectedLanguage.forEach {
-                    when (it) {
-                        is LocaleFilter.Deutsch -> {
-                            binding.chipDeutsch.isChecked = it.isEnable
-                        }
-
-                        is LocaleFilter.English -> {
-                            binding.chipEnglish.isChecked = it.isEnable
-                        }
-
-                        is LocaleFilter.Russian -> {
-                            binding.chipRussian.isChecked = it.isEnable
-                        }
-                    }
-                }
-                state.selectedTag
+                applyState(state)
             }
         }
+    }
+
+    private fun applyState(state: FilterState) {
+        if (state.selectedDateText != null) {
+            binding.tvSelectDate.text = state.selectedDateText
+            binding.tvSelectDate.setTextColor(resources.getColor(R.color.primary_text))
+            binding.calendar.setIconResource(R.drawable.ic_selected_date)
+            binding.calendar.setIconTintResource(R.color.light_text)
+            binding.calendar.setBackgroundColor(resources.getColor(R.color.primary_text))
+        }
+        state.selectedLanguage.forEach {
+            when (it) {
+                is LocaleFilter.Deutsch -> {
+                    binding.chipDeutsch.isChecked = it.isEnabled
+                }
+
+                is LocaleFilter.English -> {
+                    binding.chipEnglish.isChecked = it.isEnabled
+                }
+
+                is LocaleFilter.Russian -> {
+                    binding.chipRussian.isChecked = it.isEnabled
+                }
+            }
+        }
+        binding.popular.isChecked = state.selectedTag == ArticleTag.POPULAR
+        binding.news.isChecked = state.selectedTag == ArticleTag.NEW
+        binding.relevant.isChecked = state.selectedTag == ArticleTag.RELEVANT
+        val (popularIcon, newsIcon, relevantIcon) = when (state.selectedTag) {
+            ArticleTag.POPULAR -> Triple(R.drawable.icon_checked, 0, 0)
+            ArticleTag.NEW -> Triple(0, R.drawable.icon_checked, 0)
+            ArticleTag.RELEVANT -> Triple(0, 0, R.drawable.icon_checked)
+        }
+        binding.popular.setCompoundDrawablesWithIntrinsicBounds(
+            popularIcon, 0,
+            0, 0
+        )
+        binding.news.setCompoundDrawablesWithIntrinsicBounds(
+            newsIcon, 0,
+            0, 0
+        )
+        binding.relevant.setCompoundDrawablesWithIntrinsicBounds(
+            relevantIcon, 0,
+            0, 0
+        )
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -187,19 +169,19 @@ class FilterFragment : Fragment() {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun openCalendar() {
-        val dateRangePicker =
-            MaterialDatePicker.Builder.dateRangePicker()
-                .setTitleText("Select dates")
-                .setSelection(
-                    androidx.core.util.Pair(
-                        MaterialDatePicker.thisMonthInUtcMilliseconds(),
-                        MaterialDatePicker.todayInUtcMilliseconds()
-                    )
-                )
-                .build()
+        val selection = viewModel.state.value?.selectedDateValue?.let { (first, second) ->
+            Pair(first, second)
+        } ?: Pair(
+            MaterialDatePicker.thisMonthInUtcMilliseconds(),
+            MaterialDatePicker.todayInUtcMilliseconds()
+        )
+        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText("Select dates")
+            .setSelection(selection)
+            .build()
         dateRangePicker.show(parentFragmentManager, dateRangePicker.toString())
         dateRangePicker.addOnPositiveButtonClickListener {
-            viewModel.setDate(it)
+            viewModel.setDate(it.first to it.second)
         }
     }
 

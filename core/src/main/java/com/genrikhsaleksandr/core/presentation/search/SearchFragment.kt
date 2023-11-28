@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.genrikhsaleksandr.core.databinding.FragmentSearchBinding
-import com.genrikhsaleksandr.core.di.serachdi.SearchComponentProvider
-import com.genrikhsaleksandr.core.di.serachdi.SearchViewModelFactory
+import com.genrikhsaleksandr.core.di.serach.SearchComponentProvider
+import com.genrikhsaleksandr.core.di.serach.SearchViewModelFactory
 import com.genrikhsaleksandr.core.presentation.adapter.CoreAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject

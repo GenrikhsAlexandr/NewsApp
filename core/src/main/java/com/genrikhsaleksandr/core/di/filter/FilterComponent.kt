@@ -1,4 +1,4 @@
-package com.genrikhsaleksandr.core.di.filterdi
+package com.genrikhsaleksandr.core.di.filter
 
 import com.genrikhsaleksandr.core.di.CoreDataModule
 import com.genrikhsaleksandr.core.di.NavigationModule

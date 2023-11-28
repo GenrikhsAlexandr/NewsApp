@@ -1,6 +1,5 @@
 package com.genrikhsaleksandr.core.domain.model
 
-import androidx.core.util.Pair
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -17,7 +16,7 @@ object FilterRepository {
     private val _articleTag: MutableStateFlow<ArticleTag> = MutableStateFlow(ArticleTag.POPULAR)
 
 
-    val language: StateFlow<List<LocaleFilter>> = _language
+    val languageFilters: StateFlow<List<LocaleFilter>> = _language
     val date: StateFlow<Pair<Long, Long>?> = _date
     val articleTag: StateFlow<ArticleTag> = _articleTag
 
